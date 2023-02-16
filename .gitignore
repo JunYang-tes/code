@@ -1,0 +1,4 @@
+/.dev/
+/lua/
+/plugin/packer_compiled.lua
+.local
