@@ -7,5 +7,4 @@
                          :DiagnosticSignHint :
                          :DiagnosticSignInfor :})]
     (nvim.fn.sign_define name { :text icon :texthl name  :numhl name}))
-
-(nvim.ex.colorscheme :tokyonight)
+(pcall #(nvim.ex.colorscheme :tokyonight))

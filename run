@@ -1,3 +1,8 @@
 #!/usr/bin/env sh
-BASE_DIR=$(dirname "$0")
+BASE_DIR=$(dirname $(readlink -f "%0"))
+if [ ! -e $BASE_DIR/.local/config/nvim/fnl ]
+then
+  mkdir -p $BASE_DIR/.local/config/nvim
+  ln -s $BASE_DIR/fnl $BASE_DIR/.local/config/nvim/fnl
+fi
 XDG_CACHE_HOME=$BASE_DIR/.local/cache XDG_CONFIG_HOME=$BASE_DIR/.local/config XDG_DATA_HOME=$BASE_DIR/.local/data nvim -u $BASE_DIR/init.lua "$@"
