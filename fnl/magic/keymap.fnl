@@ -3,6 +3,8 @@
 
 (defn- map [from to]
   (util.noremap from to))
+(defn- nmap [from to]
+  (util.nnoremap from to))
 (defn- lnnmap [from to]
   (util.lnnoremap from to))
 
@@ -20,8 +22,26 @@
 (map "]d" ":lua vim.diagnostic.goto_next()<CR>")
 (map "[e" ":lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>")
 (map "]e" ":lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>")
+(nmap "[t" "tabpre")
+(nmap "]t" "tabnext")
+(nmap "[h" "Gitsign prev_hunk")
+(nmap "]h" "Gitsign next_hunk")
+;lsp
+(nmap :gd "lua vim.lsp.buf.definition()")
+(nmap :gD "lua vim.lsp.buf.declaration()")
+(nmap :gr "lua vim.lsp.buf.references()")
+(nmap :gi "lua vim.lsp.buf.implementation()")
+(nmap :K "lua vim.lsp.buf.hover()")
+(nmap :<c-k> "lua vim.lsp.buf.signature_help()")
+(nmap :<c-p> "lua vim.diagnostic.goto_prev()")
+(nmap :<c-n> "lua vim.diagnostic.goto_next()")
+
+(lnnmap :lr "lua vim.lsp.buf.rename()")
+(lnnmap :la "lua vim.lsp.buf.code_action()")
+(lnnmap :lf "lua vim.lsp.buf.formatting()")
 
 (lnnmap :z :ZenMode)
+(lnnmap :sr ":Telescope resume")
 (lnnmap :sf ":Telescope find_files")
 (lnnmap :sg "Telescope live_grep")
 (lnnmap :sb "Telescope buffers")

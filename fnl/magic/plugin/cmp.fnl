@@ -7,7 +7,14 @@
   (when ok?
     (cmp.setup
       {:sources [{:name "conjure"}
-                 {:name "nvim_lsp"}
+                 {:name "nvim_lsp"
+                  :entry_filter (fn [entry ctx]
+                                  (let [types (require :cmp.types)
+                                        kind (. types.lsp.CompletionItemKind
+                                                (: entry :get_kind))]
+                                    (if (= kind :Text)
+                                      false
+                                      true)))}
                  {:name "buffer"}
                  {:name "path"}]
        :mapping (cmp.mapping.preset.insert

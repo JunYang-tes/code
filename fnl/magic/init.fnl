@@ -48,7 +48,6 @@
 ;; Packer will compile config to string which is not support closure.
 (macro simple-setup [plugin opts]
   `(fn []
-     (print ,plugin ,opts)
     (let [{:setup setup#} (require ,plugin)]
       (setup# ,opts))))
 ;;; Plugins
@@ -95,5 +94,6 @@
   :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
   :mrjones2014/nvim-ts-rainbow {}
+  :guns/vim-sexp {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
