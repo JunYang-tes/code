@@ -9,6 +9,7 @@
   (when ok?
     (lsp.clojure_lsp.setup {})
     (lsp.tsserver.setup {})
+    (lsp.rust_analyzer.setup {})
 
     ;; https://www.chrisatmachine.com/Neovim/27-native-lsp/
     ))

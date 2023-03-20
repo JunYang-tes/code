@@ -32,6 +32,7 @@
 (nvim.ex.set :list)
 ;; indent with spaces instead of tab
 (nvim.ex.set :expandtab)
+(nvim.ex.set :nowrap)
 (vim.diagnostic.config 
   {:virtual_text false
    :signs true})
@@ -88,12 +89,12 @@
                                                   {:show_current_context true
                                                    :show_current_context_start true})}
   :tpope/vim-repeat {}
-  :tpope/vim-sexp-mappings-for-regular-people {}
+  ;;:guns/vim-sexp {}
+  ;;:tpope/vim-sexp-mappings-for-regular-people {}
   :tpope/vim-surround {}
   :folke/zen-mode.nvim {}
   :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
   :mrjones2014/nvim-ts-rainbow {}
-  :guns/vim-sexp {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
