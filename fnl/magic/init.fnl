@@ -88,6 +88,7 @@
                                                   :indent_blankline
                                                   {:show_current_context true
                                                    :show_current_context_start true})}
+  :github/copilot.vim {}
   :tpope/vim-repeat {}
   ;;:guns/vim-sexp {}
   ;;:tpope/vim-sexp-mappings-for-regular-people {}
