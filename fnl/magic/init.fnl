@@ -70,7 +70,8 @@
   :hrsh7th/cmp-nvim-lsp {}
   :hrsh7th/cmp-path {}
   :hrsh7th/nvim-cmp {:mod :cmp}
-  :jiangmiao/auto-pairs {:mod :auto-pairs}
+  ;;:jiangmiao/auto-pairs {:mod :auto-pairs}
+  :windwp/nvim-autopairs {:mod :auto-pairs}
   :lewis6991/impatient.nvim {}
   :mbbill/undotree {:mod :undotree}
   :neovim/nvim-lspconfig {:mod :lspconfig}

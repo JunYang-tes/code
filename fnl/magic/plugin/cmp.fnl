@@ -6,7 +6,8 @@
 (let [(ok? cmp) (pcall require :cmp)]
   (when ok?
     (cmp.setup
-      {:sources [{:name "conjure"}
+      {:preselect :always
+       :sources [{:name "conjure"}
                  {:name "nvim_lsp"
                   :entry_filter (fn [entry ctx]
                                   (let [types (require :cmp.types)
