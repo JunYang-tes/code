@@ -31,7 +31,11 @@
                       (keymap :n :< api.node.navigate.sibling.prev)
                       (keymap :n :- api.tree.change_root_to_parent)
                       (keymap :n :<cr> change_root_to_node)
-                      (keymap :n :e api.node.open.vertical)))})))
+                      (keymap :n :e api.node.open.vertical)))
+       :filters {
+                 :dotfiles false
+                 :git_clean false
+                 }})))
        ; :view {:mappings {:list [
        ;                          {:key :h
        ;                           :action :close_node}
