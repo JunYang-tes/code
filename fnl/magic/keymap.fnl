@@ -38,7 +38,7 @@
 
 (lnnmap :lr "lua vim.lsp.buf.rename()")
 (lnnmap :la "lua vim.lsp.buf.code_action()")
-(lnnmap :lf "lua vim.lsp.buf.formatting()")
+(lnnmap :lf "lua vim.lsp.buf.format()")
 
 (lnnmap :z :ZenMode)
 (lnnmap :sr ":Telescope resume")

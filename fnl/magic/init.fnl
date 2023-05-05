@@ -28,8 +28,10 @@
 ;;tab
 (set nvim.o.tabstop 2)
 (set nvim.o.shiftwidth 2)
+(set nvim.o.termguicolors true)
 
 (nvim.ex.set :list)
+;(nvim.ex.set :termguicolors)
 ;; indent with spaces instead of tab
 (nvim.ex.set :expandtab)
 (nvim.ex.set :nowrap)
@@ -97,6 +99,8 @@
   :folke/zen-mode.nvim {}
   :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
+  :NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :mrjones2014/nvim-ts-rainbow {}
+  :ray-x/lsp_signature.nvim {:mod :lsp_signature}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
