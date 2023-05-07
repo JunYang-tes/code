@@ -20,4 +20,6 @@
     (auto-pairs.setup {})
     (auto-pairs.add_rules
       [(-> (rule "{" "}")
+           (: :with_move (conds.none)))
+       (-> (rule "(" ")")
            (: :with_move (conds.none)))])))
