@@ -1,5 +1,7 @@
 (module magic.keymap
-  {autoload {util magic.util}})
+  {autoload {
+             nvim aniseed.nvim
+             util magic.util}})
 
 (defn- map [from to]
   (util.noremap from to))
@@ -7,6 +9,8 @@
   (util.nnoremap from to))
 (defn- lnnmap [from to]
   (util.lnnoremap from to))
+(defn- tnomap [from to]
+  (nvim.set_keymap :t from to {}))
 
 (map :q ":bd!<cr>")
 (map "<space>wc" "<C-w>c")
@@ -52,3 +56,5 @@
 (lnnmap :sla "Telescope lsp_code_actions")
 (lnnmap :slr "Telescope lsp_references")
 (lnnmap :sls "Telescope lsp_document_symbols")
+
+(tnomap "<esc>" "<C-\\><C-n>")
