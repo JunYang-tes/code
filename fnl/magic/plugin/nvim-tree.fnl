@@ -32,6 +32,7 @@
                       (keymap :n :- api.tree.change_root_to_parent)
                       (keymap :n :<cr> change_root_to_node)
                       (keymap :n :e api.node.open.vertical)))
+       :git {:ignore false}
        :filters {
                  :dotfiles false
                  :git_clean false

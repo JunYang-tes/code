@@ -102,5 +102,5 @@
   :NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :mrjones2014/nvim-ts-rainbow {}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
-  :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
+  :nvim-tree/nvim-tree.lua {:mod :nvim-tree })
   

@@ -1,12 +1,12 @@
 (module magic.plugin.cmp
   {autoload {nvim aniseed.nvim}})
 
-(set nvim.o.completeopt "menuone")
+(set nvim.o.completeopt "menu,preview,noinsert")
 
 (let [(ok? cmp) (pcall require :cmp)]
   (when ok?
     (cmp.setup
-      {:preselect :always
+      {
        :sources [{:name "conjure"}
                  {:name "nvim_lsp"
                   :entry_filter (fn [entry ctx]
@@ -18,9 +18,10 @@
                                       true)))}
                  {:name "buffer"}
                  {:name "path"}]
+       :completion {:completeopt "menu,menuone,preview,noinsert"}
        :mapping (cmp.mapping.preset.insert
                   {"<C-b>" (cmp.mapping.scroll_docs -4)
                    "<C-f>" (cmp.mapping.scroll_docs 4)
-                   "<C-Space>" (cmp.mapping.complete)
+                   "<C-Space>" (cmp.mapping.complete {:select true})
                    "<C-e>" (cmp.mapping.abort)
                    "<CR>" (cmp.mapping.confirm {:select true})})})))
