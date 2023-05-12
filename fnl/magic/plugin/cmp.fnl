@@ -2,6 +2,44 @@
   {autoload {nvim aniseed.nvim}})
 
 (set nvim.o.completeopt "menu,preview,noinsert")
+(set nvim.o.pumheight 10)
+(local icons
+  {
+  :Text  ""
+  :Method  ""
+  :Function  "󰊕"
+  :Constructor  ""
+  :Field  "󰇽"
+  :Variable  ""
+  :Class  ""
+  :Interface  ""
+  :Module  ""
+  :Property  "󰜢"
+  :Unit  ""
+  :Value  "󰎠"
+  :Enum  ""
+  :Keyword  "󰌋"
+  :Snippet  ""
+  :Color  "󰏘"
+  :File  "󰈙"
+  :Reference  ""
+  :Folder  "󰉋"
+  :EnumMember  ""
+  :Constant  "󰏿"
+  :Struct  ""
+  :Event  ""
+  :Operator  "󰆕"
+  :TypeParameter  ""
+})
+
+(fn format [entry vim_item]
+  (tset vim_item
+        :kind
+        (string.format
+          "%s %s"
+          (. icons vim_item.kind)
+          vim_item.kind))
+  vim_item)
 
 (let [(ok? cmp) (pcall require :cmp)]
   (when ok?
@@ -18,6 +56,8 @@
                                       true)))}
                  {:name "buffer"}
                  {:name "path"}]
+       :window {:completion {:max_height 300}}
+       :formatting {: format}
        :completion {:completeopt "menu,menuone,preview,noinsert"}
        :mapping (cmp.mapping.preset.insert
                   {"<C-b>" (cmp.mapping.scroll_docs -4)
