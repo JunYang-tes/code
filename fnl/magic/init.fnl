@@ -78,6 +78,7 @@
   :mbbill/undotree {:mod :undotree}
   :neovim/nvim-lspconfig {:mod :lspconfig}
   :nvim-lualine/lualine.nvim {:mod :lualine}
+  :nvim-lua/plenary.nvim {}
   :nvim-telescope/telescope.nvim {:mod :telescope :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]]}
   :smartpde/telescope-recent-files {}
   :nvim-treesitter/nvim-treesitter {:mod :tree-sitter
@@ -102,5 +103,9 @@
   :NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :mrjones2014/nvim-ts-rainbow {}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
+  :jackMort/ChatGPT.nvim {:mod :gpt
+                          :requires [:MunifTanjim/nui.nvim
+                                     :nvim-lua/plenary.nvim
+                                     :nvim-telescope/telescope.nvim]}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree })
   
