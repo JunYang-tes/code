@@ -3,5 +3,4 @@
 
 (let [(ok? gpt) (pcall require :chatgpt)]
   (when ok?
-    (print :setup-gpt)
-    (gpt.setup)))
+    (gpt.setup {})))

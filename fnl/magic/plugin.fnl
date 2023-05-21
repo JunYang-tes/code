@@ -6,9 +6,10 @@
   "Safely require a module under the magic.plugin.* prefix. Will catch errors
   and print them while continuing execution, allowing other plugins to load
   even if one configuration module is broken."
-  (let [(ok? val-or-err) (pcall require (.. "magic.plugin." name))]
-    (when (not ok?)
-      (print (.. "Plugin config error: " val-or-err)))))
+  (if name
+    (let [(ok? val-or-err) (pcall require (.. "magic.plugin." name))]
+      (when (not ok?)
+        (print (string.format "Plugin (%s) config error: (%s)" name val-or-err))))))
 
 (defn req [name]
   "A shortcut to building a require string for your plugin

@@ -107,5 +107,6 @@
                           :requires [:MunifTanjim/nui.nvim
                                      :nvim-lua/plenary.nvim
                                      :nvim-telescope/telescope.nvim]}
+  :j-hui/fidget.nvim {:config (simple-setup :fidget {})}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree })
   
