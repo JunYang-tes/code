@@ -108,5 +108,6 @@
                                      :nvim-lua/plenary.nvim
                                      :nvim-telescope/telescope.nvim]}
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})}
+  :rlue/vim-barbaric {:mod :barbaric}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree })
   
