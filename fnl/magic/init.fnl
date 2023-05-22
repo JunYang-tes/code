@@ -109,5 +109,6 @@
                                      :nvim-telescope/telescope.nvim]}
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})}
   :rlue/vim-barbaric {:mod :barbaric}
+  :eraserhd/parinfer-rust {:run "cargo build --release"}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree })
   
