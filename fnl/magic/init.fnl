@@ -110,5 +110,6 @@
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})}
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
+  :mfussenegger/nvim-lint {:mod :nvim-lint}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
