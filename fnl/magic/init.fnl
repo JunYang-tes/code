@@ -87,12 +87,12 @@
                                             (update))}
   :RRethy/vim-illuminate {:mod :vim-illuminate}
   :JoosepAlviste/nvim-ts-context-commentstring {}
-  :numToStr/Comment.nvim {:config (simple-setup :Comment )}
+  :numToStr/Comment.nvim {:config (simple-setup :Comment)}
   :lukas-reineke/indent-blankline.nvim {:config (simple-setup
                                                   :indent_blankline
                                                   {:show_current_context true
                                                    :show_current_context_start true})}
-  :github/copilot.vim {}
+  ;:github/copilot.vim {}
   :tpope/vim-repeat {}
   :guns/vim-sexp {}
   :tpope/vim-sexp-mappings-for-regular-people { :mod :sexp}
@@ -110,5 +110,5 @@
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})}
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
-  :nvim-tree/nvim-tree.lua {:mod :nvim-tree })
+  :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
