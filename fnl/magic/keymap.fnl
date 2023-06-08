@@ -11,14 +11,20 @@
   (util.lnnoremap from to))
 (defn- tnomap [from to]
   (nvim.set_keymap :t from to {}))
+(defn- map-cmd [mode key cmd]
+  (vim.keymap.set mode
+                  key
+                  (.. :<cmd> cmd :<cr>)))
 
 (map :q ":bd!<cr>")
-(map "<space>wc" "<C-w>c")
-(map "<space>wh" "<C-w>h")
-(map "<space>wl" "<C-w>l")
-(map "<space>wk" "<C-w>k")
-(map "<space>wj" "<C-w>j")
+(map "<leader>wc" "<C-w>c")
+(map "<leader>wh" "<C-w>h")
+(map "<leader>wl" "<C-w>l")
+(map "<leader>wk" "<C-w>k")
+(map "<leader>wj" "<C-w>j")
 (map "<space><tab>" ":b#<CR>")
+(map-cmd :n :<leader>wz :WindowsMaximize)
+(map-cmd :n :<leader>w= :WindowsEqualize)
 (map :ge ":NvimTreeToggle<CR>")
 (map "[b" ":bpre<CR>")
 (map "]b" ":bnext<CR>")

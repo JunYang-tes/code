@@ -111,5 +111,7 @@
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
+  :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
+                            :config (simple-setup :windows)}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
