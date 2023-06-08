@@ -9,4 +9,4 @@
   (vim.api.nvim_create_autocmd
     [:BufWritePost]
     {:callback (fn []
-                 (lint.try_lint))}))
+                 (pcall lint.try_lint))}))
