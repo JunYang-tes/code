@@ -111,7 +111,8 @@
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
-  :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
-                            :config (simple-setup :windows)}
+  ; :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
+  ;                           :config (simple-setup :windows)}
+  :simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   

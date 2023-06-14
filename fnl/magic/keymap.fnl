@@ -15,6 +15,10 @@
   (vim.keymap.set mode
                   key
                   (.. :<cmd> cmd :<cr>)))
+(defn- map-plug [mode key cmd]
+  (vim.keymap.set mode
+                  key
+                  (.. :<Plug> "(" cmd ")")))
 
 (map :q ":bd!<cr>")
 (map "<leader>wc" "<C-w>c")
@@ -23,6 +27,7 @@
 (map "<leader>wk" "<C-w>k")
 (map "<leader>wj" "<C-w>j")
 (map "<space><tab>" ":b#<CR>")
+;anuvyklack/windows.nvim
 (map-cmd :n :<leader>wz :WindowsMaximize)
 (map-cmd :n :<leader>w= :WindowsEqualize)
 (map :ge ":NvimTreeToggle<CR>")
@@ -42,6 +47,8 @@
 (nmap :gr "lua vim.lsp.buf.references()")
 (nmap :gi "lua vim.lsp.buf.implementation()")
 (nmap :K "lua vim.lsp.buf.hover()")
+;simrat39/symbols-outline.nvim
+(map-cmd :n :gs :SymbolsOutline)
 (nmap :<c-k> "lua vim.lsp.buf.signature_help()")
 (nmap :<c-p> "lua vim.diagnostic.goto_prev()")
 (nmap :<c-n> "lua vim.diagnostic.goto_next()")
