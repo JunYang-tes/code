@@ -107,7 +107,8 @@
                           :requires [:MunifTanjim/nui.nvim
                                      :nvim-lua/plenary.nvim
                                      :nvim-telescope/telescope.nvim]}
-  :j-hui/fidget.nvim {:config (simple-setup :fidget {})}
+  :j-hui/fidget.nvim {:config (simple-setup :fidget {})
+                      :tag :legacy}
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
