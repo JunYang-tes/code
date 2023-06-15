@@ -66,6 +66,7 @@
   :folke/tokyonight.nvim {}
   ;; motion
   :ggandor/leap.nvim {:mod :leap}
+  :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)}
   ;; cmp
   :hrsh7th/cmp-buffer {}
   :hrsh7th/cmp-cmdline {}
@@ -108,7 +109,7 @@
                                      :nvim-lua/plenary.nvim
                                      :nvim-telescope/telescope.nvim]}
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})
-                      :tag :legacy}
+                      :branch :legacy}
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
