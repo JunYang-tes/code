@@ -48,7 +48,7 @@
 (nmap :gi "lua vim.lsp.buf.implementation()")
 (nmap :K "lua vim.lsp.buf.hover()")
 ;simrat39/symbols-outline.nvim
-(map-cmd :n :gs :SymbolsOutline)
+(map-cmd :n :go :SymbolsOutline)
 (nmap :<c-k> "lua vim.lsp.buf.signature_help()")
 (nmap :<c-p> "lua vim.diagnostic.goto_prev()")
 (nmap :<c-n> "lua vim.diagnostic.goto_next()")

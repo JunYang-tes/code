@@ -13,7 +13,10 @@
         :layout_strategy :horizontal
         :sorting_strategy :ascending
         :layout_config {:horizontal {:prompt_position :top}}}
-       :extensions {:recent_files {:only_cwd true}}})
+       :extensions {:recent_files {:only_cwd true}
+                    :media_files {:filetypes [:png :jpg :jpeg]
+                                  :find_cmd :rg}}})
 
-    (pcall #(telescope.load_extension :recent_files))))
+    (pcall #(telescope.load_extension :recent_files))
+    (pcall #(telescope.load_extension :media_files))))
 

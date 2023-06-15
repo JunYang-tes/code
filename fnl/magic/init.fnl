@@ -65,7 +65,7 @@
   ;; Theme
   :folke/tokyonight.nvim {}
   ;; motion
-  :ggandor/lightspeed.nvim {}
+  :ggandor/leap.nvim {:mod :leap}
   ;; cmp
   :hrsh7th/cmp-buffer {}
   :hrsh7th/cmp-cmdline {}
@@ -115,5 +115,6 @@
   ; :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
   ;                           :config (simple-setup :windows)}
   :simrat39/symbols-outline.nvim {:mod :symbols-outline}
+  :nvim-telescope/telescope-media-files.nvim {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
