@@ -35,6 +35,7 @@
 ;; indent with spaces instead of tab
 (nvim.ex.set :expandtab)
 (nvim.ex.set :nowrap)
+(nvim.ex.set :relativenumber)
 (vim.diagnostic.config 
   {:virtual_text false
    :signs true})
@@ -65,7 +66,7 @@
   ;; Theme
   :folke/tokyonight.nvim {}
   ;; motion
-  :ggandor/leap.nvim {:mod :leap}
+  :ggandor/leap.nvim {}
   :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)}
   ;; cmp
   :hrsh7th/cmp-buffer {}

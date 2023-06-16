@@ -60,7 +60,7 @@
 (lnnmap :z :ZenMode)
 (lnnmap :sr ":Telescope resume")
 (lnnmap :sf ":Telescope find_files")
-(lnnmap :sg "Telescope live_grep")
+(lnnmap :sg "Telescope live_grep ")
 (lnnmap :sb "Telescope buffers")
 (lnnmap :sc "Telescope commands")
 (lnnmap :sq "Telescope quickfix")
@@ -69,5 +69,10 @@
 (lnnmap :sla "Telescope lsp_code_actions")
 (lnnmap :slr "Telescope lsp_references")
 (lnnmap :sls "Telescope lsp_document_symbols")
+
+(map-plug :n :s :leap-forward-to)
+(map-plug :n :S :leap-backward-to)
+(map-plug :n :gs :leap-from-window)
+
 
 (tnomap "<esc>" "<C-\\><C-n>")
