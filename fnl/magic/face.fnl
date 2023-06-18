@@ -10,18 +10,23 @@
 (pcall #(nvim.ex.colorscheme :tokyonight))
 
 (defn- get-hlgroup [name fallback]
-  (if (vim.fn.hlexists name)
-    (let [hl (if vim.api.nvim_get_hl
-               (vim.api.nvim_get_hl
-                 0 {: name :link false})
-               (vim.api.nvim_get_hl_by_name
-                 name vim.o.termguicolors))]
-      {:fg (or hl.fg
-               hl.foreground
-               :None)
-       :bg (or hl.bg
-               hl.background)})
-    (or fallback {})))
+  (let [
+        (ok? hl)  (pcall #(
+            (if (vim.fn.hlexists name)
+              (let [hl (if vim.api.nvim_get_hl
+                         (vim.api.nvim_get_hl
+                           0 {: name :link false})
+                         (vim.api.nvim_get_hl_by_name
+                           name vim.o.termguicolors))]
+                {:fg (or hl.fg
+                         hl.foreground
+                         :None)
+                 :bg (or hl.bg
+                         hl.background)})
+              (or fallback {}))))]
+    (if ok?
+      hl
+      (or fallback {}))))
 
 (defn- highlights [tbl]
   (each [group spec (pairs tbl)]
