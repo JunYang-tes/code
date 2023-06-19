@@ -11,6 +11,7 @@
     (lsp.clojure_lsp.setup {})
     (lsp.tsserver.setup {})
     (lsp.rust_analyzer.setup {})
+    (lsp.fennel_ls.setup {:macro-path "./src/macros/?.fnl"})
     (lsp.pyright.setup 
       {
        :before_init (fn [_ config]

@@ -118,5 +118,7 @@
   ;                           :config (simple-setup :windows)}
   :simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-telescope/telescope-media-files.nvim {}
+  :williamboman/mason.nvim {:config (simple-setup :mason {})
+                            :run :MasonUpdate}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
