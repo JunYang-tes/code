@@ -117,6 +117,9 @@
   ;                           :config (simple-setup :windows)}
   :simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-telescope/telescope-media-files.nvim {}
+  :kevinhwang91/nvim-ufo {:requires :kevinhwang91/promise-async
+                          :mod :fold}
+  :luukvbaal/statuscol.nvim {:mod :statuscol}
   :williamboman/mason.nvim {:config (simple-setup :mason {})
                             :run :MasonUpdate}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})

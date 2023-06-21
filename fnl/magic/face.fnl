@@ -38,7 +38,7 @@
         bg normal.bg
         bg-alt (. (get-hlgroup :Visual) :bg)
         str-fg (. (get-hlgroup :String) :fg)
-        prompt (get-hlgroup :lualine_a_command )]
+        prompt (get-hlgroup :lualine_a_command)]
     {
      ;:TelescopeBorder  { :fg  bg_alt : bg}
      :TelescopeNormal  { : bg}
