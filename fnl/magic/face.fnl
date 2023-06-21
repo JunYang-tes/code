@@ -11,19 +11,18 @@
 
 (defn- get-hlgroup [name fallback]
   (let [
-        (ok? hl)  (pcall #(
-            (if (vim.fn.hlexists name)
-              (let [hl (if vim.api.nvim_get_hl
-                         (vim.api.nvim_get_hl
-                           0 {: name :link false})
-                         (vim.api.nvim_get_hl_by_name
-                           name vim.o.termguicolors))]
-                {:fg (or hl.fg
-                         hl.foreground
-                         :None)
-                 :bg (or hl.bg
-                         hl.background)})
-              (or fallback {}))))]
+        (ok? hl) (pcall #(if (vim.fn.hlexists name)
+                           (let [hl (if vim.api.nvim_get_hl
+                                      (vim.api.nvim_get_hl
+                                        0 {: name :link false})
+                                      (vim.api.nvim_get_hl_by_name
+                                        name vim.o.termguicolors))]
+                             {:fg (or hl.fg
+                                      hl.foreground
+                                      :None)
+                              :bg (or hl.bg
+                                      hl.background)})
+                           (or fallback {})))]
     (if ok?
       hl
       (or fallback {}))))
@@ -39,7 +38,7 @@
         bg normal.bg
         bg-alt (. (get-hlgroup :Visual) :bg)
         str-fg (. (get-hlgroup :String) :fg)
-        prompt-fg (. (get-hlgroup :lualine_a_command) :fg)]
+        prompt (get-hlgroup :lualine_a_command )]
     {
      ;:TelescopeBorder  { :fg  bg_alt : bg}
      :TelescopeNormal  { : bg}
@@ -48,8 +47,8 @@
      :TelescopePreviewTitle  { :fg  bg :bg str-fg}
      :TelescopePromptBorder  { :fg  bg_alt :bg  bg_alt}
      :TelescopePromptNormal  { :fg  fg :bg  bg_alt}
-     :TelescopePromptPrefix  { :fg  prompt-fg :bg  bg_alt}
-     :TelescopePromptTitle  { :fg  bg :bg  prompt-fg}
+     ;:TelescopePromptPrefix  { :fg  prompt-fg :bg  bg_alt}
+     :TelescopePromptTitle  { :fg  bg :bg  prompt.bg}
      :TelescopeResultsBorder  { :fg  main.bg :bg  main.bg}
      :TelescopeResultsNormal  { :bg  main.bg}
      :TelescopeResultsTitle  { :fg  main.bg :bg  main.bg}}))

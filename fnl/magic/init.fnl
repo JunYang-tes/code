@@ -46,7 +46,6 @@
 (set nvim.g.mapleader ",")
 ;;(set nvim.g.maplocalleader " ")
 (require :magic.keymap)
-(require :magic.face)
 
 ;; why macro instead of fn ?
 ;; Packer will compile config to string which is not support closure.
@@ -122,3 +121,4 @@
                             :run :MasonUpdate}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
+(require :magic.face)
