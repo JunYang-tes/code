@@ -5,10 +5,13 @@
       (not= buf.filetype ft))))
 (fn not-one-of [fts]
   (fn [{: buf}]
-    (let [buf (. vim.bo buf)]
-      (accumulate [not-such-ft true
-                   _ ft (ipairs fts)]
-        (and not-such-ft (= buf.filetype ft))))))
+    (let [buf (. vim.bo buf)
+          f   (length (icollect [_ ft (ipairs fts)]
+                        (if (= ft buf.filetype)
+                          ft)))]
+      (print buf.filetype
+             f)
+      (= f 0))))
 (fn not-read-only [{: buf}]
   (let [buf (. vim.bo buf)]
     (. buf :modifiable)))
