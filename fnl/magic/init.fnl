@@ -86,6 +86,7 @@
                                     :run #(let [install (require :nvim-treesitter.install)
                                                 update (install.update {:with_sync true})]
                                             (update))}
+  :nvim-treesitter/nvim-treesitter-textobjects {}
   :RRethy/vim-illuminate {:mod :vim-illuminate}
   :JoosepAlviste/nvim-ts-context-commentstring {}
   :numToStr/Comment.nvim {:config (simple-setup :Comment)}
