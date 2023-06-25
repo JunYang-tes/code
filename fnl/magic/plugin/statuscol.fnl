@@ -9,8 +9,6 @@
           f   (length (icollect [_ ft (ipairs fts)]
                         (if (= ft buf.filetype)
                           ft)))]
-      (print buf.filetype
-             f)
       (= f 0))))
 (fn not-read-only [{: buf}]
   (let [buf (. vim.bo buf)]

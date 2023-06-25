@@ -41,10 +41,16 @@
           vim_item.kind))
   vim_item)
 
-(let [(ok? cmp) (pcall require :cmp)]
+(let [(ok? cmp) (pcall require :cmp)
+      (lsp-expand? lsp_expand) (pcall #(. (require :luasnip) :lsp_expand))]
+  (when (not lsp-expand?)
+    (print "PackerInstall required"))
   (when ok?
     (cmp.setup
       {
+       :snippet {:expand (fn [args]
+                           (lsp_expand args.body)
+                           nil)}
        :sources [{:name "conjure"}
                  {:name "nvim_lsp"
                   :entry_filter (fn [entry ctx]

@@ -73,6 +73,7 @@
   :hrsh7th/cmp-nvim-lsp {}
   :hrsh7th/cmp-path {}
   :hrsh7th/nvim-cmp {:mod :cmp}
+  :L3MON4D3/LuaSnip {}
   ;;:jiangmiao/auto-pairs {:mod :auto-pairs}
   :windwp/nvim-autopairs {:mod :auto-pairs}
   :lewis6991/impatient.nvim {}
