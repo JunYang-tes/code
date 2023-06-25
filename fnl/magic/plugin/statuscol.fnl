@@ -22,23 +22,19 @@
                                   :NvimTree
                                   :Trouble])]
     (statuscol.setup
-      {:relculright true
-       :setopt true
-       :segments [{:sign {:name [:Diagnostic]
-                          :maxwidth 1
-                          :auto false}
-                   :condition [not-read-only,not-fn-bufs]
-                   :click "v:lua.ScSa"}
-                  {:text [builtin.foldfunc]
-                   :sign {:auto true}
-                   :condition [not-fn-bufs]
-                   :click "v:lua.ScFa"}
-                  {:text [builtin.lnumfunc]
-                   :condition [not-fn-bufs]
-                   :click "v:lua.ScLa"}
-                  {:text ["┃"]
-                   :condition [not-fn-bufs]}
-                  {:sign {:name [".*"]
-                          :maxwidth 1
-                          :auto false}
-                   :click "v:lua.ScSa"}]})))
+     {:relculright true
+      :setopt true
+      :segments [{:sign {:name [:Diagnostic]}
+                  :condition [not-fn-bufs]
+                  :click "v:lua.ScSa"}
+                 {:text [builtin.foldfunc]
+                  :click "v:lua.ScFa"
+                  :condition [not-fn-bufs]}
+                 {:text [builtin.lnumfunc]
+                  :condition [not-fn-bufs]
+                  :click "v:lua.ScLa"}
+                 {:text ["┃"]
+                  :condition [not-fn-bufs]}
+                 {:sign {:name [".*"]
+                         :auto false}
+                  :click "v:lua.ScSa"}]})))
