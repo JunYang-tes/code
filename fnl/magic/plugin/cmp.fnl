@@ -5,32 +5,32 @@
 (set nvim.o.pumheight 10)
 (local icons
   {
-  :Text  ""
-  :Method  ""
-  :Function  "󰊕"
-  :Constructor  ""
-  :Field  "󰇽"
-  :Variable  ""
-  :Class  ""
-  :Interface  ""
-  :Module  ""
-  :Property  "󰜢"
-  :Unit  ""
-  :Value  "󰎠"
-  :Enum  ""
-  :Keyword  "󰌋"
-  :Snippet  ""
-  :Color  "󰏘"
-  :File  "󰈙"
-  :Reference  ""
-  :Folder  "󰉋"
-  :EnumMember  ""
-  :Constant  "󰏿"
-  :Struct  ""
-  :Event  ""
-  :Operator  "󰆕"
-  :TypeParameter  ""
-})
+   :Text  ""
+   :Method  ""
+   :Function  "󰊕"
+   :Constructor  ""
+   :Field  "󰇽"
+   :Variable  ""
+   :Class  ""
+   :Interface  ""
+   :Module  ""
+   :Property  "󰜢"
+   :Unit  ""
+   :Value  "󰎠"
+   :Enum  ""
+   :Keyword  "󰌋"
+   :Snippet  ""
+   :Color  "󰏘"
+   :File  "󰈙"
+   :Reference  ""
+   :Folder  "󰉋"
+   :EnumMember  ""
+   :Constant  "󰏿"
+   :Struct  ""
+   :Event  ""
+   :Operator  "󰆕"
+   :TypeParameter  ""})
+
 
 (fn format [entry vim_item]
   (tset vim_item
@@ -54,7 +54,7 @@
                                     (if (= kind :Text)
                                       false
                                       true)))}
-                 {:name "buffer"}
+                 ;{:name "buffer"}
                  {:name "path"}]
        :window {:completion {:max_height 300}}
        :formatting {: format}
