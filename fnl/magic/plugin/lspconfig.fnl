@@ -14,18 +14,33 @@
                   vim.json.decode)]
           (lsp.fennel_ls.setup {:settings {: fennel-ls}
                                 : capabilities}))))))
-
+(fn get-tsserver-path []
+  (let [(ok? ret)
+        (pcall #(with-open [f (io.popen
+                                "which node")]
+                  (f:read "*a")))]
+    (if ok?
+      (let [(r _)
+            (string.gsub ret "bin/node%s$" "lib/node_modules/typescript/lib/tsserver.js")]
+        r)
+      nil)))
 (let [(ok? lsp) (pcall #(require :lspconfig))
       (cmp? cmp) (pcall #(require :cmp_nvim_lsp))
       capabilities (cmp.default_capabilities)
       (_ util) (pcall #(require :lspconfig/util))]
   (when (and ok? cmp?)
     (lsp.clojure_lsp.setup {: capabilities})
-    (lsp.tsserver.setup {: capabilities})
+    (lsp.tsserver.setup {: capabilities
+                         :cmd (let [path (get-tsserver-path)]
+                                (if path
+                                  [:typescript-language-server
+                                   :--stdio
+                                   :--tsserver-path
+                                   path]
+                                  nil))})
     (lsp.rust_analyzer.setup {: capabilities})
+    (lsp.clangd.setup {: capabilities})
     (setup-fennel lsp capabilities)
-;     (lsp.fennel_ls.setup {:settings {:fennel-ls {:macro-path "./src/macros/?.fnl;/home/yj/.config/code/.local/data/nvim/site/pack/packer/start/aniseed/fnl/aniseed/macros.
-; fnl"}}})
     (lsp.pyright.setup
       {
        :before_init (fn [_ config]

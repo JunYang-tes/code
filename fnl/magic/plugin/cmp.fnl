@@ -53,13 +53,14 @@
                            nil)}
        :sources [{:name "conjure"}
                  {:name "nvim_lsp"
-                  :entry_filter (fn [entry ctx]
-                                  (let [types (require :cmp.types)
-                                        kind (. types.lsp.CompletionItemKind
-                                                (: entry :get_kind))]
-                                    (if (= kind :Text)
-                                      false
-                                      true)))}
+                  :max_item_count 10}
+                  ; :entry_filter (fn [entry ctx]
+                  ;                 (let [types (require :cmp.types)
+                  ;                       kind (. types.lsp.CompletionItemKind
+                  ;                               (: entry :get_kind))]
+                  ;                   (if (= kind :Text)
+                  ;                     false
+                  ;                     true)))}
                  ;{:name "buffer"}
                  {:name "path"}]
        :window {:completion {:max_height 300}}
