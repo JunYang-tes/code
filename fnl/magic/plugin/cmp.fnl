@@ -44,7 +44,7 @@
 (let [(ok? cmp) (pcall require :cmp)
       (lsp-expand? lsp_expand) (pcall #(. (require :luasnip) :lsp_expand))]
   (when (not lsp-expand?)
-    (print "PackerInstall required"))
+    (print "No lusnip"))
   (when ok?
     (cmp.setup
       {

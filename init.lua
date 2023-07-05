@@ -19,9 +19,21 @@ function ensure (user, repo)
     execute(fmt("packadd %s", repo))
   end
 end
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
 -- Packer is our plugin manager.
-ensure("wbthomason", "packer.nvim")
+-- ensure("wbthomason", "packer.nvim")
 
 -- Aniseed compiles our Fennel code to Lua and loads it automatically.
 ensure("Olical", "aniseed")
