@@ -66,14 +66,23 @@
   :folke/tokyonight.nvim {}
   ;; motion
   :ggandor/leap.nvim {}
-  :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)}
+  ;; disable continously hjkl
+  :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)
+                            :cond false}
   ;; cmp
-  :hrsh7th/cmp-buffer {}
-  :hrsh7th/cmp-cmdline {}
-  :hrsh7th/cmp-nvim-lsp {}
-  :hrsh7th/cmp-path {}
-  :hrsh7th/nvim-cmp {:mod :cmp}
-  :L3MON4D3/LuaSnip {}
+  :hrsh7th/cmp-buffer {:cond false}
+  :hrsh7th/cmp-cmdline {:cond false}
+  :hrsh7th/cmp-nvim-lsp {:cond false}
+  :hrsh7th/cmp-path {:cond false}
+  :hrsh7th/nvim-cmp {:cond false :mod :cmp}
+  :L3MON4D3/LuaSnip {:cond false}
+  ;; another cmp
+  :ms-jpq/coq_nvim {:branch :coq
+                    :init (fn [] (tset vim :g :coq_settings {:auto_start true
+                                                             :display {:pum {:fast_close false}}
+                                                             :keymap {:pre_select true}}))
+                    :lazy false}
+
   ;;:jiangmiao/auto-pairs {:mod :auto-pairs}
   :windwp/nvim-autopairs {:mod :auto-pairs}
   :lewis6991/impatient.nvim {}

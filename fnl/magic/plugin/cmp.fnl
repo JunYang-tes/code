@@ -46,14 +46,15 @@
   (when (not lsp-expand?)
     (print "No lusnip"))
   (when ok?
+    (print "CMP")
     (cmp.setup
       {
        :snippet {:expand (fn [args]
                            (lsp_expand args.body)
                            nil)}
-       :sources [{:name "conjure"}
-                 {:name "nvim_lsp"
-                  :max_item_count 10}
+       :sources [
+                  ;{:name "nvim_lsp"
+                  ; :max_item_count 10
                   ; :entry_filter (fn [entry ctx]
                   ;                 (let [types (require :cmp.types)
                   ;                       kind (. types.lsp.CompletionItemKind
@@ -61,7 +62,7 @@
                   ;                   (if (= kind :Text)
                   ;                     false
                   ;                     true)))}
-                 ;{:name "buffer"}
+                 {:name "buffer"}
                  {:name "path"}]
        :window {:completion {:max_height 300}}
        :formatting {: format}

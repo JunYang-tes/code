@@ -26,9 +26,11 @@
       nil)))
 (let [(ok? lsp) (pcall #(require :lspconfig))
       (cmp? cmp) (pcall #(require :cmp_nvim_lsp))
-      capabilities (cmp.default_capabilities)
+      capabilities (if cmp?
+                     (cmp.default_capabilities)
+                     nil)
       (_ util) (pcall #(require :lspconfig/util))]
-  (when (and ok? cmp?)
+  (when (and ok?)
     (lsp.clojure_lsp.setup {: capabilities})
     (lsp.tsserver.setup {: capabilities
                          :cmd (let [path (get-tsserver-path)]
