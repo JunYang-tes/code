@@ -5,15 +5,14 @@
 (defn- map [from to]
   (util.nnoremap from to))
 
-(defn- setup-fennel [lsp capabilities]
+(defn- setup-fennel [lsp]
   (let [pwd (vim.loop.cwd)]
     (pcall
       #(with-open [cfg (io.open (.. pwd "/" ".fennel-ls.json"))]
         (let [fennel-ls
               (-> (cfg:read "*a")
                   vim.json.decode)]
-          (lsp.fennel_ls.setup {:settings {: fennel-ls}
-                                : capabilities}))))))
+          (lsp.fennel_ls.setup {:settings {: fennel-ls}}))))))
 (fn get-tsserver-path []
   (let [(ok? ret)
         (pcall #(with-open [f (io.popen
@@ -24,25 +23,22 @@
             (string.gsub ret "bin/node%s$" "lib/node_modules/typescript/lib/tsserver.js")]
         r)
       nil)))
+
+(defn- setup-vtsls [lsp]
+  (let [(ok? lsp-cfg) (pcall #(require :lspconfig.configs))
+        (vtsls? vtsls) (pcall #(require :vtsls))]
+    (when (and ok? vtsls?)
+      (tset lsp-cfg :vtsls vtsls.lspconfig)
+      (lsp.vtsls.setup {}))))
+
 (let [(ok? lsp) (pcall #(require :lspconfig))
-      (cmp? cmp) (pcall #(require :cmp_nvim_lsp))
-      capabilities (if cmp?
-                     (cmp.default_capabilities)
-                     nil)
       (_ util) (pcall #(require :lspconfig/util))]
   (when (and ok?)
-    (lsp.clojure_lsp.setup {: capabilities})
-    (lsp.tsserver.setup {: capabilities
-                         :cmd (let [path (get-tsserver-path)]
-                                (if path
-                                  [:typescript-language-server
-                                   :--stdio
-                                   :--tsserver-path
-                                   path]
-                                  nil))})
-    (lsp.rust_analyzer.setup {: capabilities})
-    (lsp.clangd.setup {: capabilities})
-    (setup-fennel lsp capabilities)
+    (lsp.clojure_lsp.setup {})
+    (setup-vtsls lsp)
+    (lsp.rust_analyzer.setup {})
+    (lsp.clangd.setup {})
+    (setup-fennel lsp)
     (lsp.pyright.setup
       {
        :before_init (fn [_ config]
@@ -53,6 +49,6 @@
                               (or
                                 (exepath :python3)
                                 (exepath :python)))))})
-    (lsp.jsonls.setup {: capabilities})))
+    (lsp.jsonls.setup {})))
 
     ;; https://www.chrisatmachine.com/Neovim/27-native-lsp/

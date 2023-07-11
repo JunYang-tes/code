@@ -83,6 +83,9 @@
                                                              :keymap {:pre_select true}}))
                     :lazy false}
 
+  ;; ts lsp
+  :yioneko/nvim-vtsls {:config (fn [] 
+                                 ((. (require :vtsls) :config) {}))}
   ;;:jiangmiao/auto-pairs {:mod :auto-pairs}
   :windwp/nvim-autopairs {:mod :auto-pairs}
   :lewis6991/impatient.nvim {}
