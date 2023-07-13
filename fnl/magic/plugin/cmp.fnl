@@ -46,15 +46,20 @@
   (when (not lsp-expand?)
     (print "No lusnip"))
   (when ok?
-    (print "CMP")
+    ;https://github.com/hrsh7th/nvim-cmp/pull/1611#discussion_r1224151115
+    (tset cmp :visible
+          (fn []
+            (or (cmp.core.view:visible)
+                (=
+                 1
+                 (vim.fn.pumvisible)))))
     (cmp.setup
       {
        :snippet {:expand (fn [args]
                            (lsp_expand args.body)
                            nil)}
        :sources [
-                  ;{:name "nvim_lsp"
-                  ; :max_item_count 10
+                  {:name "nvim_lsp"}
                   ; :entry_filter (fn [entry ctx]
                   ;                 (let [types (require :cmp.types)
                   ;                       kind (. types.lsp.CompletionItemKind

@@ -2,7 +2,6 @@
   {autoload {a aniseed.core
              lazy lazy}})
 
-(print lazy)
 (defn- safe-require-plugin-config [name]
   "Safely require a module under the magic.plugin.* prefix. Will catch errors
   and print them while continuing execution, allowing other plugins to load

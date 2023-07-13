@@ -70,14 +70,15 @@
   :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)
                             :cond false}
   ;; cmp
-  :hrsh7th/cmp-buffer {:cond false}
-  :hrsh7th/cmp-cmdline {:cond false}
-  :hrsh7th/cmp-nvim-lsp {:cond false}
-  :hrsh7th/cmp-path {:cond false}
-  :hrsh7th/nvim-cmp {:cond false :mod :cmp}
-  :L3MON4D3/LuaSnip {:cond false}
+  :hrsh7th/cmp-buffer {:cond true}
+  :hrsh7th/cmp-cmdline {:cond true}
+  :hrsh7th/cmp-nvim-lsp {:cond true}
+  :hrsh7th/cmp-path {:cond true}
+  :hrsh7th/nvim-cmp {:cond true :mod :cmp}
+  :L3MON4D3/LuaSnip {:cond true}
   ;; another cmp
-  :ms-jpq/coq_nvim {:branch :coq
+  :ms-jpq/coq_nvim {:cond false
+                    :branch :coq
                     :init (fn [] (tset vim :g :coq_settings {:auto_start true
                                                              :display {:pum {:fast_close false}}
                                                              :keymap {:pre_select true}}))
