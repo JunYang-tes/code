@@ -14,7 +14,6 @@
 ;; You can learn all about Conjure and how to evaluate things by executing
 ;; :ConjureSchool in your Neovim. This will launch an interactive tutorial.
 
-
 ;;; Generic configuration
 
 (nvim.ex.set :number)
@@ -84,6 +83,10 @@
                                                              :keymap {:pre_select true}}))
                     :lazy false}
 
+  :nvimdev/lspsaga.nvim {:lazy false
+                         :mod :lspsaga
+                         :requires [:nvim-tree/nvim-web-devicons]}
+                         
   ;; ts lsp
   :yioneko/nvim-vtsls {:config (fn [] 
                                  ((. (require :vtsls) :config) {}))}
@@ -130,7 +133,7 @@
   :mfussenegger/nvim-lint {:mod :nvim-lint}
   ; :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
   ;                           :config (simple-setup :windows)}
-  :simrat39/symbols-outline.nvim {:mod :symbols-outline}
+  ;:simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-telescope/telescope-media-files.nvim {}
   :kevinhwang91/nvim-ufo {:requires :kevinhwang91/promise-async
                           :mod :fold}

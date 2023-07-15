@@ -51,4 +51,11 @@
      :TelescopePromptTitle  { :fg  bg :bg  prompt.bg}
      :TelescopeResultsBorder  { :fg  main.bg :bg  main.bg}
      :TelescopeResultsNormal  { :bg  main.bg}
-     :TelescopeResultsTitle  { :fg  main.bg :bg  main.bg}}))
+     :TelescopeResultsTitle  { :fg  main.bg :bg  main.bg}
+     ; lsp
+     :SagaNormal {:link :TelescopePromptNormal}
+     :SagaTitle { :link :TelescopePromptTitle}
+     :SagaBorderTitle {:link :TelescopePromptTitle}
+     :SagaBorder {:link :TelescopePromptBorder}
+     :RenameNormal {:link :TelescopePromptNormal}
+     :ActionPreviewTitle { :link :TelescopePreviewTitle}}))
