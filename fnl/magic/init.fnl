@@ -54,6 +54,11 @@
       (setup# ,opts))))
 ;;; Plugins
 
+(local use-coq (not= (os.getenv :COQ)
+                     nil))
+(local use-cmp (not use-coq))
+
+
 (plugin.use
   :Olical/aniseed {}
   :Olical/nvim-local-fennel {}
@@ -69,14 +74,14 @@
   :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)
                             :cond false}
   ;; cmp
-  :hrsh7th/cmp-buffer {:cond true}
-  :hrsh7th/cmp-cmdline {:cond true}
-  :hrsh7th/cmp-nvim-lsp {:cond true}
-  :hrsh7th/cmp-path {:cond true}
-  :hrsh7th/nvim-cmp {:cond true :mod :cmp}
-  :L3MON4D3/LuaSnip {:cond true}
+  :hrsh7th/cmp-buffer {:cond use-cmp}
+  :hrsh7th/cmp-cmdline {:cond use-cmp}
+  :hrsh7th/cmp-nvim-lsp {:cond use-cmp}
+  :hrsh7th/cmp-path {:cond use-cmp}
+  :hrsh7th/nvim-cmp {:cond use-cmp :mod :cmp}
+  :L3MON4D3/LuaSnip {:cond use-cmp}
   ;; another cmp
-  :ms-jpq/coq_nvim {:cond false
+  :ms-jpq/coq_nvim {:cond use-coq
                     :branch :coq
                     :init (fn [] (tset vim :g :coq_settings {:auto_start true
                                                              :display {:pum {:fast_close false}}
