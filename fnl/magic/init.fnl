@@ -70,9 +70,6 @@
   :folke/tokyonight.nvim {}
   ;; motion
   :ggandor/leap.nvim {}
-  ;; disable continously hjkl
-  :ja-ford/delaytrain.nvim {:config (simple-setup :delaytrain)
-                            :cond false}
   ;; cmp
   :hrsh7th/cmp-buffer {:cond use-cmp}
   :hrsh7th/cmp-cmdline {:cond use-cmp}
