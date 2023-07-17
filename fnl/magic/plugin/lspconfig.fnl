@@ -24,18 +24,25 @@
         r)
       nil)))
 
-(defn- setup-vtsls [lsp]
+(defn- setup-vtsls [lsp capabilities]
   (let [(ok? lsp-cfg) (pcall #(require :lspconfig.configs))
         (vtsls? vtsls) (pcall #(require :vtsls))]
     (when (and ok? vtsls?)
       (tset lsp-cfg :vtsls vtsls.lspconfig)
-      (lsp.vtsls.setup {}))))
+      (lsp.vtsls.setup {: capabilities}))))
+
+(fn get-capabilities []
+  (let [(ok? cmp) (pcall #(require :cmp_nvim_lsp))]
+    (if ok
+      (cmp.default_capabilities)
+      nil)))
 
 (let [(ok? lsp) (pcall #(require :lspconfig))
+      capabilities (get-capabilities)
       (_ util) (pcall #(require :lspconfig/util))]
   (when (and ok?)
     (lsp.clojure_lsp.setup {})
-    (setup-vtsls lsp)
+    (setup-vtsls lsp capabilities)
     (lsp.rust_analyzer.setup {})
     (lsp.clangd.setup {})
     (setup-fennel lsp)
