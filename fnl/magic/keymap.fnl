@@ -20,7 +20,7 @@
                   key
                   (.. :<Plug> "(" cmd ")")))
 
-(map :q ":bd!<cr>")
+;(map :q ":bd!<cr>")
 (map "<leader>wc" "<C-w>c")
 (map "<leader>wh" "<C-w>h")
 (map "<leader>wl" "<C-w>l")

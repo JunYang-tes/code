@@ -1,8 +1,6 @@
-(module magic.plugin.cmp
-  {autoload {nvim aniseed.nvim}})
-
-(set nvim.o.completeopt "menu,preview,noinsert")
-(set nvim.o.pumheight 10)
+(module magic.plugin.nvim-cmp)
+(set vim.o.completeopt "menu,preview,noinsert")
+(set vim.o.pumheight 10)
 (local icons
   {
    :Text  ""
@@ -53,13 +51,14 @@
                 (=
                  1
                  (vim.fn.pumvisible)))))
-    (cmp.setup
+    (cmp.setup.global
       {
        :snippet {:expand (fn [args]
                            (lsp_expand args.body)
                            nil)}
-       :sources [
-                  {:name "nvim_lsp"}
+       :sources (cmp.config.sources
+                  [
+                   {:name "nvim_lsp"}
                   ; :entry_filter (fn [entry ctx]
                   ;                 (let [types (require :cmp.types)
                   ;                       kind (. types.lsp.CompletionItemKind
@@ -67,8 +66,8 @@
                   ;                   (if (= kind :Text)
                   ;                     false
                   ;                     true)))}
-                 {:name "buffer"}
-                 {:name "path"}]
+                   {:name "buffer"}
+                   {:name "path"}])
        :window {:completion {:max_height 300}}
        :formatting {: format}
        :completion {:completeopt "menu,menuone,preview,noinsert"}
@@ -77,4 +76,15 @@
                    "<C-f>" (cmp.mapping.scroll_docs 4)
                    "<C-Space>" (cmp.mapping.complete {:select true})
                    "<C-e>" (cmp.mapping.abort)
-                   "<CR>" (cmp.mapping.confirm {:select true})})})))
+                   "<CR>" (cmp.mapping.confirm {:select true})})})
+    (cmp.setup.cmdline
+      ":"
+      {:mapping (cmp.mapping.preset.cmdline)
+       :sources (cmp.config.sources
+                  [{:name :cmdline}
+                   {:name :path}])})
+    (cmp.setup.cmdline
+      ["/" "?"]
+      {:mapping (cmp.mapping.preset.cmdline)
+       :sources (cmp.config.sources
+                  [{:name :buffer}])})))
