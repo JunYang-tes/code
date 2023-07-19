@@ -66,7 +66,8 @@
                   ;                   (if (= kind :Text)
                   ;                     false
                   ;                     true)))}
-                   {:name "buffer"}
+                   {:name "buffer"
+                    :option {:get_bufnrs vim.api.nvim_list_bufs}}
                    {:name "path"}])
        :window {:completion {:max_height 300}}
        :formatting {: format}
