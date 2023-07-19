@@ -8,11 +8,11 @@
                             (let [node (api.tree.get_node_under_cursor)]
                               (if (not= nil node.nodes)
                                   (api.tree.change_root_to_node node)))
-                                  (api.node.open.edit node))]
+                            (api.node.open.edit node))]
   (when ok?
     (nvim-tree.setup
       {:on_attach (fn [bufnr]
-                    (let [keymap (fn [mode lhs rhs ]
+                    (let [keymap (fn [mode lhs rhs]
                                    (vim.keymap.set mode lhs rhs {:buffer bufnr}))]
                       (keymap :n "[c" api.node.navigate.git.prev)
                       (keymap :n "]c" api.node.navigate.git.next)
@@ -33,10 +33,12 @@
                       (keymap :n :<cr> change_root_to_node)
                       (keymap :n :e api.node.open.vertical)))
        :git {:ignore false}
+       :update_focused_file {:enable true
+                             :update_cwd false}
        :filters {
                  :dotfiles false
-                 :git_clean false
-                 }})))
+                 :git_clean false}})))
+                 
        ; :view {:mappings {:list [
        ;                          {:key :h
        ;                           :action :close_node}
