@@ -142,6 +142,8 @@
   :luukvbaal/statuscol.nvim {:mod :statuscol}
   :williamboman/mason.nvim {:config (simple-setup :mason {})
                             :run :MasonUpdate}
+  :codota/tabnine-nvim {:build "./dl_binaries.sh"
+                        :mod :tabnine}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)

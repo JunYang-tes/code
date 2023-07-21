@@ -34,6 +34,7 @@
                       (keymap :n :e api.node.open.vertical)))
        :git {:ignore false}
        :update_focused_file {:enable true
+                             :ignore_list [:node_modules]
                              :update_cwd false}
        :filters {
                  :dotfiles false

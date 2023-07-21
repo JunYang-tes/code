@@ -37,12 +37,20 @@
       (cmp.default_capabilities)
       nil)))
 
+(fn is-deno []
+  (let [(stat err) (vim.loop.fs_stat
+                     (.. (vim.fn.getcwd)
+                         :deno.jsonc))]
+    (not= nil stat)))
+
 (let [(ok? lsp) (pcall #(require :lspconfig))
       capabilities (get-capabilities)
       (_ util) (pcall #(require :lspconfig/util))]
-  (when (and ok?)
+  (when ok? 
     (lsp.clojure_lsp.setup {})
-    (setup-vtsls lsp capabilities)
+    (if (is-deno)
+      (lsp.denols.setup {})
+      (setup-vtsls lsp capabilities))
     (lsp.rust_analyzer.setup {})
     (lsp.clangd.setup {})
     (setup-fennel lsp)

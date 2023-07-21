@@ -80,12 +80,14 @@
                    "<CR>" (cmp.mapping.confirm {:select true})})})
     (cmp.setup.cmdline
       ":"
-      {:mapping (cmp.mapping.preset.cmdline)
+      {:mapping (cmp.mapping.preset.cmdline
+                  {"<Tab>" {:c (cmp.mapping.confirm)}})
        :sources (cmp.config.sources
                   [{:name :cmdline}
                    {:name :path}])})
     (cmp.setup.cmdline
       ["/" "?"]
-      {:mapping (cmp.mapping.preset.cmdline)
+      {:mapping (cmp.mapping.preset.cmdline
+                  {"<Tab>" {:c (cmp.mapping.confirm)}})
        :sources (cmp.config.sources
                   [{:name :buffer}])})))
