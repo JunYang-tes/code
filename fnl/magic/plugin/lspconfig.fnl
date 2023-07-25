@@ -40,7 +40,9 @@
 (fn is-deno []
   (let [(stat err) (vim.loop.fs_stat
                      (.. (vim.fn.getcwd)
+                         "/"
                          :deno.jsonc))]
+    (print stat err)
     (not= nil stat)))
 
 (let [(ok? lsp) (pcall #(require :lspconfig))
