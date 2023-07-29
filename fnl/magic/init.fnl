@@ -144,6 +144,12 @@
                             :run :MasonUpdate}
   :codota/tabnine-nvim {:build "./dl_binaries.sh"
                         :mod :tabnine}
+  :s1n7ax/nvim-window-picker {:version "2.*"
+                              :event :VeryLazy
+                              :window :window-picker
+                              :config {:hint :floating-big-letter
+                                       :filter_func (fn [ids] 
+                                                      ids)}}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)

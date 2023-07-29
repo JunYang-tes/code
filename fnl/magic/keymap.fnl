@@ -73,3 +73,12 @@
 
 
 (tnomap "<esc>" "<C-\\><C-n>")
+(vim.keymap.set
+  :n
+  "<leader>wf"
+      (fn []
+        (let [picker (require :window-picker)
+              win-id (picker.pick_window
+                       {:filter_rules {:bo {:filetype []
+                                            :buftype []}}})]
+          (vim.api.nvim_set_current_win win-id))))
