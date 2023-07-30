@@ -78,6 +78,9 @@
                    "<C-Space>" (cmp.mapping.complete {:select true})
                    "<C-e>" (cmp.mapping.abort)
                    "<CR>" (cmp.mapping.confirm {:select true})})})
+    (cmp.setup.filetype
+      :neorepl
+      {:enable false})
     (cmp.setup.cmdline
       ":"
       {:mapping (cmp.mapping.preset.cmdline

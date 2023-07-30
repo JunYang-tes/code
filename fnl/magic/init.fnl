@@ -150,6 +150,7 @@
                               :config {:hint :floating-big-letter
                                        :filter_func (fn [ids] 
                                                       ids)}}
+  :ii14/neorepl.nvim {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)
