@@ -65,7 +65,7 @@
 (lnnmap :sh "lua require('telescope').extensions.recent_files.pick()")
 (lnnmap :sla "Telescope lsp_code_actions")
 (lnnmap :slr "Telescope lsp_references")
-(lnnmap :sls "Telescope lsp_document_symbols")
+(lnnmap :so "Telescope lsp_document_symbols")
 
 (map-plug :n :s :leap-forward-to)
 (map-plug :n :S :leap-backward-to)
