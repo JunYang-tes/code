@@ -142,8 +142,7 @@
   :luukvbaal/statuscol.nvim {:mod :statuscol}
   :williamboman/mason.nvim {:config (simple-setup :mason {})
                             :run :MasonUpdate}
-  :codota/tabnine-nvim {:build "./dl_binaries.sh"
-                        :mod :tabnine}
+  :Exafunction/codeium.vim {}
   :s1n7ax/nvim-window-picker {:version "2.*"
                               :event :VeryLazy
                               :window :window-picker
