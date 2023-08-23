@@ -44,4 +44,5 @@
                       (-?> (. opts :mod) (safe-require-plugin-config)))))
              (table.insert plugins opts)))
       (lazy.setup
-        plugins))))
+        plugins
+        {:dev {:path "/home/yj/github"}}))))

@@ -149,7 +149,10 @@
                               :config {:hint :floating-big-letter
                                        :filter_func (fn [ids] 
                                                       ids)}}
-  :ii14/neorepl.nvim {}
+  :bfredl/nvim-luadev {}
+  :yj/pair-programmer.nvim {:dev true
+                            :lazy false}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)
+(require :magic.project-scripts)
