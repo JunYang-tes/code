@@ -42,7 +42,6 @@
                      (.. (vim.fn.getcwd)
                          "/"
                          :deno.jsonc))]
-    (print stat err)
     (not= nil stat)))
 
 (let [(ok? lsp) (pcall #(require :lspconfig))
