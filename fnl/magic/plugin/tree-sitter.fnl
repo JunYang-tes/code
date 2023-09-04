@@ -8,7 +8,6 @@
        :highlight {:enable true}
        :indent {:enable true}
        :context_commentstring {:enable true}
-       :rainbow {:enable true}
        :textobjects {:enable true
                      :keymaps {:af "@function.outer"
                                :if "@function.inner"}}})))

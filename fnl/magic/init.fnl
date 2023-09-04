@@ -122,7 +122,6 @@
   :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
   :NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
-  :mrjones2014/nvim-ts-rainbow {}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
   :jackMort/ChatGPT.nvim {:mod :gpt
                           :requires [:MunifTanjim/nui.nvim
@@ -150,8 +149,8 @@
                                        :filter_func (fn [ids] 
                                                       ids)}}
   :bfredl/nvim-luadev {}
-  :yj/pair-programmer.nvim {:dev true
-                            :lazy false}
+  :yj/ai-assistant.nvim {:dev true
+                         :lazy false}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)
