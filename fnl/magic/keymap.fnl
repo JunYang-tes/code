@@ -49,6 +49,11 @@
 (map-cmd :n :K "Lspsaga hover_doc")
 (map-cmd :n :go "Lspsaga outline")
 (nmap :<c-k> "lua vim.lsp.buf.signature_help()")
+;AI
+(nmap "<leader>ap" "lua require('ai-assistant.runner')[\"run-with-buf\"](vim.api.nvim_get_current_buf(),'pair-programmer')")
+(nmap "<leader>ag" "lua require('ai-assistant.runner')[\"run-general\"]()")
+(nmap "<leader>at" "lua require('ai-assistant.runner')[\"run-translator\"]()")
+(nmap "<leader>as" "lua require('ai-assistant.runner')[\"run-without-buf\"]('secretary')")
 
 (map-cmd :n :<leader>lr "Lspsaga rename")
 (map-cmd :n :<leader>la "Lspsaga code_action")
