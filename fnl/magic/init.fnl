@@ -38,6 +38,10 @@
 (vim.diagnostic.config 
   {:virtual_text false
    :signs true})
+(fn hyhird [tbl ...]
+  (each [i v (ipairs [...])]
+    (tset tbl i v))
+  tbl)
 
 
 ;;; Mappings
@@ -69,7 +73,20 @@
   ;; Theme
   :folke/tokyonight.nvim {}
   ;; motion
-  :ggandor/leap.nvim {}
+  ;:ggandor/leap.nvim {}
+  :folke/flash.nvim {:keys [
+                            ; (hyhird {:mode [:n :o :x]} :jj #((-> :flash
+                            ;                                     require
+                            ;                                     (. :jump))
+                            ;                                  {:search {:mode :search}
+                            ;                                   :label {:after [0 0]}
+                            ;                                   :pattern "^"}))
+                            (hyhird {:mode [:n :o :x]} :s #((-> :flash
+                                                               require
+                                                               (. :jump))))
+                            (hyhird {:mode [:n :o :x]} :S #((-> :flash
+                                                               require
+                                                               (. :treesitter))))]}
   ;; cmp
   :hrsh7th/cmp-buffer {:cond use-cmp}
   :hrsh7th/cmp-cmdline {:cond use-cmp}
