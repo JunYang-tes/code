@@ -31,8 +31,14 @@
 (map-cmd :n :<leader>wz :WindowsMaximize)
 (map-cmd :n :<leader>w= :WindowsEqualize)
 (map :ge ":NvimTreeToggle<CR>")
-(map "[b" ":bpre<CR>")
-(map "]b" ":bnext<CR>")
+;(vim.keymap.set
+;  :n "<leader>[b" #(pcall #((-> :buffer_browser)
+;                            require
+;                            (. prev))))
+;(vim.keymap.set
+;  :n "<leader>]b" #(pcall #((-> :buffer_browser)
+;                            require
+;                            (. next))))
 (map-cmd :n "[d" "Lspsaga diagnostic_jump_prev")
 (map-cmd :n "]d" "Lspsaga diagnostic_jump_next")
 (map "[e" ":lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>")
@@ -87,3 +93,18 @@
                        {:filter_rules {:bo {:filetype []
                                             :buftype []}}})]
           (vim.api.nvim_set_current_win win-id))))
+; previous buffer
+(vim.keymap.set
+  :n
+  "[b"
+  (fn []
+    ((-> :buffer_browser
+       require
+       (. :prev)))))
+(vim.keymap.set
+  :n
+  "]b"
+  (fn []
+    ((-> :buffer_browser
+       require
+       (. :next)))))
