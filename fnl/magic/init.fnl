@@ -131,9 +131,8 @@
   :JoosepAlviste/nvim-ts-context-commentstring {}
   :numToStr/Comment.nvim {:config (simple-setup :Comment)}
   :lukas-reineke/indent-blankline.nvim {:config (simple-setup
-                                                  :indent_blankline
-                                                  {:show_current_context true
-                                                   :show_current_context_start true})}
+                                                  :ibl
+                                                  {})}
   ;:github/copilot.vim {}
   :tpope/vim-repeat {}
   ; :guns/vim-sexp {}
@@ -162,7 +161,7 @@
   :luukvbaal/statuscol.nvim {:mod :statuscol}
   :williamboman/mason.nvim {:config (simple-setup :mason {})
                             :run :MasonUpdate}
-  :Exafunction/codeium.vim {}
+  ;:Exafunction/codeium.vim {}
   :s1n7ax/nvim-window-picker {:version "2.*"
                               :event :VeryLazy
                               :window :window-picker
@@ -176,3 +175,7 @@
   
 (require :magic.face)
 (require :magic.project-scripts)
+
+;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
+;; works well.
+(vim.cmd "let $XDG_CACHE_HOME=expand('~/.cache/')")
