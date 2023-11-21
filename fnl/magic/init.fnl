@@ -135,8 +135,9 @@
                                                   {})}
   ;:github/copilot.vim {}
   :tpope/vim-repeat {}
-  ; :guns/vim-sexp {}
-  ; :tpope/vim-sexp-mappings-for-regular-people { :mod :sexp}
+  :guns/vim-sexp {:lazy false}
+  :tpope/vim-sexp-mappings-for-regular-people {:mod :sexp
+                                               :lazy false}
   :tpope/vim-surround {}
   :folke/zen-mode.nvim {}
   :wbthomason/packer.nvim {}
@@ -169,8 +170,10 @@
                                        :filter_func (fn [ids] 
                                                       ids)}}
   :bfredl/nvim-luadev {}
+  :cshuaimin/ssr.nvim {}
   :yj/ai-assistant.nvim {:dev true
                          :lazy false}
+  :lambdalisue/suda.vim {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)
