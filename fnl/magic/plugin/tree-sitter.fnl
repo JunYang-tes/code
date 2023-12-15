@@ -7,7 +7,6 @@
       {:ensure_installed [:typescript :css :javascript :markdown :markdown_inline]
        :highlight {:enable true}
        :indent {:enable true}
-       :context_commentstring {:enable true}
        :textobjects {:enable true
                      :keymaps {:af "@function.outer"
                                :if "@function.inner"}}})))
