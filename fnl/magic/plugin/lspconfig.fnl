@@ -35,7 +35,7 @@
   (let [(ok? cmp) (pcall #(require :cmp_nvim_lsp))]
     (if ok
       (cmp.default_capabilities)
-      nil)))
+      (vim.lsp.protocol.make_client_capabilities))))
 
 (fn is-deno []
   (let [(stat err) (vim.loop.fs_stat
@@ -47,17 +47,22 @@
 (let [(ok? lsp) (pcall #(require :lspconfig))
       capabilities (get-capabilities)
       (_ util) (pcall #(require :lspconfig/util))]
-  (when ok? 
-    (lsp.clojure_lsp.setup {})
+  ;; nvim-ufo
+  (tset capabilities.textDocument :foldingRange
+        {:dynamicRegistration false
+         :lineFoldingOnly true})
+  (when ok?
+    (lsp.clojure_lsp.setup {: capabilities})
     (if (is-deno)
-      (lsp.denols.setup {})
+      (lsp.denols.setup {: capabilities})
       (setup-vtsls lsp capabilities))
-    (lsp.rust_analyzer.setup {})
-    (lsp.clangd.setup {})
-    (lsp.tailwindcss.setup {})
+    (lsp.rust_analyzer.setup {: capabilities})
+    (lsp.clangd.setup {: capabilities})
+    (lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)
     (lsp.pyright.setup
       {
+       : capabilities
        :before_init (fn [_ config]
                       (tset config.settings
                             :pythonPath
@@ -66,6 +71,6 @@
                               (or
                                 (exepath :python3)
                                 (exepath :python)))))})
-    (lsp.jsonls.setup {})))
+    (lsp.jsonls.setup {: capabilities})))
 
     ;; https://www.chrisatmachine.com/Neovim/27-native-lsp/

@@ -52,7 +52,6 @@
 (nmap :gD "lua vim.lsp.buf.declaration()")
 (map-cmd :n :gr "Lspsaga finder ref ")
 (nmap :gi "lua vim.lsp.buf.implementation()")
-(map-cmd :n :K "Lspsaga hover_doc")
 (map-cmd :n :go "Lspsaga outline")
 (nmap :<c-k> "lua vim.lsp.buf.signature_help()")
 ;AI
@@ -108,3 +107,15 @@
     ((-> :buffer_browser
        require
        (. :next)))))
+
+
+(vim.keymap.set
+  :n
+  :K
+  (fn hover []
+    (let [folded (> (vim.fn.foldclosed (vim.fn.line "."))
+                    0)
+          ufo (require :ufo)]
+      (if folded
+        (ufo.peekFoldedLinesUnderCursor true)
+        (vim.api.nvim_command "Lspsaga hover_doc")))))
