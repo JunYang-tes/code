@@ -33,7 +33,7 @@
              (tset opts :dependencies
                    (or opts.dependencies
                        opts.requires))
-             (tset opts :run
+             (tset opts :build
                    (or opts.run
                        opts.build))
 
