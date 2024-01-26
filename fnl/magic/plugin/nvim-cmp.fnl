@@ -39,6 +39,15 @@
           "%s %s"
           (. icons vim_item.kind)
           vim_item.kind))
+  ;; make it don't too long
+  (let [max-length 40
+        abbr vim_item.abbr]
+    (if (> (string.len abbr) max-length)
+      (tset vim_item
+            :abbr
+            (..
+              (string.sub vim_item.abbr 1 20)
+              "..."))))
   vim_item)
 
 (let [(ok? cmp) (pcall require :cmp)
