@@ -1,4 +1,6 @@
-(module magic.plugin.nvim-cmp)
+(module magic.plugin.nvim-cmp
+  {autoload {util magic.util}})
+
 (set vim.o.completeopt "menu,preview,noinsert")
 (set vim.o.pumheight 10)
 (local icons
@@ -59,15 +61,18 @@
        :sources (cmp.config.sources
                   [
                    {:name "nvim_lsp"}
-                  ; :entry_filter (fn [entry ctx]
-                  ;                 (let [types (require :cmp.types)
-                  ;                       kind (. types.lsp.CompletionItemKind
-                  ;                               (: entry :get_kind))]
-                  ;                   (if (= kind :Text)
-                  ;                     false
-                  ;                     true)))}
                    {:name "buffer"
-                    :option {:get_bufnrs vim.api.nvim_list_bufs}}
+                    :option {:get_bufnrs (fn []
+                                           (let [bufs (vim.api.nvim_list_bufs)
+                                                 should-ignore (fn [filename]
+                                                                 (util.some [:package-lock.json
+                                                                             :pnpm-lock.yaml]
+                                                                    #(not= (string.find filename $1 1 true)
+                                                                           nil)))]
+                                             (icollect [_ bufnum (ipairs bufs)]
+                                               (let [filename (vim.api.nvim_buf_get_name bufnum)]
+                                                 (if (not (should-ignore filename))
+                                                   bufnum)))))}}
                    {:name "path"}])
        :window {:completion {:max_height 300}}
        :formatting {: format}
