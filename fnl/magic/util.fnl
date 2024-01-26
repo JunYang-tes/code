@@ -16,6 +16,12 @@
 
 (def config-path (nvim.fn.stdpath "config"))
 
+(defn some [list predict]
+  (each [ _ item (ipairs list)]
+    (if (predict item)
+      (lua "return true")))
+  false)
+
 (defn nnoremap [from to opts]
   (let [map-opts {:noremap true}
         to (.. ":" to "<cr>")]
