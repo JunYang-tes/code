@@ -58,7 +58,7 @@
       (setup-vtsls lsp capabilities))
     (lsp.rust_analyzer.setup {: capabilities})
     (lsp.clangd.setup {: capabilities})
-    (lsp.tailwindcss.setup {: capabilities})
+    ;(lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)
     (lsp.pyright.setup
       {
