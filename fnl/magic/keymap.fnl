@@ -92,6 +92,19 @@
                        {:filter_rules {:bo {:filetype []
                                             :buftype []}}})]
           (vim.api.nvim_set_current_win win-id))))
+(vim.keymap.set
+  :n
+  "<leader>ws"
+  (fn []
+    (let [picker (require :window-picker)
+          curr-buf (vim.api.nvim_win_get_buf 0)
+          win-id (picker.pick_window
+                   {:filter_rules {:bo {:filetype []
+                                        :buftype []}}})
+          target-buf (vim.api.nvim_win_get_buf win-id)]
+      (vim.api.nvim_win_set_buf 0 target-buf)
+      (vim.api.nvim_win_set_buf win-id curr-buf))))
+      
 ; previous buffer
 (vim.keymap.set
   :n
