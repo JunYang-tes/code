@@ -37,3 +37,14 @@
 
 (defn lnnoremap [from to]
   (nnoremap (.. "<leader>" from) to))
+
+(defn is-a-big-file [buf max-size]
+  (let [fname (vim.api.nvim_buf_get_name buf)
+        max-size (or max-size 500)
+        size (/ (vim.fn.getfsize fname) 1024)]
+    (> size max-size)))
+
+(defn has-long-line [bufnr max-length]
+  (let [lines (vim.api.nvim_buf_get_lines bufnr 0 -1 false)
+        max-length (or max-length 100000)]
+    (some lines #(> (string.len $1) max-length))))

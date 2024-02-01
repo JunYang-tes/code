@@ -167,7 +167,7 @@
                               :event :VeryLazy
                               :window :window-picker
                               :config {:hint :floating-big-letter
-                                       :filter_func (fn [ids] 
+                                       :filter_func (fn [ids]
                                                       ids)}}
   :bfredl/nvim-luadev {}
   :cshuaimin/ssr.nvim {}
@@ -178,6 +178,7 @@
   
 (require :magic.face)
 (require :magic.project-scripts)
+(require :magic.bigfile)
 
 ;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
 ;; works well.
