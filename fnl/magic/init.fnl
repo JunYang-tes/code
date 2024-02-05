@@ -183,3 +183,9 @@
 ;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
 ;; works well.
 (vim.cmd "let $XDG_CACHE_HOME=expand('~/.cache/')")
+(vim.cmd "set title")
+(print vim.cmd)
+(fn set-title []
+  (let [title (.. "code " (vim.fn.getcwd))]
+    (vim.api.nvim_set_option :titlestring title)))
+(set-title)
