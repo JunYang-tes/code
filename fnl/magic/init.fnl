@@ -144,10 +144,6 @@
   :nvim-tree/nvim-web-devicons {}
   :NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
-  :jackMort/ChatGPT.nvim {:mod :gpt
-                          :requires [:MunifTanjim/nui.nvim
-                                     :nvim-lua/plenary.nvim
-                                     :nvim-telescope/telescope.nvim]}
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})
                       :branch :legacy}
   :rlue/vim-barbaric {:mod :barbaric}
