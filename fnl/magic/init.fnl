@@ -173,6 +173,13 @@
   :cshuaimin/ssr.nvim {}
   :yj/ai-assistant.nvim {:dev true
                          :lazy false}
+  :dhananjaylatkar/cscope_maps.nvim {:config (simple-setup :cscope_maps
+                                                           {:disable_maps false
+                                                            :prefix :<leader>c
+                                                            :cscope {:db_file "./cscope.out"
+                                                                     :exec "gtags-cscope"
+                                                                     :picker :telescope}})}
+                                                                     
   :lambdalisue/suda.vim {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
@@ -184,7 +191,6 @@
 ;; works well.
 (vim.cmd "let $XDG_CACHE_HOME=expand('~/.cache/')")
 (vim.cmd "set title")
-(print vim.cmd)
 (fn set-title []
   (let [title (.. "code " (vim.fn.getcwd))]
     (vim.api.nvim_set_option :titlestring title)))

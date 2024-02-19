@@ -1,29 +1,38 @@
 (module magic.project-scripts)
+(fn file-exists [file]
+  (let [(stat err) (vim.loop.fs_stat file)]
+    (not= nil stat)))
 
-(fn has-file [name]
-  (fn []
-    (let [(stat err) (vim.loop.fs_stat
-                       (.. (vim.fn.getcwd)
-                           "/.nvim/"
-                           name))]
-      (not= nill stat))))
-(local has-lua-init
-  (has-file :init.lua))
-(local has-vim-init
-   (has-file :init.vim))
-(let [(ok? err)
-      (pcall #(do
-                (if (has-lua-init)
-                  (do
-                    (tset package
-                          :path
-                          (.. package.path ";"
-                              (.. (vim.fn.getcwd)
-                                  "/.nvim/?.lua")))
-                    (require :init)))
-                (if (has-vim-init)
-                  (vim.cmd
-                    (.. "source " (vim.fn.getcwd)
-                        "/.nvim/init.vim")))))]
-  (if (not ok?)
-    (print err)))
+(fn git-root []
+  (let [cwd (vim.fn.getcwd)]
+    (fn find [path]
+      (let [p (.. path "/.git")]
+        (if (file-exists p)
+          p
+          (if (= path "/") nil
+              (find (vim.fn.fnamemodify path ":h"))))))
+    (find cwd)))
+
+;[<cwd>,.git/.nvim]
+(local search-path
+  (let [dotnvim (.. (vim.fn.getcwd) "/.nvim")
+        git (git-root)]
+    (if git
+      [dotnvim (.. git "/.nvim")]
+      [dotnvim])))
+
+
+
+(each [_ v (ipairs search-path)]
+  (let [(ok err)
+        (pcall #(do)
+          (let [path (.. v "/init.lua")]
+            (when (file-exists path)
+              (dofile path)))
+          (let [path (.. v "/init.vim")]
+            (when (file-exists path)
+              (vim.cmd
+                (.. "source " path)))))]
+    (if err
+      (print :error err))))
+
