@@ -176,6 +176,7 @@
                                                                      :exec "gtags-cscope"
                                                                      :picker :telescope}})}
                                                                      
+  :numtostr/FTerm.nvim {}
   :lambdalisue/suda.vim {}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
