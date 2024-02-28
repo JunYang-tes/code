@@ -178,6 +178,7 @@
                                                                      
   :numtostr/FTerm.nvim {}
   :lambdalisue/suda.vim {}
+  :NMAC427/guess-indent.nvim {:config (simple-setup :guess-indent {})}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
   
 (require :magic.face)
