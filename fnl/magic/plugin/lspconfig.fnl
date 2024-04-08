@@ -24,12 +24,6 @@
         r)
       nil)))
 
-(defn- setup-vtsls [lsp capabilities]
-  (let [(ok? lsp-cfg) (pcall #(require :lspconfig.configs))
-        (vtsls? vtsls) (pcall #(require :vtsls))]
-    (when (and ok? vtsls?)
-      (tset lsp-cfg :vtsls vtsls.lspconfig)
-      (lsp.vtsls.setup {: capabilities}))))
 
 (fn get-capabilities []
   (let [(ok? cmp) (pcall #(require :cmp_nvim_lsp))]
@@ -44,6 +38,14 @@
                          :deno.jsonc))]
     (not= nil stat)))
 
+(vim.api.nvim_create_user_command 
+  :LspDeno
+  (fn []
+    (let [lsp (require :lspconfig)]
+      (vim.api.nvim_command "LspStop 0 (vtsls)")
+      (vim.api.nvim_command "LspStart denols")))
+  {})
+
 (let [(ok? lsp) (pcall #(require :lspconfig))
       capabilities (get-capabilities)
       (_ util) (pcall #(require :lspconfig/util))]
@@ -53,11 +55,14 @@
          :lineFoldingOnly true})
   (when ok?
     (lsp.clojure_lsp.setup {: capabilities})
-    (if (is-deno)
-      (lsp.denols.setup {: capabilities})
-      (setup-vtsls lsp capabilities))
+    (lsp.denols.setup {: capabilities
+                       :autostart (is-deno)
+                       :single_file_support true})
+    (lsp.vtsls.setup {: capabilities
+                      :autostart (not (is-deno))})
     (lsp.rust_analyzer.setup {: capabilities})
     (lsp.clangd.setup {: capabilities})
+    (lsp.cmake.setup {: capabilities})
     ;(lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)
     (lsp.pyright.setup
