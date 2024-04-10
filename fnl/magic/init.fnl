@@ -2,6 +2,7 @@
   {autoload {plugin magic.plugin
              nvim aniseed.nvim}})
 
+(require :magic.diagnostics)
 ;;; Introduction
 
 ;; Aniseed compiles this (and all other Fennel files under fnl) into the lua
