@@ -178,11 +178,9 @@
   :lambdalisue/suda.vim {}
   :NMAC427/guess-indent.nvim {:config (simple-setup :guess-indent {})}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree}
-  :iamcco/markdown-preview.nvim 
-    {:cmd [:MarkdownPreview]
-     :build "cd app && yarn install"
-     :ft [:markdown]
-     :init (fn [] (tset vim :g :mkdp_filetypes [:markdown]))})
+  :euclio/vim-markdown-composer 
+    {
+     :build "cargo build --release --locked"})
   
 (require :magic.face)
 (require :magic.project-scripts)
