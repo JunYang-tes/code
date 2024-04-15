@@ -106,7 +106,7 @@
           target-buf (vim.api.nvim_win_get_buf win-id)]
       (vim.api.nvim_win_set_buf 0 target-buf)
       (vim.api.nvim_win_set_buf win-id curr-buf))))
-      
+
 ; previous buffer
 (vim.keymap.set
   :n
@@ -134,3 +134,8 @@
       (if folded
         (ufo.peekFoldedLinesUnderCursor true)
         (vim.api.nvim_command "Lspsaga hover_doc")))))
+
+;; C-c wouldn't trigger InsertLeave which is important 
+;; for vim-barbaric to switch inport method
+(vim.keymap.set
+  :i :<C-c> :<esc>)

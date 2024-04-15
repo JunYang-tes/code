@@ -147,6 +147,7 @@
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})
                       :branch :legacy}
+  ;im switcher
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
@@ -154,6 +155,7 @@
   ;                           :config (simple-setup :windows)}
   ;:simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-telescope/telescope-media-files.nvim {}
+  ;fold
   :kevinhwang91/nvim-ufo {:requires :kevinhwang91/promise-async
                           :mod :fold}
   :luukvbaal/statuscol.nvim {:mod :statuscol}
@@ -167,20 +169,20 @@
                                        :filter_func (fn [ids]
                                                       ids)}}
   :bfredl/nvim-luadev {}
+  ;structure search
   :cshuaimin/ssr.nvim {}
   :yj/ai-assistant.nvim {:dev true
                          :lazy false}
-  :dhananjaylatkar/cscope_maps.nvim {:config (simple-setup :cscope_maps
-                                                           {:disable_maps false
-                                                            :prefix :<leader>c
-                                                            :cscope {:db_file "./cscope.out"
-                                                                     :exec "gtags-cscope"
-                                                                     :picker :telescope}})}
-                                                                     
   :numtostr/FTerm.nvim {}
+  ;sudo 
   :lambdalisue/suda.vim {}
   :NMAC427/guess-indent.nvim {:config (simple-setup :guess-indent {})}
-  :nvim-tree/nvim-tree.lua {:mod :nvim-tree})
+  :nvim-tree/nvim-tree.lua {:mod :nvim-tree}
+  :iamcco/markdown-preview.nvim 
+    {:cmd [:MarkdownPreview]
+     :build "cd app && yarn install"
+     :ft [:markdown]
+     :init (fn [] (tset vim :g :mkdp_filetypes [:markdown]))})
   
 (require :magic.face)
 (require :magic.project-scripts)

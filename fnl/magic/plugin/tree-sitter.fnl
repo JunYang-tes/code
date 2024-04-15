@@ -4,7 +4,7 @@
 (let [(ok? cfg) (pcall #(require :nvim-treesitter.configs))]
   (when ok?
     (cfg.setup
-      {:ensure_installed [:typescript :css :javascript :markdown :markdown_inline]
+      {:ensure_installed [:typescript :css :javascript :markdown :markdown_inline :kotlin]
        :highlight {:enable true}
        :indent {:enable true}
        :textobjects {:enable true
