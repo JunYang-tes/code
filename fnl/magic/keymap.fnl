@@ -84,7 +84,7 @@
 
 (nmap "<F2>" "lua require('FTerm').toggle()")
 (tnomap "<F2>" "<C-\\><C-n>:lua require('FTerm').toggle()<cr>")
-(tnomap "<esc>" "<C-\\><C-n>")
+(tnomap "<leader><esc>" "<C-\\><C-n>")
 (vim.keymap.set
   :n
   "<leader>wf"
