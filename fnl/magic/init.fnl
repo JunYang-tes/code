@@ -1,3 +1,4 @@
+(vim.loader.enable)
 (module magic.init
   {autoload {plugin magic.plugin
              nvim aniseed.nvim}})
@@ -116,7 +117,6 @@
                                  ((. (require :vtsls) :config) {}))}
   ;;:jiangmiao/auto-pairs {:mod :auto-pairs}
   :windwp/nvim-autopairs {:mod :auto-pairs}
-  :lewis6991/impatient.nvim {}
   :mbbill/undotree {:mod :undotree}
   :neovim/nvim-lspconfig {:mod :lspconfig}
   :nvim-lualine/lualine.nvim {:mod :lualine}
