@@ -73,7 +73,7 @@
   ;;Diagnostic list
   :folke/trouble.nvim {:mod :trouble}
   ;; Theme
-  :folke/tokyonight.nvim {}
+  :folke/tokyonight.nvim {:mod :tokyonight}
   ;; motion
   ;:ggandor/leap.nvim {}
   :folke/flash.nvim {:keys [
@@ -115,7 +115,7 @@
   ;; ts lsp
   :yioneko/nvim-vtsls {:config (fn [] 
                                  ((. (require :vtsls) :config) {}))}
-  ;;:jiangmiao/auto-pairs {:mod :auto-pairs}
+  ;:jiangmiao/auto-pairs {:mod :auto-pairs}
   :windwp/nvim-autopairs {:mod :auto-pairs}
   :mbbill/undotree {:mod :undotree}
   :neovim/nvim-lspconfig {:mod :lspconfig}
@@ -143,8 +143,9 @@
   :folke/zen-mode.nvim {}
   :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
-  :NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
+  ;:NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
+  ;progress
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})
                       :branch :legacy}
   ;im switcher
