@@ -48,3 +48,8 @@
   (let [lines (vim.api.nvim_buf_get_lines bufnr 0 -1 false)
         max-length (or max-length 100000)]
     (some lines #(> (string.len $1) max-length))))
+(defn monkey-patch [tbl fn-name f]
+  (let [original (. tbl fn-name)]
+    (tset tbl fn-name
+          (fn [...]
+            (f tbl original ...)))))
