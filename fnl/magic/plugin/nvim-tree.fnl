@@ -1,10 +1,12 @@
 (module magic.plugin.nvim-tree
   {autoload {util magic.util
-             nvim aniseed.nvim}})
+             nvim aniseed.nvim
+             image magic.plugin.image}})
 
 (let [(ok? nvim-tree) (pcall #(require :nvim-tree))
       (_ api) (pcall #(require :nvim-tree.api))
       (_ marks) (pcall #(require :nvim-tree.marks))
+      nui_popup (require "nui.popup")
       trash (fn []
               (let [nodes (marks.get_marks)
                     node (api.tree.get_node_under_cursor)]
@@ -16,13 +18,43 @@
                             (let [node (api.tree.get_node_under_cursor)]
                               (if (not= nil node.nodes)
                                   (api.tree.change_root_to_node node)))
-                            (api.node.open.edit node))]
+                            (api.node.open.edit node))
+      preview (fn []
+                (let [node (api.tree.get_node_under_cursor)
+                      event (require :nui.utils.autocmd)
+                      path node.absolute_path
+                      [line column] (vim.api.nvim_win_get_cursor 0)]
+                  (when (= node.type :file)
+                    (let [
+                          popup (nui_popup
+                                  {:relative "editor"
+                                   :position {:row line :col column}
+                                   :enter true
+                                   :size :30%
+                                   :border {:style :rounded}
+                                   :anchor "NE"})]
+                      (popup:mount)
+                      (vim.defer_fn
+                        (fn []
+                          (image.preview popup.winid popup.bufnr path))
+                        50)
+                      (vim.defer_fn
+                        (fn []
+                          (var ns_id nil)
+                          (set ns_id
+                               (vim.on_key
+                                 (fn []
+                                   (popup:hide)
+                                   (popup:unmount)
+                                   (vim.on_key nil ns_id)))))
+                        100)))))]
   (when ok?
     (nvim-tree.setup
       {:on_attach (fn [bufnr]
                     (let [keymap (fn [mode lhs rhs help]
                                    (vim.keymap.set mode lhs rhs {:buffer bufnr
                                                                  :desc help}))]
+                      (keymap :n :K preview)
                       (keymap :n "[c" api.node.navigate.git.prev)
                       (keymap :n "]c" api.node.navigate.git.next)
                       (keymap :n :<space> api.marks.toggle :Select)
@@ -49,18 +81,3 @@
        :filters {
                  :dotfiles false
                  :git_clean false}})))
-                 
-       ; :view {:mappings {:list [
-       ;                          {:key :h
-       ;                           :action :close_node}
-       ;                          {:key [:o :<cr>]
-       ;                           :action :change_root
-       ;                           :desc "Enter director or open file"
-       ;                           :action_cb change_root_to_node}
-       ;                          {:key :e
-       ;                           :action :edit
-       ;                           :desc "Edit in vertical splited"
-       ;                           :action_cb api.node.open.vertical}
-       ;                          {:key :l
-       ;                           :action :edit}
-       ;                          ]}}})))

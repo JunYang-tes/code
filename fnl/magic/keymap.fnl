@@ -43,6 +43,8 @@
 (map-cmd :n "]d" "Lspsaga diagnostic_jump_next")
 (map "[e" ":lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>")
 (map "]e" ":lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>")
+(map :j :gj)
+(map :k :gk)
 (nmap "[t" "tabpre")
 (nmap "]t" "tabnext")
 (nmap "[h" "Gitsign prev_hunk")

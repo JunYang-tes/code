@@ -35,7 +35,6 @@
 ;(nvim.ex.set :termguicolors)
 ;; indent with spaces instead of tab
 (nvim.ex.set :expandtab)
-(nvim.ex.set :nowrap)
 (nvim.ex.set :relativenumber)
 (vim.diagnostic.config 
   {:virtual_text false
@@ -186,7 +185,8 @@
     {:priority 1001
      :opts {:rocks [:magick]}}
   :3rd/image.nvim {:dependencies [:luarocks.nvim]
-                   :mod :image})
+                   :mod :image}
+  :MunifTanjim/nui.nvim {})
 
 
  
