@@ -142,7 +142,7 @@
   :folke/zen-mode.nvim {}
   :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
-  ;:NvChad/nvim-colorizer.lua {:config (simple-setup :colorizer)}
+  :norcalli/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
   ;progress
   :j-hui/fidget.nvim {:config (simple-setup :fidget {})
