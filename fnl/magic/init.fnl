@@ -186,7 +186,12 @@
      :opts {:rocks [:magick]}}
   :3rd/image.nvim {:dependencies [:luarocks.nvim]
                    :mod :image}
-  :MunifTanjim/nui.nvim {})
+  :MunifTanjim/nui.nvim {}
+  :hedyhli/outline.nvim {:config (fn []
+                                   (vim.keymap.set :n
+                                                   :go
+                                                   :<cmd>Outline<CR>)
+                                   ((. (require :outline) :setup)))})
 
 
  
