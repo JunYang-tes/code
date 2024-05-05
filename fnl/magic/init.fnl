@@ -30,8 +30,7 @@
 (set nvim.o.tabstop 2)
 (set nvim.o.shiftwidth 2)
 (set nvim.o.termguicolors true)
-
-(nvim.ex.set :list)
+(vim.cmd "set formatoptions-=o")
 ;(nvim.ex.set :termguicolors)
 ;; indent with spaces instead of tab
 (nvim.ex.set :expandtab)
@@ -88,10 +87,10 @@
                             (hyhird {:mode [:n :o :x]} :S #((-> :flash
                                                                require
                                                                (. :treesitter))))]}
-  "https://git.sr.ht/~marcc/BufferBrowser" {:config (simple-setup
-                                                      :buffer_browser
-                                                      {:filetype_filters [:TelescopePrompt :NvimTree]})
-                                            :lazy false}
+  ; "https://git.sr.ht/~marcc/BufferBrowser" {:config (simple-setup
+  ;                                                     :buffer_browser
+  ;                                                     {:filetype_filters [:TelescopePrompt :NvimTree]})
+  ;                                           :lazy false}
   ;; cmp
   :hrsh7th/cmp-buffer {:cond use-cmp}
   :hrsh7th/cmp-cmdline {:cond use-cmp}
