@@ -177,12 +177,13 @@
   :lambdalisue/suda.vim {}
   :NMAC427/guess-indent.nvim {:config (simple-setup :guess-indent {})}
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree}
-  :euclio/vim-markdown-composer 
-    {
-     :build "cargo build --release --locked"}
+  :JunYang-tes/markdown-preview.nvim   {:cmd [:MarkdownPreview]
+                                        :build "cd app && yarn install"
+                                        :ft [:markdown]
+                                        :init (fn [] (tset vim :g :mkdp_filetypes [:markdown]))}
   :vhyrro/luarocks.nvim
-    {:priority 1001
-     :opts {:rocks [:magick]}}
+   {:priority 1001
+    :opts {:rocks [:magick]}}
   :3rd/image.nvim {:dependencies [:luarocks.nvim]
                    :mod :image}
   :MunifTanjim/nui.nvim {}
