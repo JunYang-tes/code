@@ -191,13 +191,15 @@
                                    (vim.keymap.set :n
                                                    :go
                                                    :<cmd>Outline<CR>)
-                                   ((. (require :outline) :setup)))})
+                                   ((. (require :outline) :setup)))}
+  :dfendr/clipboard-image.nvim {})
 
 
  
 (require :magic.face)
 (require :magic.project-scripts)
 (require :magic.bigfile)
+(require :magic.cmds)
 
 ;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
 ;; works well.
