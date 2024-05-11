@@ -7,8 +7,6 @@
   (util.noremap from to))
 (defn- nmap [from to]
   (util.nnoremap from to))
-(defn- lnnmap [from to]
-  (util.lnnoremap from to))
 (defn- tnomap [from to]
   (nvim.set_keymap :t from to {}))
 (defn- map-cmd [mode key cmd]
@@ -26,11 +24,11 @@
 (map "<leader>wl" "<C-w>l")
 (map "<leader>wk" "<C-w>k")
 (map "<leader>wj" "<C-w>j")
-(map "<space><tab>" ":b#<CR>")
+(map "<space><tab>" "<cmd>b#<CR>")
 ;anuvyklack/windows.nvim
 (map-cmd :n :<leader>wz :WindowsMaximize)
 (map-cmd :n :<leader>w= :WindowsEqualize)
-(map :ge ":NvimTreeToggle<CR>")
+(map :ge "<cmd>NvimTreeToggle<CR>")
 ;(vim.keymap.set
 ;  :n "<leader>[b" #(pcall #((-> :buffer_browser)
 ;                            require
@@ -64,28 +62,28 @@
 
 (map-cmd :n :<leader>lr "Lspsaga rename")
 (map-cmd :n :<leader>la "Lspsaga code_action")
-(lnnmap :lf "lua vim.lsp.buf.format()")
+(map-cmd :n :<leader>z :ZenMode)
+(map-cmd :n :<leader>lf "lua vim.lsp.buf.format()")
 
-(lnnmap :z :ZenMode)
-(lnnmap :sr ":Telescope resume")
-(lnnmap :sf ":Telescope find_files")
-(lnnmap :sg "Telescope live_grep ")
-(lnnmap :sb "Telescope buffers")
-(lnnmap :sc "Telescope commands")
-(lnnmap :sq "Telescope quickfix")
-(lnnmap :ss "Telescope git_status")
-(lnnmap :sh "lua require('telescope').extensions.recent_files.pick()")
-(lnnmap :sla "Telescope lsp_code_actions")
-(lnnmap :slr "Telescope lsp_references")
-(lnnmap :so "Telescope lsp_document_symbols")
+(map-cmd :n :<leader>sr "Telescope resume")
+(map-cmd :n :<leader>sf "Telescope find_files")
+(map-cmd :n :<leader>sg "Telescope live_grep ")
+(map-cmd :n :<leader>sb "Telescope buffers")
+(map-cmd :n :<leader>sc "Telescope commands")
+(map-cmd :n :<leader>sq "Telescope quickfix")
+(map-cmd :n :<leader>ss "Telescope git_status")
+(map-cmd :n :<leader>sh "lua require('telescope').extensions.recent_files.pick()")
+(map-cmd :n :<leader>sla "Telescope lsp_code_actions")
+(map-cmd :n :<leader>slr "Telescope lsp_references")
+(map-cmd :n :<leader>so "Telescope lsp_document_symbols")
 
 (map-plug :n :s :leap-forward-to)
 (map-plug :n :S :leap-backward-to)
 (map-plug :n :gs :leap-from-window)
 
 
-(nmap "<F2>" "lua require('FTerm').toggle()")
-(tnomap "<F2>" "<C-\\><C-n>:lua require('FTerm').toggle()<cr>")
+(map-cmd :n "<F2>" "lua require('FTerm').toggle()")
+(tnomap "<F2>" "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>")
 (tnomap "<leader><esc>" "<C-\\><C-n>")
 (vim.keymap.set
   :n

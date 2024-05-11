@@ -150,8 +150,8 @@
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
-  ; :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
-  ;                           :config (simple-setup :windows)}
+  :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
+                            :config (simple-setup :windows)}
   ;:simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-telescope/telescope-media-files.nvim {}
   ;fold
@@ -192,6 +192,11 @@
                                                    :go
                                                    :<cmd>Outline<CR>)
                                    ((. (require :outline) :setup)))}
+  :folke/noice.nvim {:config (simple-setup
+                               :noice
+                               {:presets {:command_palette true
+                                           :long_message_to_split true}
+                                :lsp {:signature {:enabled false}}})}
   :dfendr/clipboard-image.nvim {})
 
 
