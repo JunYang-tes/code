@@ -139,3 +139,7 @@
 ;; for vim-barbaric to switch inport method
 (vim.keymap.set
   :i :<C-c> :<esc>)
+
+;; 粘贴到选区不要清空register,以便连续粘贴
+(vim.keymap.set
+  :v :p "\"_dP" {:noremap true})
