@@ -179,8 +179,8 @@
   :nvim-tree/nvim-tree.lua {:mod :nvim-tree}
   :JunYang-tes/markdown-preview.nvim   {:cmd [:MarkdownPreview]
                                         :build "cd app && yarn install"
-                                        :ft [:markdown]
-                                        :init (fn [] (tset vim :g :mkdp_filetypes [:markdown]))}
+                                        :mod :markdown-preview
+                                        :ft [:markdown]}
   :vhyrro/luarocks.nvim
    {:priority 1001
     :opts {:rocks [:magick]}}
@@ -203,7 +203,7 @@
  
 (require :magic.face)
 (require :magic.project-scripts)
-(require :magic.bigfile)
+(require :magic.bigfile)j
 (require :magic.cmds)
 
 ;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
