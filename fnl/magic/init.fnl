@@ -144,8 +144,8 @@
   :norcalli/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
   ;progress
-  :j-hui/fidget.nvim {:config (simple-setup :fidget {})
-                      :branch :legacy}
+  ; :j-hui/fidget.nvim {:config (simple-setup :fidget {})
+  ;                     :branch :legacy}
   ;im switcher
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
