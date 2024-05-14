@@ -128,7 +128,11 @@
   :nvim-treesitter/nvim-treesitter-textobjects {}
   :RRethy/vim-illuminate {:mod :vim-illuminate}
   :JoosepAlviste/nvim-ts-context-commentstring {}
-  :numToStr/Comment.nvim {:config (simple-setup :Comment)}
+  :numToStr/Comment.nvim {:config (fn []
+                                    (let [setup (. (require :Comment) :setup)
+                                          create_hook (. (require :ts_context_commentstring.integrations.comment_nvim)
+                                                         :create_pre_hook)]
+                                       (setup {:pre_hook (create_hook)})))}
   :lukas-reineke/indent-blankline.nvim {:config (simple-setup
                                                   :ibl
                                                   {})}
