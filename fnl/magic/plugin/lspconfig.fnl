@@ -63,6 +63,7 @@
     (lsp.rust_analyzer.setup {: capabilities})
     (lsp.clangd.setup {: capabilities})
     (lsp.cmake.setup {: capabilities})
+    (lsp.svelte.setup {: capabilities})
     ;(lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)
     (lsp.pyright.setup
