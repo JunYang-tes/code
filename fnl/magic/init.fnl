@@ -155,7 +155,7 @@
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
   :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
-                            :config (simple-setup :windows)}
+                            :config {:autowidth {:enable false}}}
   ;:simrat39/symbols-outline.nvim {:mod :symbols-outline}
   :nvim-telescope/telescope-media-files.nvim {}
   ;fold

@@ -73,6 +73,11 @@
                    {:name "buffer"
                     :option {:get_bufnrs (fn []
                                            (let [bufs (vim.api.nvim_list_bufs)
+                                                 big-file (fn [buf]
+                                                           (let [byte (vim.api.nvim_buf_get_offset 
+                                                                       buf
+                                                                       (vim.api.nvim_buf_line_count buf))]
+                                                            (> byte (* 1024 1024))))
                                                  should-ignore (fn [filename]
                                                                  (util.some [:package-lock.json
                                                                              :pnpm-lock.yaml]
@@ -80,7 +85,8 @@
                                                                            nil)))]
                                              (icollect [_ bufnum (ipairs bufs)]
                                                (let [filename (vim.api.nvim_buf_get_name bufnum)]
-                                                 (if (not (should-ignore filename))
+                                                 (if (and (not (should-ignore filename))
+                                                          (not (big-file bufnum)))
                                                    bufnum)))))}}
                    {:name "path"}])
        :window {:completion {:max_height 300}}
@@ -89,7 +95,7 @@
        :mapping (cmp.mapping.preset.insert
                   {"<C-b>" (cmp.mapping.scroll_docs -4)
                    "<C-f>" (cmp.mapping.scroll_docs 4)
-                   "<C-Space>" (cmp.mapping.complete {:select true})
+                   "<D-space>" (cmp.mapping.complete {:select true})
                    "<C-e>" (cmp.mapping.abort)
                    "<CR>" (cmp.mapping.confirm {:select true})})})))
     ; (cmp.setup.cmdline
