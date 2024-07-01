@@ -201,6 +201,11 @@
                                {:presets {:command_palette true
                                            :long_message_to_split true}
                                 :lsp {:signature {:enabled false}}})}
+  :windwp/nvim-ts-autotag {:config (simple-setup
+                                     :nvim-ts-autotag
+                                     {:opts {:enable_close true
+                                             :enable_rename true
+                                             :enable_close_on_slash false}})}
   :dfendr/clipboard-image.nvim {})
 
 
