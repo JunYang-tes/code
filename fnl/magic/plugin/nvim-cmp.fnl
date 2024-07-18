@@ -46,7 +46,7 @@
       (tset vim_item
             :abbr
             (..
-              (string.sub vim_item.abbr 1 20)
+              (string.sub vim_item.abbr 1 40)
               "..."))))
   vim_item)
 
