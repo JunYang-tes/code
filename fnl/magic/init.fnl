@@ -199,7 +199,9 @@
   :folke/noice.nvim {:config (simple-setup
                                :noice
                                {:presets {:command_palette true
-                                           :long_message_to_split true}
+                                          :long_message_to_split true}
+                                :views {:mini {:timeout 5000
+                                               :focusable true}}
                                 :lsp {:signature {:enabled false}}})}
   :windwp/nvim-ts-autotag {:config (simple-setup
                                      :nvim-ts-autotag
@@ -212,8 +214,9 @@
  
 (require :magic.face)
 (require :magic.project-scripts)
-(require :magic.bigfile)j
+(require :magic.bigfile)
 (require :magic.cmds)
+(require :magic.hack.mini)
 
 ;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
 ;; works well.
