@@ -2,4 +2,13 @@
 
 (let [(ok? lualine) (pcall require :lualine)]
   (when ok?
-    (lualine.setup)))
+    (lualine.setup
+      {:sections {:lualine_c [#((. (require :lsp-progress) :progress))]}})))
+
+(vim.api.nvim_create_augroup
+  :lualine_augroup  {:clear true})
+(vim.api.nvim_create_augroup 
+  :User {:group :lualine_augroup
+         :pattern :LspProgressStatusUpdated
+         :callback (. (require :lualine) :refresh)})
+                             

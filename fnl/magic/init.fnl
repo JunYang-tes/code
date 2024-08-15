@@ -143,13 +143,13 @@
                                                :lazy false}
   :tpope/vim-surround {}
   :folke/zen-mode.nvim {}
-  :wbthomason/packer.nvim {}
   :nvim-tree/nvim-web-devicons {}
   :norcalli/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature}
   ;progress
-  ; :j-hui/fidget.nvim {:config (simple-setup :fidget {})
-  ;                     :branch :legacy}
+  ; :j-hui/fidget.nvim {:config (simple-setup :fidget 
+  :linrongbin16/lsp-progress.nvim {:config (simple-setup :lsp-progress)}                                          
+  ;                                           {:notification { :window {:max_height 5}}})}
   ;im switcher
   :rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
@@ -202,12 +202,14 @@
                                           :long_message_to_split true}
                                 :views {:mini {:timeout 5000
                                                :focusable true}}
-                                :lsp {:signature {:enabled false}}})}
+                                :lsp {:signature {:enabled false}
+                                      :progress {:enabled false}}})}
   :windwp/nvim-ts-autotag {:config (simple-setup
                                      :nvim-ts-autotag
                                      {:opts {:enable_close true
                                              :enable_rename true
                                              :enable_close_on_slash false}})}
+  :akinsho/flutter-tools.nvim {:config (simple-setup :flutter-tools {})}
   :dfendr/clipboard-image.nvim {})
 
 
