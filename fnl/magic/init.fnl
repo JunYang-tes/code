@@ -209,6 +209,7 @@
                                      {:opts {:enable_close true
                                              :enable_rename true
                                              :enable_close_on_slash false}})}
+  :MysticalDevil/inlay-hints.nvim {:config (simple-setup :inlay-hints {})}
   :akinsho/flutter-tools.nvim {:config (simple-setup :flutter-tools {})}
   :dfendr/clipboard-image.nvim {})
 

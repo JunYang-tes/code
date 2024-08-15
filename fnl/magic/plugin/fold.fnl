@@ -12,5 +12,5 @@
     (vim.keymap.set :n
                     :zM
                     fold.closeAllFolds)
-    (fold.setup {
-                 :close_fold_kinds_for_ft {:default [:imports]}})))
+    (fold.setup {})))
+                 ;:close_fold_kinds_for_ft {:default [:imports]}})))

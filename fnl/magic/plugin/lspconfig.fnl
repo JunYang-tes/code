@@ -59,11 +59,18 @@
                        :autostart (is-deno)
                        :single_file_support true})
     (lsp.vtsls.setup {: capabilities
+                      :settings {:typescript {:inlayHints {:parameterNames {:enable :all}
+                                                           :parameterTypes {:enable true}
+                                                           :variableTypes {:enable true}
+                                                           :propertyDeclarationTypes {:enable true}
+                                                           :functionLikeReturnTypes {:enable true}
+                                                           :enumMemberValues {:enable true}}}}
                       :autostart (not (is-deno))})
     (lsp.rust_analyzer.setup {: capabilities})
     (lsp.clangd.setup {: capabilities})
     (lsp.cmake.setup {: capabilities})
     (lsp.svelte.setup {: capabilities})
+    ;(lsp.dartls.setup {: capabilities})
     ;(lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)
     (lsp.pyright.setup
