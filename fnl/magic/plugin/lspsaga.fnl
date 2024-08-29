@@ -2,4 +2,5 @@
   {autoload {util magic.util
              nvim aniseed.nvim}})
 (let [lspsaga (require :lspsaga)]
-  (lspsaga.setup))
+  (lspsaga.setup
+    {:lightbulb {:enable false}}))
