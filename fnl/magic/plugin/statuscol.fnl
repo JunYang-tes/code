@@ -22,8 +22,15 @@
     (statuscol.setup
      {:relculright true
       :setopt true
-      :segments [{:sign {:name [:Diagnostic]}
+      :segments [
+                 {:sign {:namespace [:diagnostic/signs]
+                         :colwidth 1}
                   :condition [not-fn-bufs]
+                  :click "v:lua.ScSa"}
+                 {:sign {:namespace ["gitsigns"]
+                         :name [".*"]
+                         :colwidth 1
+                         :wrap true}
                   :click "v:lua.ScSa"}
                  {:text [builtin.foldfunc]
                   :click "v:lua.ScFa"
