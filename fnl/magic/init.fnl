@@ -211,6 +211,27 @@
                                              :enable_close_on_slash false}})}
   :MysticalDevil/inlay-hints.nvim {:config (simple-setup :inlay-hints {})}
   :akinsho/flutter-tools.nvim {:config (simple-setup :flutter-tools {})}
+  :yetone/avante.nvim {:dependencies [:stevearc/dressing.nvim
+                                      :nvim-lua/plenary.nvim
+                                      :MunifTanjim/nui.nvim
+                                      (hyhird
+                                        {:event :VeryLazy
+                                         :opts {:default {:embed_image_as_base64 false
+                                                          :prompt_for_file_name false
+                                                          :drag_and_drop {:insert_mode true}}}}
+                                        :HakonHarnes/img-clip.nvim)
+                                      (hyhird
+                                        {:opts {:file_types [:markdown :Avante]}
+                                         :ft [:markdown :Avante]}
+                                        :MeanderingProgrammer/render-markdown.nvim)]
+                       :build :make
+                       :config (simple-setup :avante {:provider :azure
+                                                      :azure {:endpoint (os.getenv :AZURE_HOST)
+                                                              :deployment (os.getenv :AZURE_HOST_DEPOLYMENT)
+                                                              :local false}})
+                       :lazy false}
+
+                                      
   :dfendr/clipboard-image.nvim {})
 
 
