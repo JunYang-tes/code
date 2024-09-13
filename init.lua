@@ -8,6 +8,10 @@ local execute = vim.api.nvim_command
 local fn = vim.fn
 local fmt = string.format
 
+function script_path()
+   local str = debug.getinfo(2, "S").source:sub(2)
+   return str:match("(.*/)")
+end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -37,7 +41,18 @@ vim.opt.rtp:prepend(aniseed)
 -- Enable Aniseed's automatic compilation and loading of Fennel source code.
 -- Aniseed looks for this when it's loaded then loads the rest of your
 -- configuration if it's set.
-vim.g["aniseed#env"] = {module = "magic.init"}
+local input  = script_path() .. "fnl"
+if(vim.g.vscode) then
+  vim.g["aniseed#env"] = {
+    module = "vsc.init",
+    input = input
+  }
+else
+  vim.g["aniseed#env"] = {
+    module = "magic.init",
+    input = input
+  }
+end
 
 -- Now head to fnl/magic/init.fnl to continue your journey.
 -- Try pressing gf on the file path to [g]o to the [f]ile.

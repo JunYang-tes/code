@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 BASE_DIR=$(dirname `which $0`)
-echo $BASE_DIR
-if [ ! -e $BASE_DIR/.local/config/nvim/fnl ]
-then
-  mkdir -p $BASE_DIR/.local/config/nvim
-  ln -s $BASE_DIR/fnl $BASE_DIR/.local/config/nvim/fnl
-fi
-XDG_CACHE_HOME=$BASE_DIR/.local/cache XDG_CONFIG_HOME=$BASE_DIR/.local/config XDG_DATA_HOME=$BASE_DIR/.local/data nvim -u $BASE_DIR/init.lua "$@"
+# echo $BASE_DIR
+# if [ ! -e $BASE_DIR/.local/config/nvim/fnl ]
+# then
+#   mkdir -p $BASE_DIR/.local/config/nvim
+#   ln -s $BASE_DIR/fnl $BASE_DIR/.local/config/nvim/fnl
+# fi
+nvim -u $BASE_DIR/init.lua "$@"
