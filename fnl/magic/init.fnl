@@ -232,6 +232,10 @@
                        :lazy false}
 
                                       
+  :stevearc/oil.nvim {:config (fn []
+                                ((. (require :oil) :setup) {})
+                                (vim.keymap.set :n "-"
+                                                :<cmd>Oil<cr>))}
   :dfendr/clipboard-image.nvim {})
 
 
