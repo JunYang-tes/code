@@ -236,6 +236,8 @@
                                 ((. (require :oil) :setup) {})
                                 (vim.keymap.set :n "-"
                                                 :<cmd>Oil<cr>))}
+  :rafamadriz/friendly-snippets {:config (fn [])}
+  :garymjr/nvim-snippets {:opts {:friendly_snippets true}}
   :dfendr/clipboard-image.nvim {})
 
 

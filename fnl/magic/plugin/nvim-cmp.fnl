@@ -50,10 +50,7 @@
               "..."))))
   vim_item)
 
-(let [(ok? cmp) (pcall require :cmp)
-      (lsp-expand? lsp_expand) (pcall #(. (require :luasnip) :lsp_expand))]
-  (when (not lsp-expand?)
-    (print "No lusnip"))
+(let [(ok? cmp) (pcall require :cmp)]
   (when ok?
     ;https://github.com/hrsh7th/nvim-cmp/pull/1611#discussion_r1224151115
     (tset cmp :visible
@@ -64,12 +61,10 @@
                  (vim.fn.pumvisible)))))
     (cmp.setup.global
       {
-       :snippet {:expand (fn [args]
-                           (lsp_expand args.body)
-                           nil)}
        :sources (cmp.config.sources
                   [
                    {:name "nvim_lsp"}
+                   {:name "snippets"}
                    {:name "buffer"
                     :option {:get_bufnrs (fn []
                                            (let [bufs (vim.api.nvim_list_bufs)
@@ -95,6 +90,13 @@
        :mapping (cmp.mapping.preset.insert
                   {"<C-b>" (cmp.mapping.scroll_docs -4)
                    "<C-f>" (cmp.mapping.scroll_docs 4)
+                   "<Tab>" (cmp.mapping (fn [fallback]
+                                          (if 
+                                            (vim.snippet.active 
+                                              {:filter {:jump_dir 1}}) (vim.snippet.jump 1)
+                                            (cmp.visible ) (cmp.select_next_item)
+                                            (fallback)))
+                                        [:i :s])
                    "<D-space>" (cmp.mapping.complete {:select true})
                    "<C-e>" (cmp.mapping.abort)
                    "<CR>" (cmp.mapping.confirm {:select true})})})))

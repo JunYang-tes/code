@@ -53,6 +53,8 @@
   (tset capabilities.textDocument :foldingRange
         {:dynamicRegistration false
          :lineFoldingOnly true})
+  (tset capabilities :textDocument :completion :completionItem :snippetSupport
+        true)
   (when ok?
     (lsp.clojure_lsp.setup {: capabilities})
     (lsp.denols.setup {: capabilities
