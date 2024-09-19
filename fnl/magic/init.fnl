@@ -225,10 +225,19 @@
                                          :ft [:markdown :Avante]}
                                         :MeanderingProgrammer/render-markdown.nvim)]
                        :build :make
-                       :config (simple-setup :avante {:provider :azure
-                                                      :azure {:endpoint (os.getenv :AZURE_HOST)
-                                                              :deployment (os.getenv :AZURE_HOST_DEPOLYMENT)
-                                                              :local false}})
+                       :config (fn []
+                                 (let [openai (require :avante.providers.openai)
+                                       avante (. (require :avante))]
+                                   (tset openai :api_key_name :ANVATE_OPENAI_KEY)
+                                   (print (vim.inspect openai))
+                                   (avante.setup
+                                     {:provider (os.getenv :ANVATE_PROVIDER)
+                                      :openai {:endpoint (os.getenv :ANVATE_OPENAI_HOST)
+                                               :model (os.getenv :ANVATE_OPENAI_MODEL)
+                                               :local false}
+                                      :azure {:endpoint (os.getenv :AZURE_HOST)
+                                              :deployment (os.getenv :AZURE_HOST_DEPOLYMENT)
+                                              :local false}})))
                        :lazy false}
 
                                       
