@@ -72,6 +72,7 @@
     (lsp.clangd.setup {: capabilities})
     (lsp.cmake.setup {: capabilities})
     (lsp.svelte.setup {: capabilities})
+    (lsp.gopls.setup {: capabilities})
     ;(lsp.dartls.setup {: capabilities})
     ;(lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)

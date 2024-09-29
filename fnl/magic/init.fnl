@@ -30,6 +30,7 @@
 (set nvim.o.tabstop 2)
 (set nvim.o.shiftwidth 2)
 (set nvim.o.termguicolors true)
+(set nvim.o.laststatus 3)
 (vim.cmd "set formatoptions-=o")
 ;(nvim.ex.set :termguicolors)
 ;; indent with spaces instead of tab
@@ -229,7 +230,6 @@
                                  (let [openai (require :avante.providers.openai)
                                        avante (. (require :avante))]
                                    (tset openai :api_key_name :ANVATE_OPENAI_KEY)
-                                   (print (vim.inspect openai))
                                    (avante.setup
                                      {:provider (os.getenv :ANVATE_PROVIDER)
                                       :openai {:endpoint (os.getenv :ANVATE_OPENAI_HOST)
