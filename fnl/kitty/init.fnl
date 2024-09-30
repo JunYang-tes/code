@@ -2,6 +2,10 @@
   {autoload {plugin magic.plugin
              nvim aniseed.nvim}})
 (vim.loader.enable)
+(fn hyhird [tbl ...]
+  (each [i v (ipairs [...])]
+    (tset tbl i v))
+  tbl)
 
 (macro simple-setup [plugin opts]
   `(fn []
@@ -10,14 +14,11 @@
 
 (plugin.use
   :Olical/aniseed {}
-  ; :folke/noice.nvim {:config (simple-setup
-  ;                              :noice
-  ;                              {:presets {:command_palette true
-  ;                                         :long_message_to_split true}
-  ;                               :views {:mini {:timeout 5000
-  ;                                              :focusable true}}
-  ;                               :lsp {:signature {:enabled false}
-  ;                                     :progress {:enabled false}}})}
+  :tpope/vim-surround {}
+  :folke/flash.nvim {:keys [
+                            (hyhird {:mode [:n :o :x]} :s #((-> :flash
+                                                               require
+                                                               (. :jump))))]}
   :s1n7ax/nvim-window-picker {:version "2.*"
                               :event :VeryLazy
                               :window :window-picker
