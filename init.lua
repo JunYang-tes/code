@@ -42,7 +42,13 @@ vim.opt.rtp:prepend(aniseed)
 -- Aniseed looks for this when it's loaded then loads the rest of your
 -- configuration if it's set.
 local input  = script_path() .. "fnl"
-if(vim.g.vscode) then
+
+if(vim.env.KITTY_SCROLLBACK_NVIM == 'true') then
+  vim.g["aniseed#env"] = {
+    module = "kitty.init",
+    input = input
+  }
+elseif(vim.g.vscode) then
   vim.g["aniseed#env"] = {
     module = "vsc.init",
     input = input
