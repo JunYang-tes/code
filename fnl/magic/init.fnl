@@ -97,7 +97,8 @@
   :hrsh7th/cmp-cmdline {:cond use-cmp}
   :hrsh7th/cmp-nvim-lsp {:cond use-cmp}
   :hrsh7th/cmp-path {:cond use-cmp}
-  :hrsh7th/nvim-cmp {:cond use-cmp :mod :nvim-cmp}
+  :hrsh7th/nvim-cmp {:cond use-cmp :mod :nvim-cmp
+                     :commit :b356f2c}
   :L3MON4D3/LuaSnip {:cond use-cmp}
   ;; another cmp
   :ms-jpq/coq_nvim {:cond use-coq
