@@ -39,6 +39,10 @@
 
 (plugin.use
   :tpope/vim-surround {}
+  :stevearc/oil.nvim {:config (fn []
+                                ((. (require :oil) :setup) {})
+                                (vim.keymap.set :n "-"
+                                                :<cmd>Oil<cr>))}
   :lewis6991/gitsigns.nvim {:config (simple-setup :gitsigns)}
   :folke/flash.nvim {:keys [
                             ; (hyhird {:mode [:n :o :x]} :jj #((-> :flash

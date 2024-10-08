@@ -60,6 +60,10 @@
   :find-it-faster.findWithinFiles)
 
 (map-action
+  :n :<leader>ss
+  :find-it-faster.pickFileFromGitStatus)
+
+(map-action
   :n :<leader>so
   :editor.action.accessibleViewGoToSymbol)
 
