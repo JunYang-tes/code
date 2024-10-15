@@ -100,6 +100,7 @@
   :hrsh7th/nvim-cmp {:cond use-cmp :mod :nvim-cmp
                      :commit :b356f2c}
   :L3MON4D3/LuaSnip {:cond use-cmp}
+  :Exafunction/codeium.vim {:event :BufEnter}
   ;; another cmp
   :ms-jpq/coq_nvim {:cond use-coq
                     :branch :coq
