@@ -199,14 +199,6 @@
                                                    :go
                                                    :<cmd>Outline<CR>)
                                    ((. (require :outline) :setup)))}
-  :folke/noice.nvim {:config (simple-setup
-                               :noice
-                               {:presets {:command_palette true
-                                          :long_message_to_split true}
-                                :views {:mini {:timeout 5000
-                                               :focusable true}}
-                                :lsp {:signature {:enabled false}
-                                      :progress {:enabled false}}})}
   :windwp/nvim-ts-autotag {:config (simple-setup
                                      :nvim-ts-autotag
                                      {:opts {:enable_close true
@@ -229,6 +221,18 @@
                                         :MeanderingProgrammer/render-markdown.nvim)]
                        :build :make
                        :mod :avante
+                       :config (fn []
+                                 (let [openai (require :avante.providers.openai)
+                                       avante (. (require :avante))]
+                                   (tset openai :api_key_name :ANVATE_OPENAI_KEY)
+                                   (avante.setup
+                                     {:provider (os.getenv :ANVATE_PROVIDER)
+                                      :openai {:endpoint (os.getenv :ANVATE_OPENAI_HOST)
+                                               :model (os.getenv :ANVATE_OPENAI_MODEL)
+                                               :local false}
+                                      :azure {:endpoint (os.getenv :AZURE_HOST)
+                                              :deployment (os.getenv :AZURE_HOST_DEPOLYMENT)
+                                              :local false}})))
                        :lazy false}
 
                                       
@@ -238,6 +242,14 @@
                                                 :<cmd>Oil<cr>))}
   :rafamadriz/friendly-snippets {:config (fn [])}
   :garymjr/nvim-snippets {:opts {:friendly_snippets true}}
+  :folke/noice.nvim {:config (simple-setup
+                               :noice
+                               {:presets {:command_palette true
+                                          :long_message_to_split true}
+                                :views {:mini {:timeout 5000
+                                               :focusable true}}
+                                :lsp {:signature {:enabled false}
+                                      :progress {:enabled false}}})}
   :dfendr/clipboard-image.nvim {})
 
 
