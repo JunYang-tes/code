@@ -90,13 +90,13 @@
        :mapping (cmp.mapping.preset.insert
                   {"<C-b>" (cmp.mapping.scroll_docs -4)
                    "<C-f>" (cmp.mapping.scroll_docs 4)
-                   "<Tab>" (cmp.mapping (fn [fallback]
-                                          (if 
-                                            (vim.snippet.active 
-                                              {:filter {:jump_dir 1}}) (vim.snippet.jump 1)
-                                            (cmp.visible ) (cmp.select_next_item)
-                                            (fallback)))
-                                        [:i :s])
+                   "<down>" (cmp.mapping (fn [fallback]
+                                           (if 
+                                             (vim.snippet.active 
+                                               {:filter {:jump_dir 1}}) (vim.snippet.jump 1)
+                                             (cmp.visible ) (cmp.select_next_item)
+                                             (fallback)))
+                                         [:i :s])
                    "<D-space>" (cmp.mapping.complete {:select true})
                    "<C-e>" (cmp.mapping.abort)
                    "<CR>" (cmp.mapping.confirm {:select true})})})))
