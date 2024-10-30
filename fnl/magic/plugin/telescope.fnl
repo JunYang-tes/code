@@ -14,6 +14,7 @@
         :sorting_strategy :ascending
         :layout_config {:horizontal {:prompt_position :top}}}
        :extensions {:recent_files {:only_cwd true}
+                    :aerial {}
                     :media_files {:filetypes [:png :jpg :jpeg]
                                   :find_cmd :rg}}})
 

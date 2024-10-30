@@ -52,7 +52,7 @@
 (nmap :gD "lua vim.lsp.buf.declaration()")
 (map-cmd :n :gr "Lspsaga finder ref ")
 (nmap :gi "lua vim.lsp.buf.implementation()")
-(map-cmd :n :go "Lspsaga outline")
+;(map-cmd :n :go "Lspsaga outline")
 (nmap :<c-k> "lua vim.lsp.buf.signature_help()")
 ;AI
 (nmap "<leader>ap" "lua require('ai-assistant.runner')[\"run-with-buf\"](vim.api.nvim_get_current_buf(),'pair-programmer')")
@@ -75,7 +75,7 @@
 (map-cmd :n :<leader>sh "lua require('telescope').extensions.recent_files.pick()")
 (map-cmd :n :<leader>sla "Telescope lsp_code_actions")
 (map-cmd :n :<leader>slr "Telescope lsp_references")
-(map-cmd :n :<leader>so "Telescope lsp_document_symbols")
+(map-cmd :n :<leader>so "Telescope aerial")
 
 (map-plug :n :s :leap-forward-to)
 (map-plug :n :S :leap-backward-to)
@@ -143,3 +143,6 @@
 ;; 粘贴到选区不要清空register,以便连续粘贴
 (vim.keymap.set
   :v :p "\"_dP" {:noremap true})
+
+(map-cmd :i "<c-o>" "call codeium#Complete()")
+(map-cmd :i "<c-l>" "call codeium#Accept()")

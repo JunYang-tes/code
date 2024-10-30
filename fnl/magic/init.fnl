@@ -63,6 +63,10 @@
                      nil))
 (local use-cmp (not use-coq))
 
+(local use-companion (not= (os.getenv :COMPANION)
+                        nil))
+(local use-avante (not use-companion))
+
 
 (plugin.use
   :Olical/aniseed {}
@@ -194,11 +198,12 @@
   :3rd/image.nvim {:dependencies [:luarocks.nvim]
                    :mod :image}
   :MunifTanjim/nui.nvim {}
-  :hedyhli/outline.nvim {:config (fn []
+  ;; outline
+  :stevearc/aerial.nvim {:config (fn []
                                    (vim.keymap.set :n
                                                    :go
-                                                   :<cmd>Outline<CR>)
-                                   ((. (require :outline) :setup)))}
+                                                  :<cmd>AerialToggle!<cr>)
+                                   ((. (require :aerial) :setup)))}
   :windwp/nvim-ts-autotag {:config (simple-setup
                                      :nvim-ts-autotag
                                      {:opts {:enable_close true
@@ -220,20 +225,13 @@
                                          :ft [:markdown :Avante]}
                                         :MeanderingProgrammer/render-markdown.nvim)]
                        :build :make
+                       :cond use-avante
                        :mod :avante
-                       :config (fn []
-                                 (let [openai (require :avante.providers.openai)
-                                       avante (. (require :avante))]
-                                   (tset openai :api_key_name :ANVATE_OPENAI_KEY)
-                                   (avante.setup
-                                     {:provider (os.getenv :ANVATE_PROVIDER)
-                                      :openai {:endpoint (os.getenv :ANVATE_OPENAI_HOST)
-                                               :model (os.getenv :ANVATE_OPENAI_MODEL)
-                                               :local false}
-                                      :azure {:endpoint (os.getenv :AZURE_HOST)
-                                              :deployment (os.getenv :AZURE_HOST_DEPOLYMENT)
-                                              :local false}})))
                        :lazy false}
+  :olimorris/codecompanion.nvim {:cond use-companion
+                                 :dependencies [:stevearc/dressing.nvim
+                                                :echasnovski/mini.nvim]
+                                 :mod :companion}  
 
                                       
   :stevearc/oil.nvim {:config (fn []
