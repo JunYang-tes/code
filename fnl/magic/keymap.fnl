@@ -143,6 +143,5 @@
 ;; 粘贴到选区不要清空register,以便连续粘贴
 (vim.keymap.set
   :v :p "\"_dP" {:noremap true})
-
-(map-cmd :i "<c-o>" "call codeium#Complete()")
-(map-cmd :i "<c-l>" "call codeium#Accept()")
+(vim.api.nvim_command
+  "imap <script><silent><nowait><expr> <C-l> codeium#Accept()")

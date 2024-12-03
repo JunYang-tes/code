@@ -240,7 +240,8 @@
                                                 :<cmd>Oil<cr>))}
   :rafamadriz/friendly-snippets {:config (fn [])}
   :garymjr/nvim-snippets {:opts {:friendly_snippets true}}
-  :folke/noice.nvim {:config (simple-setup
+  :folke/noice.nvim {:cond (= (os.getenv :NO_NOICE) nil)
+                     :config (simple-setup
                                :noice
                                {:presets {:command_palette true
                                           :long_message_to_split true}
