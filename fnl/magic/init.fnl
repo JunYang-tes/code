@@ -101,8 +101,9 @@
   :hrsh7th/cmp-cmdline {:cond use-cmp}
   :hrsh7th/cmp-nvim-lsp {:cond use-cmp}
   :hrsh7th/cmp-path {:cond use-cmp}
-  :hrsh7th/nvim-cmp {:cond use-cmp :mod :nvim-cmp
-                     :commit :b356f2c}
+  :hrsh7th/nvim-cmp {:cond use-cmp :mod :nvim-cmp}
+                     ;:commit :b356f2c}
+                     
   :L3MON4D3/LuaSnip {:cond use-cmp}
   :Exafunction/codeium.vim {:event :BufEnter}
   ;; another cmp
@@ -212,22 +213,22 @@
   :MysticalDevil/inlay-hints.nvim {:config (simple-setup :inlay-hints {})}
   :akinsho/flutter-tools.nvim {:config (simple-setup :flutter-tools {})}
   :yetone/avante.nvim {:dependencies [:stevearc/dressing.nvim
-                                      :nvim-lua/plenary.nvim
-                                      :MunifTanjim/nui.nvim
-                                      (hyhird
-                                        {:event :VeryLazy
-                                         :opts {:default {:embed_image_as_base64 false
-                                                          :prompt_for_file_name false
-                                                          :drag_and_drop {:insert_mode true}}}}
-                                        :HakonHarnes/img-clip.nvim)
-                                      (hyhird
-                                        {:opts {:file_types [:markdown :Avante]}
-                                         :ft [:markdown :Avante]}
-                                        :MeanderingProgrammer/render-markdown.nvim)]
-                       :build :make
-                       :cond use-avante
-                       :mod :avante
-                       :lazy false}
+                                         :nvim-lua/plenary.nvim
+                                         :MunifTanjim/nui.nvim
+                                         (hyhird
+                                           {:event :VeryLazy
+                                            :opts {:default {:embed_image_as_base64 false
+                                                             :prompt_for_file_name false
+                                                             :drag_and_drop {:insert_mode true}}}}
+                                           :HakonHarnes/img-clip.nvim)
+                                         (hyhird
+                                           {:opts {:file_types [:markdown :Avante]}
+                                            :ft [:markdown :Avante]}
+                                           :MeanderingProgrammer/render-markdown.nvim)]
+                          :build :make
+                          :cond use-avante
+                          :mod :avante
+                          :lazy false}
   :olimorris/codecompanion.nvim {:cond use-companion
                                  :dependencies [:stevearc/dressing.nvim
                                                 :echasnovski/mini.nvim]
@@ -240,7 +241,8 @@
                                                 :<cmd>Oil<cr>))}
   :rafamadriz/friendly-snippets {:config (fn [])}
   :garymjr/nvim-snippets {:opts {:friendly_snippets true}}
-  :folke/noice.nvim {:cond (= (os.getenv :NO_NOICE) nil)
+  :folke/noice.nvim {:cond (or (= (os.getenv :NO_NOICE) nil)
+                               (= (os.getenv :NO_NOICE) "0")) 
                      :config (simple-setup
                                :noice
                                {:presets {:command_palette true
@@ -249,6 +251,7 @@
                                                :focusable true}}
                                 :lsp {:signature {:enabled false}
                                       :progress {:enabled false}}})}
+  :mikesmithgh/kitty-scrollback.nvim {:cond false}
   :dfendr/clipboard-image.nvim {})
 
 
