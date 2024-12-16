@@ -2,22 +2,22 @@
   {autoload {nvim aniseed.nvim}})
 
 (local proxies 
-  {:siliconflow
-    {:kind :openai
-     :endpoint "https://api.siliconflow.cn/v1"
-     :models ["Qwen/Qwen2.5-72B-Instruct(￥4.13 / M tokens)"
-              "Qwen/Qwen2.5-Coder-7B-Instruct(free)"
-              "Qwen/Qwen2.5-Coder-32B-Instruct(￥1.26 / M tokens)"
-              "deepseek-ai/DeepSeek-V2.5(￥1.33 / M tokens)"
-              "meta-llama/Meta-Llama-3.1-8B-Instruct(free)"
-              "meta-llama/Meta-Llama-3.1-70B-Instruct(￥4.13 / M tokens)"
-              "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
-   :aihubmix
-   {:kind :openai
-    :endpoint "https://aihubmix.com/v1"
-    :models ["claude-3-5-sonnet@20240620($4/$20)"
-             "claude-3-5-haiku-20241022($1.3/$6.5)"
-             "gpt-4o-mini"]}})
+  {:siliconflow  {:kind :openai
+                  :endpoint "https://api.siliconflow.cn/v1"
+                  :models ["Qwen/Qwen2.5-72B-Instruct(￥4.13 / M tokens)"
+                           "Qwen/Qwen2.5-Coder-7B-Instruct(free)"
+                           "Qwen/Qwen2.5-Coder-32B-Instruct(￥1.26 / M tokens)"
+                           "deepseek-ai/DeepSeek-V2.5(￥1.33 / M tokens)"
+                           "meta-llama/Meta-Llama-3.1-8B-Instruct(free)"
+                           "meta-llama/Meta-Llama-3.1-70B-Instruct(￥4.13 / M tokens)"
+                           "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
+   :aihubmix     {:kind :openai
+                  :endpoint "https://aihubmix.com/v1"
+                  :models ["claude-3-5-sonnet@20240620($4/$20)"
+                           "claude-3-5-haiku-20241022($1.3/$6.5)"
+                           "gpt-4o-mini"]}
+   :google       {:kind :gemini
+                  :models [:gemini-2.0-flash-exp]}})
     
 (local models
   (let [all-models []]
@@ -26,7 +26,7 @@
         (table.insert all-models (.. proxy-name "/" model))))
     all-models))
 
-(fn parse-model [model]
+(fn parse-model [model]<F2>
   (let [
         (start) (string.find model "/")
         proxy-name (string.sub model 1 (- start 1))
