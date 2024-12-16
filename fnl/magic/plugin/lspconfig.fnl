@@ -36,7 +36,13 @@
                      (.. (vim.fn.getcwd)
                          "/"
                          :deno.jsonc))]
-    (not= nil stat)))
+    (if (not= nil stat)
+      true
+      (let [(stat err) (vim.loop.fs_stat
+                         (.. (vim.fn.getcwd)
+                             "/"
+                             :deno.json))]
+        (not= nil stat)))))
 
 (vim.api.nvim_create_user_command 
   :LspDeno
