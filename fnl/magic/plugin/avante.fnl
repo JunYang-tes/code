@@ -1,5 +1,6 @@
 (module magic.plugin.avante
-  {autoload {nvim aniseed.nvim}})
+  {autoload {nvim aniseed.nvim
+             telescope telescope.pickers}})
 
 (local proxies 
   {:siliconflow  {:kind :openai
@@ -73,19 +74,34 @@
                               (. providers params.provider)
                               (. params params.provider)))
         (providers.refresh params.provider)))
+    (fn model-picker []
+      (let [pickers (require :telescope.pickers)
+            finders (require :telescope.finders)
+            actions (require :telescope.actions)
+            action-state (require :telescope.actions.state)
+            conf (. (require :telescope.config) :values)
+            f (pickers.new
+               {}
+               {:prompt_title "Select Model"
+                :finder (finders.new_table {:results models})
+                :sorter (conf.generic_sorter {})
+                :attach_mappings
+                (fn [prompt_bufnr map]
+                  (actions.select_default:replace
+                   (fn []
+                     (actions.close prompt_bufnr)
+                     (let [selection (action-state.get_selected_entry)]
+                       (when selection
+                         (switch-model selection.value)))))
+                  true)})]
+        (f:find)))
+    (vim.api.nvim_create_user_command
+      :SwitchModel
+      (fn []
+        (model-picker))
+      {:desc "Switch Model"})
     (vim.api.nvim_create_user_command
       :ShowModel
       (fn []
         (print current))
-      {:desc "Show Model"})
-    (vim.api.nvim_create_user_command
-      :SwitchModel
-      (fn [{: name : args 
-            : fargs}]
-        (switch-model (table.concat fargs)))
-      {:desc "Switch Model"
-       :complete (fn []
-                   models)
-       :nargs "*"})))
-    
-      
+      {:desc "Show Model"})))
