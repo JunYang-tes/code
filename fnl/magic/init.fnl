@@ -252,6 +252,15 @@
                                 :lsp {:signature {:enabled false}
                                       :progress {:enabled false}}})}
   :mikesmithgh/kitty-scrollback.nvim {:cond false}
+  ;python repl
+  :Vigemus/iron.nvim {:config (simple-setup
+                                :iron.core
+                                {:config
+                                  {:scratch_repl true
+                                   :repl_definition {:sh {:command ["zsh"]}
+                                                     :python {:command ["python3"]}}}
+                                 :keymaps {:visual_send "<leader>rv"
+                                           :send_line "<leader>rl"}})}
   :dfendr/clipboard-image.nvim {})
 
 

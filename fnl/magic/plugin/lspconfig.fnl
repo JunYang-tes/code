@@ -2,6 +2,12 @@
   {autoload {util magic.util
              nvim aniseed.nvim}})
 
+(defn exepath [exe]
+  "Return the full path of the given executable if it exists, otherwise nil."
+  (if (vim.fn.executable exe)
+    (vim.fn.exepath exe)
+    nil))
+
 (defn- map [from to]
   (util.nnoremap from to))
 
