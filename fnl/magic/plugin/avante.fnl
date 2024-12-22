@@ -27,7 +27,7 @@
         (table.insert all-models (.. proxy-name "/" model))))
     all-models))
 
-(fn parse-model [model]<F2>
+(fn parse-model [model]
   (let [
         (start) (string.find model "/")
         proxy-name (string.sub model 1 (- start 1))
@@ -38,15 +38,20 @@
 
 (fn get-provider [model]
   (let [[proxy-name model-name] (parse-model model)
-        proxy (. proxies proxy-name)
-        setup-param {:provider proxy.kind
-                     :debug true}]
-    (tset setup-param
-          proxy.kind
-          {:endpoint proxy.endpoint
-           :model model-name
-           :api_key_name (.. :avante_key_ proxy-name)})
-    setup-param))
+        proxy (. proxies proxy-name)]
+    (if (not= proxy nil)
+      (let [
+            setup-param {:provider proxy.kind
+                         :debug true}]
+         (tset setup-param
+               proxy.kind
+               {:endpoint proxy.endpoint
+                :model model-name
+                :api_key_name (.. :avante_key_ proxy-name)})
+         setup-param)
+      (do 
+        (print "Not Found" model)
+        {}))))
 
         
 
