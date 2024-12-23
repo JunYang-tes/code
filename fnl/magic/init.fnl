@@ -66,6 +66,8 @@
 (local use-companion (not= (os.getenv :COMPANION)
                         nil))
 (local use-avante (not use-companion))
+(local use-copilot (= (os.getenv :COPILOT)
+                      :1))
 
 
 (plugin.use
@@ -105,7 +107,8 @@
                      ;:commit :b356f2c}
                      
   :L3MON4D3/LuaSnip {:cond use-cmp}
-  :Exafunction/codeium.vim {:event :BufEnter}
+  :Exafunction/codeium.vim {:event :BufEnter
+                            :cond (not use-copilot)}
   ;; another cmp
   :ms-jpq/coq_nvim {:cond use-coq
                     :branch :coq
@@ -144,7 +147,7 @@
   :lukas-reineke/indent-blankline.nvim {:config (simple-setup
                                                   :ibl
                                                   {})}
-  ;:github/copilot.vim {}
+  :github/copilot.vim {:cond use-copilot}
   :tpope/vim-repeat {}
   :guns/vim-sexp {:lazy false}
   :tpope/vim-sexp-mappings-for-regular-people {:mod :sexp
@@ -217,9 +220,7 @@
                                          :MunifTanjim/nui.nvim
                                          (hyhird
                                            {:event :VeryLazy
-                                            :opts {:default {:embed_image_as_base64 false
-                                                             :prompt_for_file_name false
-                                                             :drag_and_drop {:insert_mode true}}}}
+                                            :opts {}}
                                            :HakonHarnes/img-clip.nvim)
                                          (hyhird
                                            {:opts {:file_types [:markdown :Avante]}
@@ -229,6 +230,9 @@
                           :cond use-avante
                           :mod :avante
                           :lazy false}
+  :HakonHarnes/img-clip.nvim {:opts {:default {:embed_image_as_base64 false
+                                               :prompt_for_file_name false
+                                               :drag_and_drop {:insert_mode true}}}}
   :olimorris/codecompanion.nvim {:cond use-companion
                                  :dependencies [:stevearc/dressing.nvim
                                                 :echasnovski/mini.nvim]
