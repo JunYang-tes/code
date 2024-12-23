@@ -18,7 +18,8 @@
                            "claude-3-5-haiku-20241022($1.3/$6.5)"
                            "gpt-4o-mini"]}
    :google       {:kind :gemini
-                  :models [:gemini-2.0-flash-exp]}})
+                  :models [:gemini-2.0-flash-exp
+                           :gemini-2.0-flash-thinking-exp-1219]}})
     
 (local models
   (let [all-models []]
