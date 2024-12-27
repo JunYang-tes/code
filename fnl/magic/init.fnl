@@ -270,7 +270,8 @@
                                            :send_line "<leader>rl"}})}
   :saghen/blink.cmp {:cond use-blink
                      :opts {:keymap {:preset :default
-                                     :<CR> [:accept :fallback]}
+                                     :<CR> [:accept :fallback]
+                                     :cmdline {:<CR> []}}
                             :completion {:list {:selection :preselect}}}
                      :opts_extend ["sources.default"]}
   :dfendr/clipboard-image.nvim {})
