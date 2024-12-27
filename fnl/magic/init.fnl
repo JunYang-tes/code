@@ -61,7 +61,9 @@
 
 (local use-coq (not= (os.getenv :COQ)
                      nil))
-(local use-cmp (not use-coq))
+(local use-blink (not= (os.getenv :BLINK) nil))
+(local use-cmp (and (not use-coq)
+                    (not use-blink)))
 
 (local use-companion (not= (os.getenv :COMPANION)
                         nil))
@@ -244,7 +246,8 @@
                                 (vim.keymap.set :n "-"
                                                 :<cmd>Oil<cr>))}
   :rafamadriz/friendly-snippets {:config (fn [])}
-  :garymjr/nvim-snippets {:opts {:friendly_snippets true}}
+  :garymjr/nvim-snippets {:opts {:friendly_snippets true}
+                          :cond use-cmp}
   :folke/noice.nvim {:cond (or (= (os.getenv :NO_NOICE) nil)
                                (= (os.getenv :NO_NOICE) "0")) 
                      :config (simple-setup
@@ -265,6 +268,11 @@
                                                      :python {:command ["python3"]}}}
                                  :keymaps {:visual_send "<leader>rv"
                                            :send_line "<leader>rl"}})}
+  :saghen/blink.cmp {:cond use-blink
+                     :opts {:keymap {:preset :default
+                                     :<CR> [:accept :fallback]}
+                            :completion {:list {:selection :preselect}}}
+                     :opts_extend ["sources.default"]}
   :dfendr/clipboard-image.nvim {})
 
 
