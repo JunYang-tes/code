@@ -12,6 +12,9 @@
                            "meta-llama/Meta-Llama-3.1-8B-Instruct(free)"
                            "meta-llama/Meta-Llama-3.1-70B-Instruct(￥4.13 / M tokens)"
                            "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
+   :deepseek     {:kind :openai
+                  :endpoint "https://api.deepseek.com/v1"
+                  :models ["deepseek-chat"]}
    :aihubmix     {:kind :openai
                   :endpoint "https://aihubmix.com/v1"
                   :models ["claude-3-5-sonnet@20240620($4/$20)"
@@ -33,8 +36,6 @@
         (start) (string.find model "/")
         proxy-name (string.sub model 1 (- start 1))
         model-name (string.sub model (+ start 1))]
-    (print model)
-    (print proxy-name model-name)
     [proxy-name (string.gsub model-name "%(.*%)" "")]))
 
 (fn get-provider [model]
