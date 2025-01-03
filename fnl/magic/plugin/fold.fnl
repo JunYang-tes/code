@@ -10,7 +10,14 @@
                     :zR
                     fold.openAllFolds)
     (vim.keymap.set :n
+                    :zr
+                    fold.openFoldsExceptKinds)
+    (vim.keymap.set :n
                     :zM
                     fold.closeAllFolds)
+    (vim.keymap.set :n
+                    :zm
+                    fold.closeFoldsWith)
+
     (fold.setup {})))
                  ;:close_fold_kinds_for_ft {:default [:imports]}})))
