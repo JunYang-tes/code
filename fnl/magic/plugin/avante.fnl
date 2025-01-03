@@ -44,6 +44,7 @@
     (if (not= proxy nil)
       (let [
             setup-param {:provider proxy.kind
+                         :behaviour {:support_paste_from_clipboard true}
                          :debug true}]
          (tset setup-param
                proxy.kind
