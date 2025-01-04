@@ -80,7 +80,9 @@
               (vim.tbl_extend :force
                               (. providers params.provider)
                               (. params params.provider)))
-        (providers.refresh params.provider)))
+        (print (vim.inspect providers))
+        (avante.setup (get-provider model))))
+        ;(providers.refresh params.provider)))
     (fn model-picker []
       (let [pickers (require :telescope.pickers)
             finders (require :telescope.finders)
