@@ -138,6 +138,7 @@
                                     :run #(let [install (require :nvim-treesitter.install)
                                                 update (install.update {:with_sync true})]
                                             (update))}
+  :nvim-treesitter/nvim-treesitter-context {:opts {:enable false}}
   :nvim-treesitter/nvim-treesitter-textobjects {}
   :RRethy/vim-illuminate {:mod :vim-illuminate}
   :JoosepAlviste/nvim-ts-context-commentstring {}
@@ -217,21 +218,21 @@
                                              :enable_close_on_slash false}})}
   :MysticalDevil/inlay-hints.nvim {:config (simple-setup :inlay-hints {})}
   :akinsho/flutter-tools.nvim {:config (simple-setup :flutter-tools {})}
-  :yetone/avante.nvim {:dependencies [:stevearc/dressing.nvim
-                                         :nvim-lua/plenary.nvim
-                                         :MunifTanjim/nui.nvim
-                                         (hyhird
-                                           {:event :VeryLazy
-                                            :opts {}}
-                                           :HakonHarnes/img-clip.nvim)
-                                         (hyhird
-                                           {:opts {:file_types [:markdown :Avante]}
-                                            :ft [:markdown :Avante]}
-                                           :MeanderingProgrammer/render-markdown.nvim)]
-                          :build :make
-                          :cond use-avante
-                          :mod :avante
-                          :lazy false}
+  :JunYang-tes/avante.nvim  {:dependencies [:stevearc/dressing.nvim
+                                               :nvim-lua/plenary.nvim
+                                               :MunifTanjim/nui.nvim
+                                               (hyhird
+                                                 {:event :VeryLazy
+                                                  :opts {}}
+                                                 :HakonHarnes/img-clip.nvim)
+                                               (hyhird
+                                                 {:opts {:file_types [:markdown :Avante]}
+                                                  :ft [:markdown :Avante]}
+                                                 :MeanderingProgrammer/render-markdown.nvim)]
+                                :build :make
+                                :cond use-avante
+                                :mod :avante
+                                :lazy false}
   :HakonHarnes/img-clip.nvim {:opts {:default {:embed_image_as_base64 false
                                                :prompt_for_file_name false
                                                :drag_and_drop {:insert_mode true}}}}
@@ -265,14 +266,31 @@
                                 {:config
                                   {:scratch_repl true
                                    :repl_definition {:sh {:command ["zsh"]}
-                                                     :python {:command ["python3"]}}}
+                                                     :ts {:command ["bun repl"]}
+                                                     :python {:command ["ipython"]}}}
                                  :keymaps {:visual_send "<leader>rv"
                                            :send_line "<leader>rl"}})}
+  :saghen/blink.compat {:lazy true
+                        :opts {}}
   :saghen/blink.cmp {:cond use-blink
-                     :opts {:keymap {:preset :default
+                     :opts {:keymap {:preset :enter
                                      :<CR> [:accept :fallback]
                                      :cmdline {:<CR> []}}
-                            :completion {:list {:selection :preselect}}}
+                            :completion {:list {:selection :preselect}}
+                            :sources {:default [:lsp :path :snippets :buffer
+                                                :avante_commands :avante_files :avante_mentions]
+                                      :providers {:avante_commands {:name "avante_commands"
+                                                                    :module "blink.compat.source"
+                                                                    :score_offset 90
+                                                                    :opts {}}
+                                                  :avante_files {:name "avante_files"
+                                                                 :module "blink.compat.source"
+                                                                 :score_offset 100
+                                                                 :opts {}}
+                                                  :avante_mentions {:name "avante_mentions"
+                                                                    :module "blink.compat.source"
+                                                                    :score_offset 1000
+                                                                    :opts {}}}}}
                      :opts_extend ["sources.default"]}
   :dfendr/clipboard-image.nvim {})
 
