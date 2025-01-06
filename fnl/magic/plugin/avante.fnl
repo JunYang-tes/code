@@ -1,3 +1,4 @@
+<F2>atags
 (module magic.plugin.avante
   {autoload {nvim aniseed.nvim
              telescope telescope.pickers}})
@@ -22,6 +23,7 @@
                            "gpt-4o-mini"]}
    :google       {:kind :gemini
                   :models [:gemini-2.0-flash-exp
+                           :gemini-exp-1206
                            :gemini-2.0-flash-thinking-exp-1219]}})
     
 (local models
@@ -56,7 +58,21 @@
         (print "Not Found" model)
         {}))))
 
-        
+(fn save_model [model]
+  (let [file (io.open (.. (os.getenv "HOME") "/.config/.avante_model") "w")]
+    (if file
+      (do
+        (file:write model)
+        (file:close)))))
+
+(fn load_model []
+  (let [file (io.open (.. (os.getenv "HOME") "/.config/.avante_model") "r")]
+    (if file
+      (do
+        (var model (file:read "*l"))
+        (print model)
+        (file:close)
+        model))))
 
 (let [(ok? avante) (pcall require :avante)]
   (when ok?
@@ -70,10 +86,13 @@
     ;                               :model :deepseek-ai/DeepSeek-V2.5
     ;                               :local false}))
 
-    (var current (os.getenv :ANVATE_OPENAI_MODEL))
+    (var current 
+      (or
+        (load_model)
+        (os.getenv :ANVATE_OPENAI_MODEL)))
     (avante.setup (get-provider current))
     (fn switch-model [model]
-      (set current model)
+      (save_model model)
       (let [params (get-provider model)
             providers (require :avante.providers)] 
         (tset providers 
