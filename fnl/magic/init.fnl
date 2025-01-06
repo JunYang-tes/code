@@ -275,7 +275,8 @@
   :saghen/blink.cmp {:cond use-blink
                      :opts {:keymap {:preset :enter
                                      :<CR> [:accept :fallback]
-                                     :cmdline {:<CR> []}}
+                                     :cmdline {:<CR> []
+                                               :<Tab> [:accept]}}
                             :completion {:list {:selection :preselect}}
                             :sources {:default [:lsp :path :snippets :buffer
                                                 :avante_commands :avante_files :avante_mentions]
