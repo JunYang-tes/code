@@ -60,7 +60,9 @@
 
 (let [(ok? lsp) (pcall #(require :lspconfig))
       capabilities (get-capabilities)
+      neodev (require :neodev)
       (_ util) (pcall #(require :lspconfig/util))]
+  (neodev.setup {})
   ;; nvim-ufo
   (tset capabilities.textDocument :foldingRange
         {:dynamicRegistration false
@@ -85,6 +87,7 @@
     (lsp.cmake.setup {: capabilities})
     (lsp.svelte.setup {: capabilities})
     (lsp.gopls.setup {: capabilities})
+    (lsp.lua_ls.setup {: capabilities})
     ;(lsp.dartls.setup {: capabilities})
     ;(lsp.tailwindcss.setup {: capabilities})
     (setup-fennel lsp)

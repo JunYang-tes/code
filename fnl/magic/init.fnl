@@ -159,7 +159,7 @@
   :folke/zen-mode.nvim {}
   :nvim-tree/nvim-web-devicons {}
   :norcalli/nvim-colorizer.lua {:config (simple-setup :colorizer)}
-  :ray-x/lsp_signature.nvim {:mod :lsp_signature}
+  :ray-x/lsp_signature.nvim {:mod :lsp_signature :cond false}
   ;progress
   ; :j-hui/fidget.nvim {:config (simple-setup :fidget 
   :linrongbin16/lsp-progress.nvim {:config (simple-setup :lsp-progress)}                                          
@@ -270,16 +270,17 @@
                                                      :python {:command ["ipython"]}}}
                                  :keymaps {:visual_send "<leader>rv"
                                            :send_line "<leader>rl"}})}
-  :saghen/blink.compat {:lazy true
-                        :opts {}}
+  :JunYang-tes/blink.compat {:lazy true
+                             :opts {}}
+  :folke/neodev.nvim {:opts {}}
   :saghen/blink.cmp {:cond use-blink
                      :opts {:keymap {:preset :enter
                                      :<CR> [:accept :fallback]
                                      :cmdline {:<CR> []
                                                :<Tab> [:accept]}}
                             :completion {:list {:selection :preselect}}
-                            :sources {:default [:lsp :path :snippets :buffer
-                                                :avante_commands :avante_files :avante_mentions]
+                            :sources {:default [:lsp :path :snippets :buffer]
+                                      :per_filetype {:AvanteInput [:avante_commands :avante_files :avante_mentions]}
                                       :providers {:avante_commands {:name "avante_commands"
                                                                     :module "blink.compat.source"
                                                                     :score_offset 90
