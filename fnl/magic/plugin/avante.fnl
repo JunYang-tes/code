@@ -1,6 +1,6 @@
-<F2>atags
 (module magic.plugin.avante
   {autoload {nvim aniseed.nvim
+             model_fn magic.model
              telescope telescope.pickers}})
 
 (local proxies 
@@ -15,7 +15,7 @@
                            "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
    :deepseek     {:kind :openai
                   :endpoint "https://api.deepseek.com/v1"
-                  :models ["deepseek-chat"]}
+                  :models ["deepseek-chat" "deepseek-coder"]}
    :aihubmix     {:kind :openai
                   :endpoint "https://aihubmix.com/v1"
                   :models ["claude-3-5-sonnet@20240620($4/$20)"
@@ -58,41 +58,13 @@
         (print "Not Found" model)
         {}))))
 
-(fn save_model [model]
-  (let [file (io.open (.. (os.getenv "HOME") "/.config/.avante_model") "w")]
-    (if file
-      (do
-        (file:write model)
-        (file:close)))))
-
-(fn load_model []
-  (let [file (io.open (.. (os.getenv "HOME") "/.config/.avante_model") "r")]
-    (if file
-      (do
-        (var model (file:read "*l"))
-        (print model)
-        (file:close)
-        model))))
-
 (let [(ok? avante) (pcall require :avante)]
   (when ok?
     (local config (require :avante.config))
     (local providers (require :avante.providers))
-    ; (local suggestion-provider (vim.tbl_deep_extend
-    ;                              :force
-    ;                              openai-provider
-    ;                              {:endpoint (os.getenv :ANVATE_OPENAI_HOST)
-    ;                               :api_key_name :ANVATE_OPENAI_KEY
-    ;                               :model :deepseek-ai/DeepSeek-V2.5
-    ;                               :local false}))
-
-    (var current 
-      (or
-        (load_model)
-        (os.getenv :ANVATE_OPENAI_MODEL)))
-    (avante.setup (get-provider current))
+    (avante.setup (get-provider (model_fn.get_model)))
     (fn switch-model [model]
-      (save_model model)
+      (model_fn.save_model model)
       (let [params (get-provider model)
             providers (require :avante.providers)] 
         (tset providers 
@@ -100,7 +72,6 @@
               (vim.tbl_extend :force
                               (. providers params.provider)
                               (. params params.provider)))
-        (print (vim.inspect providers))
         (avante.setup (get-provider model))))
         ;(providers.refresh params.provider)))
     (fn model-picker []
@@ -128,9 +99,4 @@
       :SwitchModel
       (fn []
         (model-picker))
-      {:desc "Switch Model"})
-    (vim.api.nvim_create_user_command
-      :ShowModel
-      (fn []
-        (print current))
-      {:desc "Show Model"})))
+      {:desc "Switch Model"})))
