@@ -278,7 +278,8 @@
                                      :<CR> [:accept :fallback]
                                      :cmdline {:<CR> []
                                                :<Tab> [:accept]}}
-                            :completion {:list {:selection :preselect}}
+                            :completion {:list {:selection { :preselect true
+                                                             :auto_insert false}}}
                             :sources {:default [:lsp :path :snippets :buffer]
                                       :per_filetype {:AvanteInput [:avante_commands :avante_files :avante_mentions]}
                                       :providers {:avante_commands {:name "avante_commands"
