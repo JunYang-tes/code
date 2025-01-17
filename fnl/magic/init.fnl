@@ -179,12 +179,16 @@
   :williamboman/mason.nvim {:config (simple-setup :mason {})
                             :run :MasonUpdate}
   ;:Exafunction/codeium.vim {}
-  :s1n7ax/nvim-window-picker {:version "2.*"
-                              :event :VeryLazy
-                              :window :window-picker
-                              :config {:hint :floating-big-letter
-                                       :filter_func (fn [ids]
-                                                      ids)}}
+  :JunYang-tes/nvim-window-picker {:version "2.*"
+                                   :event :VeryLazy
+                                   :window :window-picker
+                                   :config {:hint :floating-letter
+                                            :filter_func (fn [winids]
+                                                           (vim.tbl_filter 
+                                                             (fn [winid]
+                                                               (let [config (vim.api.nvim_win_get_config winid)]
+                                                                 config.focusable))
+                                                             winids))}}
   :bfredl/nvim-luadev {}
   ;structure search
   :cshuaimin/ssr.nvim {}
@@ -273,6 +277,7 @@
   :JunYang-tes/blink.compat {:lazy true
                              :opts {}}
   :folke/neodev.nvim {:opts {}}
+  ;:glacambre/firenvim { :build ":call firenvim#install(0)" :lazy false}
   :saghen/blink.cmp {:cond use-blink
                      :opts {:keymap {:preset :enter
                                      :<CR> [:accept :fallback]
@@ -305,10 +310,6 @@
 (require :magic.cmds)
 (require :magic.hack.mini)
 
-;; set XDG_CACHE_HOME back to ~/.cache to make terminal emulator
-;; works well.
-(vim.cmd "let $XDG_CACHE_HOME=expand('~/.cache/')")
-(vim.cmd "set title")
 (fn set-title []
   (let [title (.. "code " (vim.fn.getcwd))]
     (vim.api.nvim_set_option :titlestring title)))
