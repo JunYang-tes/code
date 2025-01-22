@@ -15,7 +15,7 @@
                            "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
    :deepseek     {:kind :openai
                   :endpoint "https://api.deepseek.com/v1"
-                  :models ["deepseek-chat" "deepseek-coder"]}
+                  :models ["deepseek-chat" "deepseek-coder" "deepseek-reasoner"]}
    :ollama       {:kind :openai
                   :endpoint "http://127.0.0.1:11434/v1"
                   :local true
