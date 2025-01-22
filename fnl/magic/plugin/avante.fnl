@@ -16,6 +16,12 @@
    :deepseek     {:kind :openai
                   :endpoint "https://api.deepseek.com/v1"
                   :models ["deepseek-chat" "deepseek-coder"]}
+   :ollama       {:kind :openai
+                  :endpoint "http://127.0.0.1:11434/v1"
+                  :local true
+                  :models ["deepseek-r1:1.5b",
+                           "deepseek-r1"]}
+                  
    :aihubmix     {:kind :openai
                   :endpoint "https://aihubmix.com/v1"
                   :models ["claude-3-5-sonnet@20240620($4/$20)"
@@ -52,7 +58,9 @@
                proxy.kind
                {:endpoint proxy.endpoint
                 :model model-name
-                :api_key_name (.. :avante_key_ proxy-name)})
+                :api_key_name (if proxy.local 
+                                ""
+                                (.. :avante_key_ proxy-name))})
          setup-param)
       (do 
         (print "Not Found" model)

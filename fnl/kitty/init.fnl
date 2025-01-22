@@ -19,20 +19,19 @@
                             (hyhird {:mode [:n :o :x]} :s #((-> :flash
                                                                require
                                                                (. :jump))))]}
-  :s1n7ax/nvim-window-picker {:version "2.*"
-                              :event :VeryLazy
-                              :window :window-picker
-                              :config {:hint :floating-big-letter
-                                       :filter_func (fn [ids]
-                                                      ids)}}
+  :JunYang-tes/nvim-window-picker {:version "2.*"
+                                   :event :VeryLazy
+                                   :window :window-picker
+                                   :config {:hint :floating-letter
+                                            :filter_func (fn [ids]
+                                                           ids)}}
   ;; Theme
   :folke/tokyonight.nvim {
                           :opts {}
                           :lazy false
                           :priority 1000} 
   :mikesmithgh/kitty-scrollback.nvim {:enabled true
-                                      :lazy true
-                                      :event ["User KittyScrollbackLaunch"]
+                                      :lazy false
                                       :cmd [:KittyScrollbackGenerateKittens
                                             :KittyScrollbackCheckHealth]
                                       :config (fn []
