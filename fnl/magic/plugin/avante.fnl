@@ -19,7 +19,7 @@
    :ollama       {:kind :openai
                   :endpoint "http://127.0.0.1:11434/v1"
                   :local true
-                  :models ["deepseek-r1:1.5b",
+                  :models ["deepseek-r1:1.5b"
                            "deepseek-r1"]}
                   
    :aihubmix     {:kind :openai
