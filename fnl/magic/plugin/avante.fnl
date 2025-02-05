@@ -10,6 +10,8 @@
                            "Qwen/Qwen2.5-Coder-7B-Instruct(free)"
                            "Qwen/Qwen2.5-Coder-32B-Instruct(￥1.26 / M tokens)"
                            "deepseek-ai/DeepSeek-V2.5(￥1.33 / M tokens)"
+                           "deepseek-ai/DeepSeek-R1(￥4/￥16 M tokens)"
+                           "deepseek-ai/DeepSeek-V3(￥2/￥8 M tokens)"
                            "meta-llama/Meta-Llama-3.1-8B-Instruct(free)"
                            "meta-llama/Meta-Llama-3.1-70B-Instruct(￥4.13 / M tokens)"
                            "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
