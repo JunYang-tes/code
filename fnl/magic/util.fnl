@@ -53,3 +53,11 @@
     (tset tbl fn-name
           (fn [...]
             (f tbl original ...)))))
+(defn map-cmd [mode key cmd]
+  (vim.keymap.set mode
+                  key
+                  (.. :<cmd> cmd :<cr>)))
+(defn map-plug [mode key cmd]
+  (vim.keymap.set mode
+                  key
+                  (.. :<Plug> "(" cmd ")")))

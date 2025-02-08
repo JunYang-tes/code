@@ -222,17 +222,17 @@
                                              :enable_close_on_slash false}})}
   :MysticalDevil/inlay-hints.nvim {:config (simple-setup :inlay-hints {})}
   :akinsho/flutter-tools.nvim {:config (simple-setup :flutter-tools {})}
+  :MeanderingProgrammer/render-markdown.nvim {:config (simple-setup
+                                                        :render-markdown
+                                                        {:file_types [:markdown :Avante :codecompanion]
+                                                         :render_modes [:n :c :t :i]})}
   :JunYang-tes/avante.nvim  {:dependencies [:stevearc/dressing.nvim
                                                :nvim-lua/plenary.nvim
                                                :MunifTanjim/nui.nvim
                                                (hyhird
                                                  {:event :VeryLazy
                                                   :opts {}}
-                                                 :HakonHarnes/img-clip.nvim)
-                                               (hyhird
-                                                 {:opts {:file_types [:markdown :Avante]}
-                                                  :ft [:markdown :Avante]}
-                                                 :MeanderingProgrammer/render-markdown.nvim)]
+                                                 :HakonHarnes/img-clip.nvim)]
                                 :build :make
                                 :cond use-avante
                                 :mod :avante
@@ -242,7 +242,7 @@
                                                :drag_and_drop {:insert_mode true}}}}
   :olimorris/codecompanion.nvim {:cond use-companion
                                  :dependencies [:stevearc/dressing.nvim
-                                                :echasnovski/mini.nvim]
+                                                :echasnovski/mini.diff]
                                  :mod :companion}  
 
                                       
@@ -273,7 +273,8 @@
                                                      :ts {:command ["bun repl"]}
                                                      :python {:command ["ipython"]}}}
                                  :keymaps {:visual_send "<leader>rv"
-                                           :send_line "<leader>rl"}})}
+                                           :send_line "<leader>rl"}
+                                 :repl_open_cmd "_DEFAULT"})}
   :JunYang-tes/blink.compat {:lazy true
                              :opts {}}
   :folke/neodev.nvim {:opts {}}
