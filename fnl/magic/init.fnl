@@ -192,8 +192,6 @@
   :bfredl/nvim-luadev {}
   ;structure search
   :cshuaimin/ssr.nvim {}
-  :yj/ai-assistant.nvim {:dev true
-                         :lazy false}
   :numtostr/FTerm.nvim {}
   ;sudo 
   :lambdalisue/suda.vim {}
