@@ -280,6 +280,7 @@
   :folke/neodev.nvim {:opts {}}
   ;:glacambre/firenvim { :build ":call firenvim#install(0)" :lazy false}
   :saghen/blink.cmp {:cond use-blink
+                     :version "*"
                      :opts {:keymap {:preset :enter
                                      :<CR> [:accept :fallback]
                                      :cmdline {:<CR> []
