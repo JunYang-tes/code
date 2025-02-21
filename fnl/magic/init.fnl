@@ -165,7 +165,7 @@
   :linrongbin16/lsp-progress.nvim {:config (simple-setup :lsp-progress)}                                          
   ;                                           {:notification { :window {:max_height 5}}})}
   ;im switcher
-  :rlue/vim-barbaric {:mod :barbaric}
+  ;:rlue/vim-barbaric {:mod :barbaric}
   :eraserhd/parinfer-rust {:run "cargo build --release"}
   :mfussenegger/nvim-lint {:mod :nvim-lint}
   :anuvyklack/windows.nvim {:requires [:anuvyklack/middleclass]
@@ -281,12 +281,16 @@
                      :version "*"
                      :opts {:keymap {:preset :enter
                                      :<CR> [:accept :fallback]
-                                     :cmdline {:<CR> []
-                                               :<Tab> [:accept]}}
+                                     :<C-j> [:select_next :fallback]
+                                     :<C-k> [:select_prev :fallback]}
+                                     
+                                     ; :cmdline {:<CR> []
+                                     ;           :<Tab> [:accept]}}
                             :completion {:list {:selection { :preselect true
                                                              :auto_insert false}}}
                             :sources {:default [:lsp :path :snippets :buffer]
-                                      :per_filetype {:AvanteInput [:avante_commands :avante_files :avante_mentions]}
+                                      :per_filetype {:AvanteInput [:avante_commands :avante_files :avante_mentions]
+                                                     :org [:orgmode]}
                                       :providers {:avante_commands {:name "avante_commands"
                                                                     :module "blink.compat.source"
                                                                     :score_offset 90
@@ -298,8 +302,14 @@
                                                   :avante_mentions {:name "avante_mentions"
                                                                     :module "blink.compat.source"
                                                                     :score_offset 1000
-                                                                    :opts {}}}}}
+                                                                    :opts {}}
+                                                  :orgmode {:name "Orgmode"
+                                                            :module :orgmode.org.autocompletion.blink
+                                                            :fallbacks [:buffer]}}}}
                      :opts_extend ["sources.default"]}
+  :nvim-orgmode/orgmode {:config (simple-setup 
+                                   :orgmode {:org_agenda_files "~/orgfiles/**/*"
+                                             :org_default_notes_file "~/orgfiles/refile.org"})}
   :dfendr/clipboard-image.nvim {})
 
 
