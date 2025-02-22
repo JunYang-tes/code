@@ -224,17 +224,17 @@
                                                         :render-markdown
                                                         {:file_types [:markdown :Avante :codecompanion]
                                                          :render_modes [:n :c :t :i]})}
-  :JunYang-tes/avante.nvim  {:dependencies [:stevearc/dressing.nvim
-                                               :nvim-lua/plenary.nvim
-                                               :MunifTanjim/nui.nvim
-                                               (hyhird
-                                                 {:event :VeryLazy
-                                                  :opts {}}
-                                                 :HakonHarnes/img-clip.nvim)]
-                                :build :make
-                                :cond use-avante
-                                :mod :avante
-                                :lazy false}
+  :yetone/avante.nvim  {:dependencies [:stevearc/dressing.nvim
+                                          :nvim-lua/plenary.nvim
+                                          :MunifTanjim/nui.nvim
+                                          (hyhird
+                                            {:event :VeryLazy
+                                             :opts {}}
+                                            :HakonHarnes/img-clip.nvim)]
+                           :build :make
+                           :cond use-avante
+                           :mod :avante
+                           :lazy false}
   :HakonHarnes/img-clip.nvim {:opts {:default {:embed_image_as_base64 false
                                                :prompt_for_file_name false
                                                :drag_and_drop {:insert_mode true}}}}
