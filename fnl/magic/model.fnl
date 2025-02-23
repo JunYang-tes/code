@@ -5,16 +5,17 @@
 (local proxies 
   {:siliconflow  {:kind :openai
                   :endpoint "https://api.siliconflow.cn/v1"
-                  :models ["Qwen/Qwen2.5-72B-Instruct(￥4.13 / M tokens)"
-                           "Qwen/Qwen2.5-Coder-7B-Instruct(free)"
-                           "Qwen/Qwen2.5-Coder-32B-Instruct(￥1.26 / M tokens)"
-                           "deepseek-ai/DeepSeek-V2.5(￥1.33 / M tokens)"
-                           "deepseek-ai/DeepSeek-R1(￥4/￥16 M tokens)"
-                           "deepseek-ai/DeepSeek-V3(￥2/￥8 M tokens)"
-                           "meta-llama/Meta-Llama-3.1-8B-Instruct(free)"
-                           "meta-llama/Meta-Llama-3.1-70B-Instruct(￥4.13 / M tokens)"
-                           "meta-llama/Meta-Llama-3.1-405B-Instruct(￥21 / M tokens)"]}
-   :deepseek     {:kind :openai
+                  :models [["Qwen/Qwen2.5-72B-Instruct" "(￥4.13 / M tokens)"]
+                           ["Qwen/Qwen2.5-Coder-7B-Instruct" "(free)"]
+                           ["Qwen/Qwen2.5-Coder-32B-Instruct" "(￥1.26 / M tokens)"]
+                           ["deepseek-ai/DeepSeek-V2.5" "(￥1.33 / M tokens)"]
+                           ["deepseek-ai/DeepSeek-R1" "(￥4/￥16 M tokens)"]
+                           ["deepseek-ai/DeepSeek-V3" "(￥2/￥8 M tokens)"]
+                           ["meta-llama/Meta-Llama-3.1-8B-Instruct" "(free)"]
+                           ["meta-llama/Meta-Llama-3.1-70B-Instruct" "(￥4.13 / M tokens)"]
+                           ["meta-llama/Meta-Llama-3.1-405B-Instruct" "(￥21 / M tokens)"]]}
+   :deepseek     {:kind :deepseek
+                  :compatible :openai
                   :endpoint "https://api.deepseek.com/v1"
                   :models ["deepseek-chat" "deepseek-coder" "deepseek-reasoner"]}
    :ollama       {:kind :openai
@@ -25,8 +26,8 @@
                   
    :aihubmix     {:kind :openai
                   :endpoint "https://aihubmix.com/v1"
-                  :models ["claude-3-5-sonnet@20240620($4/$20)"
-                           "claude-3-5-haiku-20241022($1.3/$6.5)"
+                  :models [["claude-3-5-sonnet@20240620","($4/$20)"]
+                           ["claude-3-5-haiku-20241022","($1.3/$6.5)"]
                            "gpt-4o-mini"]}
    :google       {:kind :gemini
                   :models [:gemini-2.0-flash
@@ -37,11 +38,14 @@
   (let [all-models []]
     (each [proxy-name proxy-info (pairs proxies)]
       (each [_ model (ipairs proxy-info.models)]
-        (table.insert all-models (.. proxy-name "/" model))))
+        (match (type model)
+          :string (table.insert all-models (.. proxy-name "/" model))
+          :table  (table.insert all-models (.. proxy-name "/" (. model 1) (. model 2))))))
+        
     all-models))
 
 (defn load_model []
-  (let [file (io.open (.. (os.getenv "HOME") "/.config/.avante_model") "r")]
+  (let [file (io.open (.. (os.getenv "HOME") "/.config/.model") "r")]
     (if file
       (do
         (var model (file:read "*l"))
@@ -51,7 +55,7 @@
 
 (var current_model (or
                     (load_model)
-                    (os.getenv :ANVATE_OPENAI_MODEL)))
+                    "google/gemini-2.0-flash"))
 
 (local on_change [])
 
@@ -61,7 +65,7 @@
     (each [_ f (ipairs on_change)]
       (pcall f))
 
-    (let [file (io.open (.. (os.getenv "HOME") "/.config/.avante_model") "w")]
+    (let [file (io.open (.. (os.getenv "HOME") "/.config/.model") "w")]
       (if file
         (do
           (file:write model)
@@ -72,13 +76,6 @@
 
 (defn get-proxies []
   proxies)
-
-(defn parse-model [model]
-  (let [
-        (start) (string.find model "/")
-        proxy-name (string.sub model 1 (- start 1))
-        model-name (string.sub model (+ start 1))]
-    [proxy-name (string.gsub model-name "%(.*%)" "")]))
 
 (defn add_on_change [f] (table.insert on_change f))
 
