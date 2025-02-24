@@ -266,12 +266,13 @@
                                 :iron.core
                                 {:config
                                   {:scratch_repl true
+                                   :repl_open_cmd "vertical botright 80 split" 
                                    :repl_definition {:sh {:command ["zsh"]}
                                                      :ts {:command ["bun repl"]}
                                                      :python {:command ["ipython"]}}}
                                  :keymaps {:visual_send "<leader>rv"
-                                           :send_line "<leader>rl"}
-                                 :repl_open_cmd "_DEFAULT"})}
+                                           :send_line "<leader>rl"}})}
+                                 
   :JunYang-tes/blink.compat {:lazy true
                              :opts {}}
   :folke/neodev.nvim {:opts {}}
