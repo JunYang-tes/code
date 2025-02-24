@@ -61,3 +61,7 @@
   (vim.keymap.set mode
                   key
                   (.. :<Plug> "(" cmd ")")))
+
+(defn first-key [tbl]
+  (each [k (pairs tbl)]
+    (lua "return k")))

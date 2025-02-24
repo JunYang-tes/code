@@ -1,6 +1,7 @@
 (module magic.keymap
   {autoload {
              nvim aniseed.nvim
+             model magic.model
              util magic.util}})
 
 (defn- map [from to]
@@ -145,3 +146,28 @@
   :v :p "\"_dP" {:noremap true})
 (vim.api.nvim_command
   "imap <script><silent><nowait><expr> <C-l> codeium#Accept()")
+
+;; AI keymaps
+(vim.defer_fn
+  #(do
+     (vim.keymap.set
+       [:n :v]
+       "<leader>aa"
+       (fn []
+         (match (model.get-prefered-ai-plugin) 
+           :avante (vim.cmd :AvanteAsk)
+           :companion (vim.cmd :CodeCompanionChat :Toggle))))
+     (vim.keymap.set
+       [:n :v]
+       "<leader>ae"
+       (fn []
+         (match (model.get-prefered-ai-plugin) 
+           :avante (vim.cmd :AvanteEdit)
+           :companion (vim.cmd :CodeCompanionChat :Add))))
+     (vim.keymap.set
+       [:n :v]
+       "<leader>ac"
+       (fn []
+         (match (model.get-prefered-ai-plugin) 
+           :avante (vim.cmd :AvanteChat)
+           :companion (vim.cmd :CodeCompanionChat :Toggle))))) 100)

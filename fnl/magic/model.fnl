@@ -26,8 +26,8 @@
                   
    :aihubmix     {:kind :openai
                   :endpoint "https://aihubmix.com/v1"
-                  :models [["claude-3-5-sonnet@20240620","($4/$20)"]
-                           ["claude-3-5-haiku-20241022","($1.3/$6.5)"]
+                  :models [["claude-3-5-sonnet@20240620" "($4/$20)"]
+                           ["claude-3-5-haiku-20241022" "($1.3/$6.5)"]
                            "gpt-4o-mini"]}
    :google       {:kind :gemini
                   :models [:gemini-2.0-flash
@@ -102,3 +102,24 @@
                         (on-pick selection.value)))))
                  true)})]
        (f:find)))
+
+(var prefered_ai_plugin :nil)
+(defn load-prefered_ai-plugin []
+  (let [file (io.open (.. (os.getenv "HOME") "/.config/.prefered_ai_plugin") "r")]
+    (if file
+      (do
+        (var plugin (file:read "*l"))
+        (file:close)
+        plugin)
+      "avante")))
+(defn get-prefered-ai-plugin []
+  (if (not= nil prefered_ai_plugin)
+    (set prefered_ai_plugin (load-prefered_ai-plugin)))
+  prefered_ai_plugin)
+(defn save-prefered-ai-plugin [plugin]
+  (let [file (io.open (.. (os.getenv "HOME") "/.config/.prefered_ai_plugin") "w")]
+    (if file
+      (do
+        (file:write plugin)
+        (file:close)
+        (set prefered_ai_plugin plugin)))))

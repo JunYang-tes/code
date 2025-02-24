@@ -38,10 +38,12 @@
             (tset adapters_config name
                   (adapters.extend 
                     kind
-                    {:env {:api_key (os.getenv (.. :avante_key_ proxy-name))
-                            :url (or endpoint
-                                     adapter.url)
-                            :schema {:model {:default model}}}})))))))
+                    {:env {:api_key (os.getenv (.. :avante_key_ proxy-name))}
+                     :url (or endpoint
+                              adapter.url)
+                     : name
+                     :formatted_name name
+                     :schema {:model {:default model :choices [model]}}})))))))
   (let [adapter (if (not= nil (. adapters_config model-name))
                     model-name
                     (first adapters_config))]
@@ -54,7 +56,6 @@
 
 (let [(ok? companion) (pcall #(require :codecompanion))]
   (when ok?
-    (print (vim.inspect (. (get-setup-param (model.get_model)) :strategies) {:depth 3}))
     (let [model-name (model.get_model)
           param (get-setup-param (model.get_model))]
       (companion.setup param)
@@ -64,14 +65,11 @@
           (print (.. :No " " model-name))
           (model.save_model param.strategies.chat.adapter))))
                 
-    (util.map-cmd :n
-                  :<leader>ac "CodeCompanionChat Toggle")
-    (util.map-cmd :v
-                  :<leader>aa "CodeCompanionChat Add")
-    (util.map-cmd [:v :n]
-                  :<leader>ae "CodeCompanion /buffer")
-    (util.map-cmd [:v :n]
-                  :<C-a> "CodeCompanionActions") 
+    (vim.api.nvim_create_user_command
+      :PreferCompanion
+      #(model.save-prefered-ai-plugin :companion)
+      {:desc "Prefer CodeCompanion"})
+    (vim.cmd :cab cc CodeCompanion)
     (vim.api.nvim_create_user_command
       :SwitchModel
       (fn []
