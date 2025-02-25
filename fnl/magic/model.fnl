@@ -35,6 +35,7 @@
    :google       {:kind :gemini
                   :models [:gemini-2.0-flash
                            :gemini-exp-1206
+                           :gemini-2.0-pro-exp-02-05
                            :gemini-2.0-flash-thinking-exp-01-21]}})
     
 (local models
