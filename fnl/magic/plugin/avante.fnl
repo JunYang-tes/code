@@ -3,21 +3,28 @@
              util magic.util
              model_fn magic.model
              telescope telescope.pickers}})
+(fn is_supported [kind]
+  (let [(ok) (pcall require (.. :avante "."
+                                :providers "." 
+                                kind))]
+    return ok))
 
 (fn get-setup-param [model]
   (local vendors {})
   (each [proxy-name proxy (pairs (model_fn.get-proxies))]
     (let [kind (. proxy :kind)
-          compatible (. proxy :compatible)
-          endpoint (. proxy :endpoint)]
+          options (. proxy :options)
+          compatible (. proxy :compatible)]
       (each [_ model (ipairs proxy.models)]
         (let [[model price] (if (= (type model) :string)
                                 [model ""]
                                 model)
               name (.. proxy-name "/" model price)]
           (tset vendors name
-                {:__inherited_from kind
-                 :endpoint endpoint
+                {:__inherited_from (if (is_supported kind)
+                                       kind compatible)
+                 :endpoint proxy.baseUrl
+                 :disable_tools (not (. options model :tools))
                  :api_key_name (.. :avante_key_ proxy-name)
                  :model model})))))
   (let [provider (if (not= nil (. vendors model))
@@ -41,16 +48,14 @@
     
     (fn switch-model [model]
       (model_fn.save_model model)
-      (avante.setup (get-provider model)))
+      (avante.setup (get-setup-param model)))
     (fn model-picker []
       (model_fn.model-picker switch-model))
     (vim.api.nvim_create_user_command
       :PreferAvante
       #(model_fn.save-prefered-ai-plugin :avante)
       {:desc "Prefer Avante"})
-    (vim.api.nvim_create_user_command
-      :SwitchModel
-      (fn []
-        (model-picker))
-      {:desc "Switch Model"})))
+    (model_fn.add_on_change
+      (let [m (model_fn.get_model)]
+        (avante.setup (get-setup-param m))))))
 

@@ -22,6 +22,7 @@
           compatible (. proxy :compatible)
           adapter (or (require-adapter kind)
                       (require-adapter compatible))
+          can_reason (or proxy.can_reason {})
           endpoint_ (?. proxy :endpoint)
           endpoint (if (= kind :openai)
                        (.. endpoint_ "/chat/completions")
@@ -43,7 +44,11 @@
                               adapter.url)
                      : name
                      :formatted_name name
-                     :schema {:model {:default model :choices [model]}}})))))))
+                     :schema {:model {:default model 
+                                      :choices (if (. can_reason model)
+                                                 {model {:opts {:can_reason true}}}
+                                                 [model])}}})))))))
+            
   (let [adapter (if (not= nil (. adapters_config model-name))
                     model-name
                     (first adapters_config))]
@@ -52,7 +57,7 @@
                   :inline {:adapter adapter}
                   :cmd {:adapter adapter}
                   :agent {:adapter adapter}}
-     :opts {:log_level :DEBUG}}))
+     :opts {:log_level :ERROR}}))
 
 (let [(ok? companion) (pcall #(require :codecompanion))]
   (when ok?
@@ -69,11 +74,6 @@
       :PreferCompanion
       #(model.save-prefered-ai-plugin :companion)
       {:desc "Prefer CodeCompanion"})
-    (vim.cmd :cab cc CodeCompanion)
-    (vim.api.nvim_create_user_command
-      :SwitchModel
-      (fn []
-        (model.model-picker (fn [m]
-                              (model.save_model m)
-                              (companion.setup (get-setup-param m)))))
-      {:desc "Switch Model"})))
+    (model.add_on_change
+      (let [m (model.get_model)]
+        (companion.setup (get-setup-param m))))))

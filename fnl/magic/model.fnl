@@ -4,7 +4,9 @@
 
 (local proxies 
   {:siliconflow  {:kind :openai
-                  :endpoint "https://api.siliconflow.cn/v1"
+                  :endpoint "https://api.siliconflow.cn/v1/chat/completions"
+                  :baseUrl "https://api.siliconflow.cn/v1"
+                  :options {}
                   :models [["Qwen/Qwen2.5-72B-Instruct" "(￥4.13 / M tokens)"]
                            ["Qwen/Qwen2.5-Coder-7B-Instruct" "(free)"]
                            ["Qwen/Qwen2.5-Coder-32B-Instruct" "(￥1.26 / M tokens)"]
@@ -19,19 +21,24 @@
                            ["meta-llama/Meta-Llama-3.1-405B-Instruct" "(￥21 / M tokens)"]]}
    :deepseek     {:kind :deepseek
                   :compatible :openai
-                  :endpoint "https://api.deepseek.com/v1"
+                  :endpoint "https://api.deepseek.com/v1/chat/completions"
+                  :baseUrl "https://api.deepseek.com/v1"
+                  :can_reason {:deepseek-r1 true}
                   :models ["deepseek-chat" "deepseek-coder" "deepseek-reasoner"]}
-   :ollama       {:kind :openai
-                  :endpoint "http://127.0.0.1:11434/v1"
-                  :local true
-                  :models ["deepseek-r1:1.5b"
-                           "deepseek-r1"]}
                   
    :aihubmix     {:kind :openai
-                  :endpoint "https://aihubmix.com/v1"
+                  :endpoint "https://aihubmix.com/v1/chat/completions"
+                  :baseUrl "https://aihubmix.com/v1"
                   :models [["claude-3-5-sonnet@20240620" "($4/$20)"]
                            ["claude-3-5-haiku-20241022" "($1.3/$6.5)"]
                            "gpt-4o-mini"]}
+   :volcengine   {:kind :deepseek
+                  :compatible :openai
+                  :endpoint "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
+                  :baseUrl "https://ark.cn-beijing.volces.com/api/v3"
+                  :can_reason {:deepseek-r1-250120 true}
+                  :options {:deepseek-r1-250120 {:tools false}}
+                  :models [:deepseek-r1-250120 :deepseek-v3-241226]}
    :google       {:kind :gemini
                   :models [:gemini-2.0-flash
                            :gemini-exp-1206
@@ -106,6 +113,11 @@
                         (on-pick selection.value)))))
                  true)})]
        (f:find)))
+
+(vim.api.nvim_create_user_command
+ :SwitchModel
+ #(model-picker save_model)
+ {:desc "Switch Model"})
 
 (var prefered_ai_plugin :nil)
 (defn load-prefered_ai-plugin []
