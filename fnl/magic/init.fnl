@@ -31,6 +31,7 @@
 (set nvim.o.shiftwidth 2)
 (set nvim.o.termguicolors true)
 (set nvim.o.laststatus 3)
+(set nvim.o.title true)
 (vim.cmd "set formatoptions-=o")
 ;(nvim.ex.set :termguicolors)
 ;; indent with spaces instead of tab
@@ -321,6 +322,6 @@
 (require :magic.hack.mini)
 
 (fn set-title []
-  (let [title (.. "code " (vim.fn.getcwd))]
+  (let [title (.. "nvimcode " (vim.fn.getcwd))]
     (vim.api.nvim_set_option :titlestring title)))
 (set-title)
