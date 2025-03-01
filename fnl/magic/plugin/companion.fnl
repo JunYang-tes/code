@@ -16,7 +16,7 @@
 
 (fn get-setup-param [model-name]
   (local adapters (require :codecompanion.adapters))
-  (local adapters_config {})
+  (local adapters_config {:opts {:show_defaults false}})
   (each [proxy-name proxy (pairs (model.get-proxies))]
     (let [kind (. proxy :kind)
           compatible (. proxy :compatible)
@@ -35,19 +35,23 @@
                 name (.. proxy-name "/" model price)
                 kind_? (?. proxy :kind)
                 
-                adapter (require (.. :codecompanion.adapters "." kind))] 
-            (tset adapters_config name
-                  (adapters.extend 
-                    kind
-                    {:env {:api_key (os.getenv (.. :avante_key_ proxy-name))}
-                     :url (or endpoint
-                              adapter.url)
-                     : name
-                     :formatted_name name
-                     :schema {:model {:default model 
-                                      :choices (if (. can_reason model)
-                                                 {model {:opts {:can_reason true}}}
-                                                 [model])}}})))))))
+                adapter (require (.. :codecompanion.adapters "." kind))
+                custom-adapter (adapters.extend 
+                                  kind
+                                  {:env {:api_key (os.getenv (.. :avante_key_ proxy-name))}
+                                   :url (or endpoint
+                                            adapter.url)
+                                   : name
+                                   :formatted_name name
+                                   :schema {:model {:default model}}})] 
+                 
+            (tset custom-adapter.schema.model :choices
+                  (if (. can_reason model)
+                    {model {:opts {:can_reason true}}}
+                    [model]))
+                  
+            (tset adapters_config name custom-adapter))))))
+                  
             
   (let [adapter (if (not= nil (. adapters_config model-name))
                     model-name
