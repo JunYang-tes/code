@@ -23,7 +23,7 @@
                   :compatible :openai
                   :endpoint "https://api.deepseek.com/v1/chat/completions"
                   :baseUrl "https://api.deepseek.com/v1"
-                  :can_reason {:deepseek-r1 true}
+                  :can_reason {:deepseek-reasoner true}
                   :models ["deepseek-chat" "deepseek-coder" "deepseek-reasoner"]}
                   
    :aihubmix     {:kind :openai
