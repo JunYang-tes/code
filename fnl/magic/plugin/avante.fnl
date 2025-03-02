@@ -1,8 +1,7 @@
-(module magic.plugin.avante
-  {autoload {nvim aniseed.nvim
-             util magic.util
-             model_fn magic.model
-             telescope telescope.pickers}})
+(module magic.plugin.avante {autoload {nvim aniseed.nvim
+                                       util magic.util
+                                       model_fn magic.model
+                                       telescope telescope.pickers}})
 (fn is_supported [kind]
   (let [(ok) (pcall require (.. :avante "."
                                 :providers "." 
@@ -13,7 +12,8 @@
   (local vendors {})
   (each [proxy-name proxy (pairs (model_fn.get-proxies))]
     (let [kind (. proxy :kind)
-          options (or (. proxy :options) {})
+          options (or (. proxy :options)
+                      {})
           compatible (. proxy :compatible)]
       (each [_ model (ipairs proxy.models)]
         (let [[model price] (if (= (type model) :string)
