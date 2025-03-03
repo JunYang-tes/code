@@ -65,6 +65,20 @@
 
 (let [(ok? companion) (pcall #(require :codecompanion))]
   (when ok?
+    (let [deepseek (require :codecompanion.adapters.deepseek)
+          chat_output (. deepseek :handlers :chat_output)]
+      (tset deepseek :handlers :chat_output
+            (fn [...]
+              (let [out (chat_output ...)]
+                (if (and (not= nil out)
+                         (= (. out :status)
+                            :success)
+                         (not= (. out :output :reasoning) nil)
+                         (not= (. out :output :reasoning) "")
+                         (= (. out :output :content) ""))
+                  (tset out :output :content nil))
+                out))))
+      
     (let [model-name (model.get_model)
           param (get-setup-param (model.get_model))]
       (companion.setup param)
