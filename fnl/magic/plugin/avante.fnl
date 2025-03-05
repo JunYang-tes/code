@@ -13,7 +13,7 @@
   (local vendors {})
   (each [proxy-name proxy (pairs (model_fn.get-proxies))]
     (let [kind (. proxy :kind)
-          options (. proxy :options)
+          options (or (. proxy :options) {})
           compatible (. proxy :compatible)]
       (each [_ model (ipairs proxy.models)]
         (let [[model price] (if (= (type model) :string)
@@ -24,7 +24,7 @@
                 {:__inherited_from (if (is_supported kind)
                                        kind compatible)
                  :endpoint proxy.baseUrl
-                 :disable_tools (not (. options model :tools))
+                 :disable_tools (not (?. options model :tools))
                  :api_key_name (.. :avante_key_ proxy-name)
                  :model model})))))
   (let [provider (if (not= nil (. vendors model))
