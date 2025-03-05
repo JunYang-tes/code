@@ -43,13 +43,10 @@
                                             adapter.url)
                                    : name
                                    :formatted_name name
+                                   :opts {:can_reason (. can_reason model)}
                                    :schema {:model {:default model}}})] 
                  
-            (tset custom-adapter.schema.model :choices
-                  (if (. can_reason model)
-                    {model {:opts {:can_reason true}}}
-                    [model]))
-                  
+            (tset custom-adapter.schema.model :choices [model])
             (tset adapters_config name custom-adapter))))))
                   
             
