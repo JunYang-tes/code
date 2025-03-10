@@ -37,6 +37,10 @@
 
 (let [(ok? avante) (pcall require :avante)]
   (when ok?
+    (let [gemini (require :avante.providers.gemini)]
+      (tset gemini :parse_response_without_stream
+            (fn [data _ opts])))
+      
     (let [model-name (model_fn.get_model)
           param (get-setup-param (model_fn.get_model))]
       (avante.setup param)
