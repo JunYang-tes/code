@@ -65,3 +65,28 @@
 (defn first-key [tbl]
   (each [k (pairs tbl)]
     (lua "return k")))
+
+(defn pick [list
+            title
+            on-pick]
+     (let [pickers (require :telescope.pickers)
+           finders (require :telescope.finders)
+           actions (require :telescope.actions)
+           action-state (require :telescope.actions.state)
+           conf (. (require :telescope.config) :values)
+           f (pickers.new
+              {}
+              {:prompt_title title
+               :finder (finders.new_table {:results list})
+               :sorter (conf.generic_sorter {})
+               :attach_mappings
+               (fn [prompt_bufnr map]
+                 (actions.select_default:replace
+                  (fn []
+                    (actions.close prompt_bufnr)
+                    (let [selection (action-state.get_selected_entry)]
+                      (when selection
+                        (on-pick selection.value)))))
+                 true)})]
+       (f:find)))
+
