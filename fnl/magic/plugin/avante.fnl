@@ -60,6 +60,6 @@
       #(model_fn.save-prefered-ai-plugin :avante)
       {:desc "Prefer Avante"})
     (model_fn.add_on_change
-      (let [m (model_fn.get_model)]
-        (avante.setup (get-setup-param m))))))
+      #(let [m (model_fn.get_model)]
+         (vim.cmd (.. "AvanteSwitchProvider " m))))))
 

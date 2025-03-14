@@ -90,5 +90,5 @@
       #(model.save-prefered-ai-plugin :companion)
       {:desc "Prefer CodeCompanion"})
     (model.add_on_change
-      (let [m (model.get_model)]
-        (companion.setup (get-setup-param m))))))
+      #(let [m (model.get_model)]
+         (companion.setup (get-setup-param m))))))
