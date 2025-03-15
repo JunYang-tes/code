@@ -311,6 +311,7 @@
   :nvim-orgmode/orgmode {:config (simple-setup 
                                    :orgmode {:org_agenda_files "~/orgfiles/**/*"
                                              :org_default_notes_file "~/orgfiles/refile.org"})}
+  :nvim-pack/nvim-spectre {}
   :dfendr/clipboard-image.nvim {})
 
 

@@ -14,3 +14,9 @@
            :img_dir path}))))
   {:desc "Paste Image"
    :nargs "*"})
+
+(vim.api.nvim_create_user_command
+  :Search
+  #((. (require :spectre) :toggle))
+  {:desc "Search & Replace"
+   :nargs 0})
