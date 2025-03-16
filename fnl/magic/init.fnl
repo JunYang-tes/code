@@ -311,7 +311,10 @@
   :nvim-orgmode/orgmode {:config (simple-setup 
                                    :orgmode {:org_agenda_files "~/orgfiles/**/*"
                                              :org_default_notes_file "~/orgfiles/refile.org"})}
+  ; search & replace
   :nvim-pack/nvim-spectre {}
+  :Davidyz/VectorCode {:version "*"
+                       :build "pip upgrade vectorcode"}
   :dfendr/clipboard-image.nvim {})
 
 
