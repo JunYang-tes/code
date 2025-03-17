@@ -56,9 +56,7 @@
                     model-name
                     (first adapters_config))]
     {:adapters adapters_config
-     :strategies {:chat {:adapter adapter
-                         :slash_commands {:codebase ((. (require :vectorcode.integrations)
-                                                        :codecompanion :chat :make_slash_command))}}
+     :strategies {:chat {:adapter adapter}
                   :inline {:adapter adapter}
                   :cmd {:adapter adapter}
                   :agent {:adapter adapter}}
