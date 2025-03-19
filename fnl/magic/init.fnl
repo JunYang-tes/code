@@ -238,10 +238,10 @@
   :HakonHarnes/img-clip.nvim {:opts {:default {:embed_image_as_base64 false
                                                :prompt_for_file_name false
                                                :drag_and_drop {:insert_mode true}}}}
-  :olimorris/codecompanion.nvim {
-                                 :dependencies [:stevearc/dressing.nvim
-                                                :echasnovski/mini.diff]
-                                 :mod :companion}  
+  :JunYang-tes/codecompanion.nvim {
+                                   :dependencies [:stevearc/dressing.nvim
+                                                  :echasnovski/mini.diff]
+                                   :mod :companion}  
 
                                       
   :stevearc/oil.nvim {:config (fn []
@@ -313,6 +313,10 @@
                                              :org_default_notes_file "~/orgfiles/refile.org"})}
   ; search & replace
   :nvim-pack/nvim-spectre {}
+  :ravitemer/mcphub.nvim {:build "npm install -g mcp-hub@latest"
+                          :config (simple-setup 
+                                    :mcphub {:config (os.getenv :MCPHUB_CONFIG_PATH)
+                                             :port 3000})}
   :dfendr/clipboard-image.nvim {})
 
 
