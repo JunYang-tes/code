@@ -61,7 +61,8 @@
                   :inline {:adapter adapter}
                   :cmd {:adapter adapter}
                   :agent {:adapter adapter}}
-     :opts {:log_level :ERROR}}))
+     :opts {:log_level :DEBUG
+            :system_prompt #(util.read-prompt)}}))
 
 (let [(ok? companion) (pcall #(require :codecompanion))]
   (when ok?

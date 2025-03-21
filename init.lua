@@ -7,6 +7,8 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 local fmt = string.format
+local filepath = debug.getinfo(1, "S").source:sub(2)
+vim.g.magic_root = vim.fs.dirname(filepath)
 
 function script_path()
    local str = debug.getinfo(2, "S").source:sub(2)

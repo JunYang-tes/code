@@ -90,3 +90,11 @@
                  true)})]
        (f:find)))
 
+(defn read-prompt []
+  (let [file-path (.. vim.g.magic_root "/fnl/magic/plugin/companion.txt")
+        file (io.open file-path "r")]
+    (if file
+        (let [content (file:read "*a")]
+          (file:close)
+          content)
+        nil)))
