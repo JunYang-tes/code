@@ -1,3 +1,7 @@
+(module magic.cmds
+  {autoload {nvim aniseed.nvim
+             util magic.util}})
+
 (vim.api.nvim_create_user_command
   :PasteImg
   (fn [{: name : args
@@ -19,4 +23,20 @@
   :Search
   #((. (require :spectre) :toggle))
   {:desc "Search & Replace"
+   :nargs 0})
+
+(vim.api.nvim_create_user_command
+  :OpenLog
+  #(let [path (vim.fn.stdpath :log)
+         iter (vim.iter (vim.fn.readdir path))
+         files (-> iter
+                   (: :map #(.. path "/" $1))
+                   (: :filter #(string.match $1 "%.log$")))]
+     (util.pick 
+       (files:totable)
+       "Select log"
+       (fn [file]
+         (vim.cmd (.. "e " file)))))
+
+  {:desc "Open log"
    :nargs 0})
