@@ -85,7 +85,6 @@
 
 (map-cmd :n "<F2>" "lua require('FTerm').toggle()")
 (tnomap "<F2>" "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>")
-(tnomap "<leader><esc>" "<C-\\><C-n>")
 (vim.keymap.set
   :n
   "<leader>wf"
