@@ -284,11 +284,15 @@
                                      :<CR> [:accept :fallback]
                                      :<C-j> [:select_next :fallback]
                                      :<C-k> [:select_prev :fallback]}
-                                     
+                                    
                                      ; :cmdline {:<CR> []
                                      ;           :<Tab> [:accept]}}
                             :completion {:list {:selection { :preselect true
-                                                             :auto_insert false}}}
+                                                             :auto_insert false}}
+                                         :documentation {:auto_show true}}
+                            :signature {:enabled true}
+                            :cmdline {:keymap {:preset :inherit}
+                                      :completion {:menu {:auto_show true}}}
                             :sources {:default [:lsp :path :snippets :buffer]
                                       :per_filetype {:AvanteInput [:avante_commands :avante_files :avante_mentions]
                                                      :org [:orgmode]}
