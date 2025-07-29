@@ -7,6 +7,6 @@
       {:ensure_installed [:typescript :css :javascript :markdown :markdown_inline :kotlin]
        :highlight {:enable true}
        :indent {:enable true}
-       :textobjects {:enable true
-                     :keymaps {:af "@function.outer"
-                               :if "@function.inner"}}})))
+       :textobjects {:select {:enable true
+                              :keymaps {:af "@function.outer"
+                                        :if "@function.inner"}}}})))
