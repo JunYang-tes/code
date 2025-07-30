@@ -321,6 +321,7 @@
                           :config (simple-setup 
                                     :mcphub {:config (os.getenv :MCPHUB_CONFIG_PATH)
                                              :port 3000})}
+  :sunjon/Shade.nvim {:config (simple-setup :shade {})}
   :dfendr/clipboard-image.nvim {})
 
 
