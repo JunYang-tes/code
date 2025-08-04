@@ -73,7 +73,7 @@
 (map-cmd :n :<leader>sc "Telescope commands")
 (map-cmd :n :<leader>sq "Telescope quickfix")
 (map-cmd :n :<leader>ss "Telescope git_status")
-(map-cmd :n :<leader>sh "lua require('telescope').extensions.recent_files.pick()")
+(map-cmd :n :<leader>sh "Telescope frecency workspace=CWD")
 (map-cmd :n :<leader>sla "Telescope lsp_code_actions")
 (map-cmd :n :<leader>slr "Telescope lsp_references")
 (map-cmd :n :<leader>so "Telescope aerial")

@@ -134,7 +134,8 @@
   :nvim-lualine/lualine.nvim {:mod :lualine}
   :nvim-lua/plenary.nvim {}
   :nvim-telescope/telescope.nvim {:mod :telescope :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]]}
-  :smartpde/telescope-recent-files {}
+  :nvim-telescope/telescope-frecency.nvim {:config (fn []
+                                                     ((. (require :telescope) :load_extension) "frecency"))}
   :nvim-treesitter/nvim-treesitter {:mod :tree-sitter
                                     :run #(let [install (require :nvim-treesitter.install)
                                                 update (install.update {:with_sync true})]
