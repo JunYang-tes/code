@@ -32,6 +32,7 @@
 (set nvim.o.termguicolors true)
 (set nvim.o.laststatus 3)
 (set nvim.o.title true)
+(set nvim.o.undofile true)
 (vim.cmd "set formatoptions-=o")
 ;(nvim.ex.set :termguicolors)
 ;; indent with spaces instead of tab
@@ -239,10 +240,6 @@
   :HakonHarnes/img-clip.nvim {:opts {:default {:embed_image_as_base64 false
                                                :prompt_for_file_name false
                                                :drag_and_drop {:insert_mode true}}}}
-  :JunYang-tes/codecompanion.nvim {
-                                   :dependencies [:stevearc/dressing.nvim
-                                                  :echasnovski/mini.diff]
-                                   :mod :companion}  
 
                                       
   :stevearc/oil.nvim {:config (fn []
@@ -290,6 +287,7 @@
                                      ;           :<Tab> [:accept]}}
                             :completion {:list {:selection { :preselect true
                                                              :auto_insert false}}
+                                         :accept {:auto_brackets {:enabled false}}
                                          :documentation {:auto_show true}}
                             :signature {:enabled true}
                             :cmdline {:keymap {:preset :inherit}
@@ -318,11 +316,34 @@
                                              :org_default_notes_file "~/orgfiles/refile.org"})}
   ; search & replace
   :nvim-pack/nvim-spectre {}
-  :ravitemer/mcphub.nvim {:build "npm install -g mcp-hub@latest"
-                          :config (simple-setup 
-                                    :mcphub {:config (os.getenv :MCPHUB_CONFIG_PATH)
-                                             :port 3000})}
-  :sunjon/Shade.nvim {:config (simple-setup :shade {})}
+  ; :ravitemer/mcphub.nvim {:build "npm install -g mcp-hub@latest"
+  ;                         :config (simple-setup 
+  ;                                   :mcphub {:config (os.getenv :MCPHUB_CONFIG_PATH)
+  ;                                            :port 3000})}
+  :JunYang-tes/gemini-nvim  {
+                             :config (simple-setup
+                                       :gemini-nvim {:window_style :side
+                                                     :side_position :left
+                                                     :agents [{:name :Gemini
+                                                               :program "gemini"
+                                                               :toggle_keymap "<F3>"}
+                                                              {:name :Deepseek
+                                                               :program "qwen"
+                                                               :envs {:OPENAI_BASE_URL "https://api.deepseek.com/v1"
+                                                                      :OPENAI_API_KEY (os.getenv :deepseek_key)
+                                                                      :OPENAI_MODEL "deepseek-chat"}}
+                                                  
+                                                  
+                                                              {:name :QwenCC
+                                                               :program "claude"
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
+                                                                      :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+                                                                      :ANTHROPIC_AUTH_TOKEN (os.getenv :SILICONFLOW_AI_KEY)}}]})}
+                                                  
+                                                 
+                ;:dir "~/github/gemini.nvim/"}
+  ; auto switch input method
+  :keaising/im-select.nvim {:config (simple-setup :im_select {})}
   :valentino-sm/shade.nvim {:config (simple-setup :shade {})}
   :dfendr/clipboard-image.nvim {})
 
