@@ -332,6 +332,12 @@
                                                                :envs {:OPENAI_BASE_URL "https://api.deepseek.com/v1"
                                                                       :OPENAI_API_KEY (os.getenv :deepseek_key)
                                                                       :OPENAI_MODEL "deepseek-chat"}}
+                                                              {:name :MSQwen
+                                                               :program :claude
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                      :ANTHROPIC_SMALL_FAST_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+                                                                      :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                   
                                                   
                                                               {:name :QwenCC
