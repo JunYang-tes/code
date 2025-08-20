@@ -326,7 +326,8 @@
                                                      :side_position :left
                                                      :agents [{:name :Gemini
                                                                :program "gemini"
-                                                               :toggle_keymap "<F3>"}
+                                                               :toggle_keymap "<F3>"
+                                                               :params ["-m" "gemini-2.5-pro"]}
                                                               {:name :Deepseek
                                                                :program "qwen"
                                                                :envs {:OPENAI_BASE_URL "https://api.deepseek.com/v1"
