@@ -340,12 +340,27 @@
                                                                       :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
                                                                       :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                   
+                                                              {:name :CCKimi
+                                                               :program "claude"
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
+                                                                      :ANTHROPIC_MODEL "moonshotai/Kimi-K2-Instruct"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
+                                                              {:name :CCGLM
+                                                               :program "claude"
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
+                                                                      :ANTHROPIC_MODEL "zai-org/GLM-4.5"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
                                                   
-                                                              {:name :QwenCC
+                                                              {:name :CCDeepseek
+                                                               :program "claude"
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
+                                                                      :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
+                                                              {:name :CCQwen
                                                                :program "claude"
                                                                :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
                                                                       :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
-                                                                      :ANTHROPIC_AUTH_TOKEN (os.getenv :SILICONFLOW_AI_KEY)}}]})}
+                                                                      :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}]})}
                                                   
                                                  
                 ;:dir "~/github/gemini.nvim/"}
