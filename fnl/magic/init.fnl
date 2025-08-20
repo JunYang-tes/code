@@ -72,8 +72,6 @@
 (local use-avante (not use-companion))
 (local use-copilot (= (os.getenv :COPILOT)
                       :1))
-
-
 (plugin.use
   :Olical/aniseed {}
   :Olical/nvim-local-fennel {}
@@ -235,6 +233,7 @@
                                              :opts {}}
                                             :HakonHarnes/img-clip.nvim)]
                            :build :make
+                           :cond false
                            :mod :avante
                            :lazy false}
   :HakonHarnes/img-clip.nvim {:opts {:default {:embed_image_as_base64 false
@@ -340,11 +339,12 @@
                                                                       :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
                                                                       :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                   
-                                                              {:name :CCKimi
+                                                              {:name :MSKimi
                                                                :program "claude"
                                                                :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
                                                                       :ANTHROPIC_MODEL "moonshotai/Kimi-K2-Instruct"
-                                                                      :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
+                                                                      :ANTHROPIC_SMALL_FAST_MODEL "moonshotai/Kimi-K2-Instruct"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                               {:name :CCGLM
                                                                :program "claude"
                                                                :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
