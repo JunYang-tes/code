@@ -339,11 +339,17 @@
                                                                       :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
                                                                       :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                   
+                                                              {:name :MSDeepseek
+                                                               :program "claude"
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                      :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3.1"
+                                                                      :ANTHROPIC_SMALL_FAST_MODEL "deepseek-ai/DeepSeek-V3.1"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                               {:name :MSKimi
                                                                :program "claude"
-                                                               :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
-                                                                      :ANTHROPIC_MODEL "moonshotai/Kimi-K2-Instruct"
-                                                                      :ANTHROPIC_SMALL_FAST_MODEL "moonshotai/Kimi-K2-Instruct"
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                      :ANTHROPIC_MODEL "moonshotai/Kimi-K2-Base"
+                                                                      :ANTHROPIC_SMALL_FAST_MODEL "moonshotai/Kimi-K2-Base"
                                                                       :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                               {:name :CCGLM
                                                                :program "claude"
@@ -353,9 +359,10 @@
                                                   
                                                               {:name :CCDeepseek
                                                                :program "claude"
-                                                               :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
-                                                                      :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3"
-                                                                      :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
+                                                               :envs {:ANTHROPIC_BASE_URL "https://api.deepseek.com/anthropic"
+                                                                      :ANTHROPIC_MODEL "deepseek-chat"
+                                                                      :ANTHROPIC_SMALL_FAST_MODEL "deepseek-chat"
+                                                                      :ANTHROPIC_API_KEY (os.getenv :deepseek_key)}}
                                                               {:name :CCQwen
                                                                :program "claude"
                                                                :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
