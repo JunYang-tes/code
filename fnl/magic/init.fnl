@@ -334,9 +334,24 @@
                                                                         :OPENAI_MODEL "deepseek-chat"}}
                                                                 {:name :MSQwen
                                                                  :program :claude
+                                                                 :params ["--verbose"]
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
                                                                         :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
+
+                                                                {:name :MSQwen30
+                                                                 :program :claude
+                                                                 :params ["--verbose"]
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "Qwen/Qwen3-Coder-30B-A3B-Instruct"
+                                                                        :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-30B-A3B-Instruct"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
+                                                                {:name :MSGLM
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                        :ANTHROPIC_MODEL "ZhipuAI/GLM-4.5"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "ZhipuAI/GLM-4.5"
                                                                         :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                   
                                                                 {:name :MSDeepseek
