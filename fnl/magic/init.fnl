@@ -159,7 +159,7 @@
   :tpope/vim-surround {}
   :folke/zen-mode.nvim {}
   :nvim-tree/nvim-web-devicons {}
-  :norcalli/nvim-colorizer.lua {:config (simple-setup :colorizer)}
+  ;:norcalli/nvim-colorizer.lua {:config (simple-setup :colorizer)}
   :ray-x/lsp_signature.nvim {:mod :lsp_signature :cond false}
   ;progress
   ; :j-hui/fidget.nvim {:config (simple-setup :fidget 
@@ -388,7 +388,6 @@
                 ;:dir "~/github/gemini.nvim/"}
   ; auto switch input method
   :keaising/im-select.nvim {:config (simple-setup :im_select {})}
-  :valentino-sm/shade.nvim {:config (simple-setup :shade {})}
   :dfendr/clipboard-image.nvim {})
 
 
