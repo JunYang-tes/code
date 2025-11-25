@@ -323,10 +323,14 @@
                              :config (simple-setup
                                        :agents-parter {:window_style :side
                                                        :side_position :left
-                                                       :agents [{:name :Gemini
+                                                       :agents [{:name :Gemini3
                                                                  :program "gemini"
                                                                  :toggle_keymap "<F3>"
-                                                                 :params ["-m" "gemini-2.5-pro"]}
+                                                                 :params ["-m" "gemini-3-pro-preview"]}
+                                                                {:name :Gemini
+                                                                 :program "gemini"
+                                                                 :toggle_keymap "<F4>"
+                                                                 :params ["-m" "gemini-2-pro"]}
                                                                 {:name :Deepseek
                                                                  :program "qwen"
                                                                  :envs {:OPENAI_BASE_URL "https://api.deepseek.com/v1"
@@ -388,6 +392,7 @@
                 ;:dir "~/github/gemini.nvim/"}
   ; auto switch input method
   :keaising/im-select.nvim {:config (simple-setup :im_select {})}
+  :JunYang-tes/colorful-winsep.nvim {:config (simple-setup :colorful-winsep {})}
   :dfendr/clipboard-image.nvim {})
 
 
