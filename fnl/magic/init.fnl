@@ -330,12 +330,18 @@
                                                                 {:name :Gemini
                                                                  :program "gemini"
                                                                  :toggle_keymap "<F4>"
-                                                                 :params ["-m" "gemini-2-pro"]}
+                                                                 :params ["-m" "gemini-2.5-pro"]}
+                                                                {:name :Gemini3f
+                                                                 :program "gemini"
+                                                                 :toggle_keymap "<F4>"
+                                                                 :params ["-m" "gemini-3-flash-preview"]}
                                                                 {:name :Deepseek
-                                                                 :program "qwen"
-                                                                 :envs {:OPENAI_BASE_URL "https://api.deepseek.com/v1"
-                                                                        :OPENAI_API_KEY (os.getenv :deepseek_key)
-                                                                        :OPENAI_MODEL "deepseek-chat"}}
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://api.deepseek.com/anthropic"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :deepseek_key)
+                                                                        :API_TIMEOUT_MS 600000
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "deepseek-chat"
+                                                                        :ANTHROPIC_MODEL "deepseek-chat"}}
                                                                 {:name :MSQwen
                                                                  :program :claude
                                                                  :params ["--verbose"]
@@ -354,15 +360,21 @@
                                                                 {:name :MSGLM
                                                                  :program "claude"
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
-                                                                        :ANTHROPIC_MODEL "ZhipuAI/GLM-4.5"
-                                                                        :ANTHROPIC_SMALL_FAST_MODEL "ZhipuAI/GLM-4.5"
+                                                                        :ANTHROPIC_MODEL "ZhipuAI/GLM-4.6"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "ZhipuAI/GLM-4.6"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
+                                                                {:name :MSGLMV
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                        :ANTHROPIC_MODEL "ZhipuAI/GLM-4.6V"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "ZhipuAI/GLM-4.6V"
                                                                         :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                   
                                                                 {:name :MSDeepseek
                                                                  :program "claude"
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
-                                                                        :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3.1"
-                                                                        :ANTHROPIC_SMALL_FAST_MODEL "deepseek-ai/DeepSeek-V3.1"
+                                                                        :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3.2"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "deepseek-ai/DeepSeek-V3.2"
                                                                         :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                                 {:name :MSKimi
                                                                  :program "claude"
