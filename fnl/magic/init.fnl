@@ -22,7 +22,7 @@
 (set nvim.o.termguicolors true)
 (set nvim.o.mouse "a")
 (set nvim.o.updatetime 500)
-(set nvim.o.timeoutlen 500)
+(set nvim.o.timeoutlen 80)
 (set nvim.o.sessionoptions "blank,curdir,folds,help,tabpages,winsize")
 (set nvim.o.inccommand :split)
 (set nvim.o.signcolumn :yes)
@@ -403,7 +403,7 @@
                                                  
                 ;:dir "~/github/gemini.nvim/"}
   ; auto switch input method
-  :keaising/im-select.nvim {:config (simple-setup :im_select {})}
+  :h-hg/fcitx.nvim {}
   :JunYang-tes/colorful-winsep.nvim {:config (simple-setup :colorful-winsep {})}
   :dfendr/clipboard-image.nvim {})
 
