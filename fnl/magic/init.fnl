@@ -22,7 +22,7 @@
 (set nvim.o.termguicolors true)
 (set nvim.o.mouse "a")
 (set nvim.o.updatetime 500)
-(set nvim.o.timeoutlen 80)
+(set nvim.o.timeoutlen 400)
 (set nvim.o.sessionoptions "blank,curdir,folds,help,tabpages,winsize")
 (set nvim.o.inccommand :split)
 (set nvim.o.signcolumn :yes)
@@ -360,8 +360,8 @@
                                                                 {:name :MSGLM
                                                                  :program "claude"
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
-                                                                        :ANTHROPIC_MODEL "ZhipuAI/GLM-4.6"
-                                                                        :ANTHROPIC_SMALL_FAST_MODEL "ZhipuAI/GLM-4.6"
+                                                                        :ANTHROPIC_MODEL "ZhipuAI/GLM-4.7"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "ZhipuAI/GLM-4.7"
                                                                         :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                                 {:name :MSGLMV
                                                                  :program "claude"
@@ -376,16 +376,11 @@
                                                                         :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3.2"
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "deepseek-ai/DeepSeek-V3.2"
                                                                         :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
-                                                                {:name :MSKimi
+                                                                {:name :SCGLM
                                                                  :program "claude"
-                                                                 :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
-                                                                        :ANTHROPIC_MODEL "moonshotai/Kimi-K2-Base"
-                                                                        :ANTHROPIC_SMALL_FAST_MODEL "moonshotai/Kimi-K2-Base"
-                                                                        :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
-                                                                {:name :CCGLM
-                                                                 :program "claude"
-                                                                 :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
-                                                                        :ANTHROPIC_MODEL "zai-org/GLM-4.5"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn"
+                                                                        :ANTHROPIC_MODEL "zai-org/GLM-4.6"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "zai-org/GLM-4.6"
                                                                         :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
                                                   
                                                                 {:name :CCDeepseek
@@ -393,12 +388,7 @@
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api.deepseek.com/anthropic"
                                                                         :ANTHROPIC_MODEL "deepseek-chat"
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "deepseek-chat"
-                                                                        :ANTHROPIC_API_KEY (os.getenv :deepseek_key)}}
-                                                                {:name :CCQwen
-                                                                 :program "claude"
-                                                                 :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn/"
-                                                                        :ANTHROPIC_MODEL "Qwen/Qwen3-Coder-480B-A35B-Instruct"
-                                                                        :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}]})}
+                                                                        :ANTHROPIC_API_KEY (os.getenv :deepseek_key)}}]})}
                                                   
                                                  
                 ;:dir "~/github/gemini.nvim/"}

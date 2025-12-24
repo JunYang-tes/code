@@ -135,7 +135,7 @@
         (ufo.peekFoldedLinesUnderCursor true)
         (vim.api.nvim_command "Lspsaga hover_doc")))))
 
-(vim.keymap.set :t :jk "<C-\\><C-n>" {:noremap true})
+(vim.keymap.set :t "<esc><esc>" "<C-\\><C-n>" {:noremap true})
 
 ;; 粘贴到选区不要清空register,以便连续粘贴
 (vim.keymap.set
