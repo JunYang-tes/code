@@ -26,6 +26,8 @@
 (map "<leader>wk" "<C-w>k")
 (map "<leader>wj" "<C-w>j")
 (map "<space><tab>" "<cmd>b#<CR>")
+(map-cmd [:n :i :v] :<c-s> :w)
+(map-cmd [:n :i :v] :<c-S> :wa)
 ;anuvyklack/windows.nvim
 (map-cmd :n :<leader>wz :WindowsMaximize)
 (map-cmd :n :<leader>w= :WindowsEqualize)
