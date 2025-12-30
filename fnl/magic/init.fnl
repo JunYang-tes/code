@@ -382,6 +382,18 @@
                                                                         :ANTHROPIC_MODEL "zai-org/GLM-4.6"
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "zai-org/GLM-4.6"
                                                                         :ANTHROPIC_API_KEY (os.getenv :SILICONFLOW_AI_KEY)}}
+                                                                {:name :APGLM
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://aiping.cn/api/v1/anthropic"
+                                                                        :ANTHROPIC_MODEL "GLM-4.7"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "GLM-4.7"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :AIPING_KEY)}}
+                                                                {:name :APGLM46v
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://aiping.cn/api/v1/anthropic"
+                                                                        :ANTHROPIC_MODEL "GLM-4.6V"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "GLM-4.6V"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :AIPING_KEY)}}
                                                   
                                                                 {:name :CCDeepseek
                                                                  :program "claude"
