@@ -416,6 +416,7 @@
 (require :magic.bigfile)
 (require :magic.cmds)
 (require :magic.hack.mini)
+((. (require :magic.dashboard) :setup))
 
 (fn set-title []
   (let [title (.. "nvimcode " (vim.fn.getcwd))]
