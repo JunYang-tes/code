@@ -19,11 +19,17 @@
 (defn- render-dashboard []
   (let [buf (vim.api.nvim_create_buf false true)
         win (vim.api.nvim_get_current_win)
-        win-width (vim.api.nvim_win_get_width win)
+        ;; 获取窗口总宽度和高度
+        total-width (vim.api.nvim_win_get_width win)
         win-height (vim.api.nvim_win_get_height win)
+        ;; 获取装饰栏宽度 (signcolumn, foldcolumn, etc.)
+        win-info (. (vim.fn.getwininfo win) 1)
+        text-off (or win-info.textoff 0)
+        ;; 实际可用的文本宽度
+        win-width (- total-width text-off)
+        
         cwd (vim.fn.getcwd)
         files (get-recent-files 10)
-        ;; 头像路径
         avatar-path "/home/yj/.config/code/avatar.jpeg"]
     
     (vim.api.nvim_win_set_buf win buf)
@@ -31,55 +37,53 @@
     (let [lines []
           ;; 布局参数
           img-h 10
-          img-w 20
-          content-w 40 ;; 假设内容区域宽度
+          img-w 22
+          content-w 50
           left-padding (math.max 0 (math.floor (/ (- win-width content-w) 2)))
           top-padding (math.max 0 (math.floor (/ (- win-height 26) 2)))
-          indent (string.rep " " left-padding)]
+          indent (string.rep " " left-padding)
+          ;; 填充空格，宽度为可用宽度，避免换行
+          empty-line (string.rep " " win-width)]
       
       ;; 1. 顶部填充
       (for [i 1 top-padding] (table.insert lines ""))
       
-      ;; 2. 图片占位 (12行)
-      (for [i 1 (+ img-h 2)] (table.insert lines ""))
+      ;; 2. 图片占位 (填充空格)
+      (for [i 1 (+ img-h 2)] (table.insert lines empty-line))
       
-      ;; 3. 项目路径 (居中显示)
-      (let [project-str (.. "󰚝  " cwd)
-            p-pad (math.max 0 (math.floor (/ (- win-width (vim.fn.strdisplaywidth project-str)) 2)))]
-        (table.insert lines (.. (string.rep " " p-pad) project-str)))
+      ;; 3. 项目路径
+      (table.insert lines (.. indent "󰚝  Project: " cwd))
       (table.insert lines "")
       
-      ;; 4. 最近文件列表 (块对齐)
-      (table.insert lines (.. indent "󰈚  Recent Files:"))
+      ;; 4. 最近文件列表
+      (table.insert lines (.. indent "󰈚  Recent Files"))
       (if (> (length files) 0)
           (each [i file (ipairs files)]
             (let [short-path (file:sub (+ (length cwd) 2))
-                  display-text (string.format "   [%d] %s" i short-path)]
+                  display-text (string.format "   [%2d] %s" i short-path)]
               (table.insert lines (.. indent display-text))))
           (table.insert lines (.. indent "   No recent files here.")))
       
       (table.insert lines "")
       
-      ;; 5. 快捷功能 (块对齐)
-      (table.insert lines (.. indent "󱁤  Actions:"))
+      ;; 5. 快捷功能
+      (table.insert lines (.. indent "󱁤  Actions"))
       (let [shortcuts [["f" "Find Files"]
                        ["h" "Frecency Search"]
                        ["e" "New File"]
                        ["q" "Quit"]]]
         (each [_ [key desc] (ipairs shortcuts)]
-          (table.insert lines (.. indent (string.format "   [%s] %s" key desc)))))
+          (table.insert lines (.. indent (string.format "   [ %s] %s" key desc)))))
 
       (vim.api.nvim_buf_set_lines buf 0 -1 false lines)
       
-      ;; 6. 应用高亮 (修复索引错误)
+      ;; 6. 应用高亮
       (each [i content (ipairs lines)]
         (let [row (- i 1)]
-          (if (content:find "──")
-              (vim.api.nvim_buf_add_highlight buf -1 :Comment row 0 -1)
-              (let [idx (content:find "%[")]
-                (when idx
-                  (vim.api.nvim_buf_add_highlight buf -1 :Directory row (- (+ left-padding idx) 1) (+ left-padding idx 2))))
-              (or (content:find "󰈚") (content:find "󱁤"))
+          (let [idx (content:find "%[")]
+            (when idx
+              (vim.api.nvim_buf_add_highlight buf -1 :Directory row (- idx 1) (+ idx 2))))
+          (if (or (content:find "󰈚") (content:find "󱁤") (content:find "󰚝"))
               (vim.api.nvim_buf_add_highlight buf -1 :Keyword row 0 -1))))
 
       ;; 7. Buffer 配置
@@ -91,22 +95,28 @@
       (set vim.wo.relativenumber false)
       (set vim.wo.list false)
       (set vim.wo.fillchars "eob: ")
+      (set vim.wo.wrap false) ;; 强制关闭换行以防万一
 
       ;; 8. 渲染图片
       (when (util.exists? avatar-path)
         (vim.defer_fn
           (fn []
             (let [image (require :image)
+                  ;; 重新计算可用宽度下的居中位置
+                  curr-total-width (vim.api.nvim_win_get_width win)
+                  curr-win-info (. (vim.fn.getwininfo win) 1)
+                  curr-usable-width (- curr-total-width (or curr-win-info.textoff 0))
+                  img-x (math.floor (/ (- curr-usable-width img-w) 2))
                   instance (image.from_file
                              avatar-path
                              {:window win
                               :buffer buf
-                              :x (math.floor (/ (- win-width img-w) 2))
+                              :x img-x
                               :y (+ top-padding 1)
                               :width img-w
                               :height img-h})]
               (when instance (instance:render))))
-          50))
+          100))
 
       ;; 9. 快捷键映射
       (let [map-opts {:buffer buf :nowait true :silent true}]
