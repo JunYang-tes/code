@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 BASE_DIR=$(dirname `which $0`)
+export NCODE_CONFIG=$BASE_DIR
 # echo $BASE_DIR
 # if [ ! -e $BASE_DIR/.local/config/nvim/fnl ]
 # then

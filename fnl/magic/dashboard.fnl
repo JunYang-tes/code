@@ -30,7 +30,7 @@
         
         cwd (vim.fn.getcwd)
         files (get-recent-files 10)
-        avatar-path "/home/yj/.config/code/avatar.jpeg"]
+        avatar-path (util.get-path "avatar.jpeg")]
     
     (vim.api.nvim_win_set_buf win buf)
     
@@ -60,7 +60,8 @@
       (if (> (length files) 0)
           (each [i file (ipairs files)]
             (let [short-path (file:sub (+ (length cwd) 2))
-                  display-text (string.format "   [%2d] %s" i short-path)]
+                  ;; 使用 0-9 编号
+                  display-text (string.format "   [%d] %s" (- i 1) short-path)]
               (table.insert lines (.. indent display-text))))
           (table.insert lines (.. indent "   No recent files here.")))
       
@@ -73,7 +74,7 @@
                        ["e" "New File"]
                        ["q" "Quit"]]]
         (each [_ [key desc] (ipairs shortcuts)]
-          (table.insert lines (.. indent (string.format "   [ %s] %s" key desc)))))
+          (table.insert lines (.. indent (string.format "   [%s] %s" key desc)))))
 
       (vim.api.nvim_buf_set_lines buf 0 -1 false lines)
       
@@ -121,7 +122,7 @@
       ;; 9. 快捷键映射
       (let [map-opts {:buffer buf :nowait true :silent true}]
         (each [i file (ipairs files)]
-          (vim.keymap.set :n (tostring i) #(open-file file) map-opts))
+          (vim.keymap.set :n (tostring (- i 1)) #(open-file file) map-opts))
         (vim.keymap.set :n :f #(vim.cmd "Telescope find_files") map-opts)
         (vim.keymap.set :n :h #(vim.cmd "Telescope frecency workspace=CWD") map-opts)
         (vim.keymap.set :n :e #(vim.cmd "enew") map-opts)

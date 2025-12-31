@@ -98,3 +98,7 @@
           (file:close)
           content)
         nil)))
+
+(defn get-path [relative]
+  (let [root (or (os.getenv "NCODE_CONFIG") config-path)]
+    (.. root "/" relative)))
