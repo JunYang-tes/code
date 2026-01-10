@@ -3,6 +3,35 @@
              a aniseed.core
              util magic.util}})
 
+;; 保存图片实例和配置
+(var image-instance nil)
+(var image-config nil)
+(var dashboard-buf nil)
+(var autocmd-ids [])
+
+(defn- is-floating-window? [win]
+  (when (and win (>= win 0))
+    (let [config (vim.api.nvim_win_get_config win)]
+      (and config.relative (not= config.relative "")))))
+
+(defn- hide-image []
+  (when image-instance
+    (image-instance:clear)
+    (set image-instance nil)))
+
+(defn- show-image []
+  (when (and image-config (not image-instance))
+    (let [image (require :image)
+          instance (image.from_file
+                     image-config.path
+                     (a.merge image-config.opts {:x image-config.x
+                                                  :y image-config.y
+                                                  :width image-config.w
+                                                  :height image-config.h}))]
+      (when instance
+        (set image-instance instance)
+        (instance:render)))))
+
 (defn- get-recent-files [limit]
   (let [cwd (vim.fn.getcwd)
         files []]
@@ -15,6 +44,11 @@
 
 (defn- open-file [file]
   (vim.cmd (.. "edit " file)))
+
+(defn- cleanup-autocmd []
+  (each [_ id (ipairs autocmd-ids)]
+    (vim.api.nvim_del_autocmd id))
+  (set autocmd-ids []))
 
 (defn- render-dashboard []
   (let [buf (vim.api.nvim_create_buf false true)
@@ -92,6 +126,18 @@
       (set vim.bo.buftype :nofile)
       (set vim.bo.filetype :dashboard)
       (set vim.bo.bufhidden :wipe)
+
+      ;; 保存 dashboard buffer 并设置清理
+      (set dashboard-buf buf)
+      (table.insert autocmd-ids
+        (vim.api.nvim_create_autocmd
+          :BufWipeout
+          {:buffer buf
+           :callback (fn []
+                      (hide-image)
+                      (set image-config nil)
+                      (set dashboard-buf nil)
+                      (cleanup-autocmd))}))
       (set vim.wo.number false)
       (set vim.wo.relativenumber false)
       (set vim.wo.list false)
@@ -100,24 +146,22 @@
 
       ;; 8. 渲染图片
       (when (util.exists? avatar-path)
-        (vim.defer_fn
-          (fn []
-            (let [image (require :image)
-                  ;; 重新计算可用宽度下的居中位置
-                  curr-total-width (vim.api.nvim_win_get_width win)
-                  curr-win-info (. (vim.fn.getwininfo win) 1)
-                  curr-usable-width (- curr-total-width (or curr-win-info.textoff 0))
-                  img-x (math.floor (/ (- curr-usable-width img-w) 2))
-                  instance (image.from_file
-                             avatar-path
-                             {:window win
-                              :buffer buf
+        (let [curr-total-width (vim.api.nvim_win_get_width win)
+              curr-win-info (. (vim.fn.getwininfo win) 1)
+              curr-usable-width (- curr-total-width (or curr-win-info.textoff 0))
+              img-x (math.floor (/ (- curr-usable-width img-w) 2))]
+          ;; 保存图片配置
+          (set image-config {:path avatar-path
+                              :opts {:window win
+                                     :buffer buf}
                               :x img-x
                               :y (+ top-padding 1)
-                              :width img-w
-                              :height img-h})]
-              (when instance (instance:render))))
-          100))
+                              :w img-w
+                              :h img-h})
+          (vim.defer_fn
+            (fn []
+              (show-image))
+            100)))
 
       ;; 9. 快捷键映射
       (let [map-opts {:buffer buf :nowait true :silent true}]
@@ -129,6 +173,37 @@
         (vim.keymap.set :n :q #(vim.cmd "quit") map-opts)))))
 
 (defn setup []
+  ;; 清理旧的 autocmd
+  (cleanup-autocmd)
+
+  ;; 监听浮动窗口切换
+  (table.insert autocmd-ids
+    (vim.api.nvim_create_autocmd
+      :WinEnter
+      {:callback (fn []
+                   (when (and dashboard-buf (is-floating-window? 0))
+                     (hide-image)))}))
+
+  (table.insert autocmd-ids
+    (vim.api.nvim_create_autocmd
+      :WinLeave
+      {:callback (fn []
+                   (when dashboard-buf
+                     (let [next-win (vim.fn.winnr "#")
+                           next-win-id (vim.fn.win_getid next-win)]
+                       (when (and image-config
+                                   (not (is-floating-window? next-win-id)))
+                         (show-image)))))}))
+
+  (table.insert autocmd-ids
+    (vim.api.nvim_create_autocmd
+      :WinClosed
+      {:callback (fn []
+                   (when (and dashboard-buf image-config
+                              (not (is-floating-window? 0)))
+                     (show-image)))}))
+
+  ;; Dashboard 启动
   (vim.api.nvim_create_autocmd
     :VimEnter
     {:callback (fn []
