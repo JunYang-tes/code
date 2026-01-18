@@ -41,6 +41,7 @@
 (vim.diagnostic.config 
   {:virtual_text false
    :signs true})
+
 (fn hyhird [tbl ...]
   (each [i v (ipairs [...])]
     (tset tbl i v))
@@ -395,6 +396,8 @@
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "GLM-4.6V"
                                                                         :ANTHROPIC_API_KEY (os.getenv :AIPING_KEY)}}
                                                   
+                                                                {:name :Opencode
+                                                                 :program :opencode}
                                                                 {:name :CCDeepseek
                                                                  :program "claude"
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api.deepseek.com/anthropic"
