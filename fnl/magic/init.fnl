@@ -377,6 +377,12 @@
                                                                         :ANTHROPIC_MODEL "deepseek-ai/DeepSeek-V3.2"
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "deepseek-ai/DeepSeek-V3.2"
                                                                         :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
+                                                                {:name :MSKimi
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "https://api-inference.modelscope.cn/"
+                                                                        :ANTHROPIC_MODEL "moonshotai/Kimi-K2.5"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "moonshotai/Kimi-K2.5"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :MODELSCOPE_API_KEY)}}
                                                                 {:name :SCGLM
                                                                  :program "claude"
                                                                  :envs {:ANTHROPIC_BASE_URL "https://api.siliconflow.cn"
@@ -419,7 +425,7 @@
 (require :magic.bigfile)
 (require :magic.cmds)
 (require :magic.hack.mini)
-((. (require :magic.dashboard) :setup))
+; ((. (require :magic.dashboard) :setup))
 
 (fn set-title []
   (let [title (.. "nvimcode " (vim.fn.getcwd))]
