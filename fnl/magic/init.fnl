@@ -137,6 +137,8 @@
   :nvim-telescope/telescope-frecency.nvim {:config (fn []
                                                      ((. (require :telescope) :load_extension) "frecency"))}
   :nvim-treesitter/nvim-treesitter {:mod :tree-sitter
+                                    :branch :main
+                                    :build :TSUpdate
                                     :run #(let [install (require :nvim-treesitter.install)
                                                 update (install.update {:with_sync true})]
                                             (update))}
@@ -243,7 +245,7 @@
 
                                       
   :stevearc/oil.nvim {:config (fn []
-                                ((. (require :oil) :setup) {})
+                                ((. (require :oil) :setup) {:columns [:icons :size]})
                                 (vim.keymap.set :n "-"
                                                 :<cmd>Oil<cr>))}
   :rafamadriz/friendly-snippets {:config (fn [])}
@@ -288,17 +290,24 @@
                             :completion {:list {:selection { :preselect true
                                                              :auto_insert false}}
                                          :accept {:auto_brackets {:enabled false}}
+                                         :trigger {:show_on_trigger_character true}
                                          :documentation {:auto_show true}}
                             :signature {:enabled true}
                             :cmdline {:keymap {:preset :inherit}
                                       :completion {:menu {:auto_show true}}}
                             :sources {:default [:lsp :path :snippets :buffer]
                                       :per_filetype {:AvanteInput [:avante_commands :avante_files :avante_mentions]
+                                                     :agent_prompt [:path :buffer
+                                                                    :AgentsParterFileReference]
                                                      :org [:orgmode]}
                                       :providers {:avante_commands {:name "avante_commands"
                                                                     :module "blink.compat.source"
                                                                     :score_offset 90
                                                                     :opts {}}
+                                                  :AgentsParterFileReference {:name "AgentsParterFileReference"
+                                                                              :module "agents-parter.file_reference_source"}
+                                                                              
+                                                  :lsp  { :min_keyword_length 0}
                                                   :avante_files {:name "avante_files"
                                                                  :module "blink.compat.source"
                                                                  :score_offset 100
@@ -314,6 +323,7 @@
   :nvim-orgmode/orgmode {:config (simple-setup 
                                    :orgmode {:org_agenda_files "~/orgfiles/**/*"
                                              :org_default_notes_file "~/orgfiles/refile.org"})}
+  :JunYang-tes/markdowny.nvim {:config (simple-setup :markdowny {})}
   ; search & replace
   :nvim-pack/nvim-spectre {}
   ; :ravitemer/mcphub.nvim {:build "npm install -g mcp-hub@latest"
@@ -400,6 +410,12 @@
                                                                  :envs {:ANTHROPIC_BASE_URL "https://aiping.cn/api/v1/anthropic"
                                                                         :ANTHROPIC_MODEL "GLM-4.6V"
                                                                         :ANTHROPIC_SMALL_FAST_MODEL "GLM-4.6V"
+                                                                        :ANTHROPIC_API_KEY (os.getenv :AIPING_KEY)}}
+                                                                {:name :AntiClaude
+                                                                 :program "claude"
+                                                                 :envs {:ANTHROPIC_BASE_URL "http://127.0.0.1:8045"
+                                                                        :ANTHROPIC_MODEL "claude-sonnet-4-5"
+                                                                        :ANTHROPIC_SMALL_FAST_MODEL "gemini-2.5-flash"
                                                                         :ANTHROPIC_API_KEY (os.getenv :AIPING_KEY)}}
                                                   
                                                                 {:name :Opencode
