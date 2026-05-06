@@ -2,66 +2,57 @@
   {autoload {util magic.util
              nvim aniseed.nvim}})
 
-(defn exepath [exe]
-  "Return the full path of the given executable if it exists, otherwise nil."
-  (if (vim.fn.executable exe)
-    (vim.fn.exepath exe)
-    nil))
-
-(defn- map [from to]
-  (util.nnoremap from to))
-
-(defn- setup-fennel [lsp]
-  (let [pwd (vim.loop.cwd)]
-    (pcall
-      #(with-open [cfg (io.open (.. pwd "/" ".fennel-ls.json"))]
-        (let [fennel-ls
-              (-> (cfg:read "*a")
-                  vim.json.decode)]
-          (lsp.fennel_ls.setup {:settings {: fennel-ls}}))))))
-(fn get-tsserver-path []
-  (let [(ok? ret)
-        (pcall #(with-open [f (io.popen
-                                "which node")]
-                  (f:read "*a")))]
-    (if ok?
-      (let [(r _)
-            (string.gsub ret "bin/node%s$" "lib/node_modules/typescript/lib/tsserver.js")]
-        r)
-      nil)))
-
-
 (fn get-capabilities []
-  (let [(ok? cmp) (pcall #(require :cmp_nvim_lsp))]
-    (if ok
-      (cmp.default_capabilities)
+  (let [(blink-ok? blink) (pcall #(require :blink.cmp))
+        (cmp-ok? cmp-lsp) (pcall #(require :cmp_nvim_lsp))]
+    (if blink-ok?
+      (blink.get_lsp_capabilities)
+      cmp-ok?
+      (cmp-lsp.default_capabilities)
       (vim.lsp.protocol.make_client_capabilities))))
 
-(fn is-deno []
-  (let [(stat err) (vim.loop.fs_stat
-                     (.. (vim.fn.getcwd)
-                         "/"
-                         :deno.jsonc))]
-    (if (not= nil stat)
-      true
-      (let [(stat err) (vim.loop.fs_stat
-                         (.. (vim.fn.getcwd)
-                             "/"
-                             :deno.json))]
-        (not= nil stat)))))
+(fn setup-servers [capabilities]
+  (let [configs [{:markers [:deno.json :deno.jsonc] :server :denols}
+                 {:markers [:package.json :tsconfig.json :jsconfig.json] :server :vtsls}
+                 {:markers [:Cargo.toml] :server :rust_analyzer}
+                 {:markers [:go.mod] :server :gopls}
+                 {:markers [:pyproject.toml :requirements.txt :setup.py :.python-version] :server :pyright}
+                 {:markers [:.luarc.json :.luarc.jsonc] :server :lua_ls}
+                 {:markers [:.fennel-ls.json] :server :fennel_ls}
+                 {:markers [:tailwind.config.js :tailwind.config.ts :tailwind.config.cjs] :server :tailwindcss}
+                 {:markers [:astro.config.mjs :astro.config.js :astro.config.ts] :server :astro}
+                 {:markers [:slint.slint] :server :slint_lsp}
+                 {:markers [:CMakeLists.txt :compile_commands.json] :server :clangd}
+                 {:markers [:build.zig] :server :zls}
+                 {:markers [:composer.json] :server :intelephense}]]
+    (each [_ config (ipairs configs)]
+      (let [pwd (vim.fn.getcwd)
+            match? (util.some config.markers #(util.exists? (.. pwd "/" $1)))]
+        (when match?
+          (var settings nil)
+          (when (= config.server :fennel_ls)
+            (let [cfg-path (.. pwd "/.fennel-ls.json")]
+              (let [(ok? content) (pcall #(with-open [f (io.open cfg-path)] (f:read "*a")))]
+                (when ok?
+                  (set settings {:fennel-ls (vim.json.decode content)})))))
+          
+          (if (= config.server :vtsls)
+              (when (not (util.exists? (.. pwd "/deno.json")))
+                (vim.lsp.config config.server {: capabilities})
+                (vim.lsp.enable config.server))
+              (do
+                (vim.lsp.config config.server {: capabilities : settings})
+                (vim.lsp.enable config.server))))))))
 
 (vim.api.nvim_create_user_command 
   :LspDeno
   (fn []
-    (let [lsp (require :lspconfig)]
-      (vim.api.nvim_command "LspStop 0 (vtsls)")
-      (vim.api.nvim_command "LspStart denols")))
+    (vim.api.nvim_command "LspStop 0 (vtsls)")
+    (vim.api.nvim_command "LspStart denols"))
   {})
 
-(let [
-      capabilities (get-capabilities)
+(let [capabilities (get-capabilities)
       neodev (require :neodev)]
-      ;(_ util) (pcall #(require :lspconfig/util))]
   (neodev.setup {})
   ;; nvim-ufo
   (tset capabilities.textDocument :foldingRange
@@ -69,8 +60,10 @@
          :lineFoldingOnly true})
   (tset capabilities :textDocument :completion :completionItem :snippetSupport
         true)
-  (vim.lsp.enable :ts_ls)
+  
+  (setup-servers capabilities)
   (vim.lsp.enable :jsonls)
+  
   (vim.api.nvim_create_user_command
     :LspSetup
     #(util.pick 
