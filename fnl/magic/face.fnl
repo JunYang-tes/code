@@ -7,7 +7,8 @@
                          :DiagnosticSignHint :
                          :DiagnosticSignInfor :})]
     (nvim.fn.sign_define name { :text icon :texthl name  :numhl name}))
-(pcall #(nvim.ex.colorscheme :tokyonight))
+(set vim.o.background :light)
+(pcall #(nvim.ex.colorscheme :catppuccin))
 
 (defn- get-hlgroup [name fallback]
   (let [
