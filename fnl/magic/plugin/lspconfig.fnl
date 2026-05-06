@@ -14,7 +14,9 @@
 (fn setup-servers [capabilities]
   (let [configs [{:markers [:deno.json :deno.jsonc] :server :denols}
                  {:markers [:package.json :tsconfig.json :jsconfig.json] :server :vtsls}
-                 {:markers [:Cargo.toml] :server :rust_analyzer}
+                 {:markers [:Cargo.toml] :server :rust_analyzer
+                  :settings {:rust-analyzer {:completion {:autoimport {:enable true}
+                                                          :callable {:snippets "fill_arguments"}}}}}
                  {:markers [:go.mod] :server :gopls}
                  {:markers [:pyproject.toml :requirements.txt :setup.py :.python-version] :server :pyright}
                  {:markers [:.luarc.json :.luarc.jsonc] :server :lua_ls}
@@ -26,18 +28,17 @@
                  {:markers [:build.zig] :server :zls}
                  {:markers [:composer.json] :server :intelephense}]]
     (each [_ config (ipairs configs)]
-      (let [pwd (vim.fn.getcwd)
-            match? (util.some config.markers #(util.exists? (.. pwd "/" $1)))]
-        (when match?
+      (let [root (vim.fs.root 0 config.markers)]
+        (when root
           (var settings nil)
           (when (= config.server :fennel_ls)
-            (let [cfg-path (.. pwd "/.fennel-ls.json")]
+            (let [cfg-path (.. root "/.fennel-ls.json")]
               (let [(ok? content) (pcall #(with-open [f (io.open cfg-path)] (f:read "*a")))]
                 (when ok?
                   (set settings {:fennel-ls (vim.json.decode content)})))))
           
           (if (= config.server :vtsls)
-              (when (not (util.exists? (.. pwd "/deno.json")))
+              (when (not (vim.fs.root 0 [:deno.json]))
                 (vim.lsp.config config.server {: capabilities})
                 (vim.lsp.enable config.server))
               (do
