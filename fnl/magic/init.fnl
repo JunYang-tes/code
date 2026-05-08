@@ -42,6 +42,11 @@
   {:virtual_text false
    :signs true})
 
+(vim.api.nvim_create_autocmd :FileType
+                             {:pattern [:html :css]
+                              :callback (fn []
+                                          (vim.opt_local.iskeyword:append "-"))})
+
 (fn hyhird [tbl ...]
   (each [i v (ipairs [...])]
     (tset tbl i v))
@@ -143,7 +148,7 @@
                                                 update (install.update {:with_sync true})]
                                             (update))}
   :nvim-treesitter/nvim-treesitter-context {:opts {:enable false}}
-  :nvim-treesitter/nvim-treesitter-textobjects {}
+  :nvim-treesitter/nvim-treesitter-textobjects {:branch :main}
   :RRethy/vim-illuminate {:mod :vim-illuminate}
   :JoosepAlviste/nvim-ts-context-commentstring {}
   :numToStr/Comment.nvim {:config (fn []
