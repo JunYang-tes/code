@@ -52,6 +52,8 @@
 (nmap "]h" "Gitsign next_hunk")
 ;lsp
 (map-cmd :n :gd "Lspsaga goto_definition")
+(map-cmd :n :gt "Lspsaga goto_type_definition")
+
 (nmap :gD "lua vim.lsp.buf.declaration()")
 (map-cmd :n :gr "Lspsaga finder ref ")
 (nmap :gi "lua vim.lsp.buf.implementation()")
@@ -85,7 +87,7 @@
 (map-plug :n :gs :leap-from-window)
 
 
-(map-cmd :n "<F2>" "lua require('FTerm').toggle()")
+(map-cmd [:n :i] "<F2>" "lua require('FTerm').toggle()")
 (tnomap "<F2>" "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>")
 (vim.keymap.set
   :n
