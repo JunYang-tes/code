@@ -19,6 +19,16 @@
                               (if (not= nil node.nodes)
                                   (api.tree.change_root_to_node node)))
                             (api.node.open.edit node))
+      open_in_oil (fn []
+                    (let [node (api.tree.get_node_under_cursor)]
+                      (when node
+                        (let [path (if (= node.type :directory)
+                                       node.absolute_path
+                                       (vim.fn.fnamemodify node.absolute_path ":h"))
+                              oil (require :oil)]
+                          (when (= (vim.api.nvim_buf_get_option 0 :filetype) :NvimTree)
+                            (vim.cmd "wincmd p"))
+                          (oil.open path)))))
       preview (fn []
                 (let [node (api.tree.get_node_under_cursor)
                       event (require :nui.utils.autocmd)
@@ -68,6 +78,7 @@
                       (keymap :n :r api.fs.rename :Rename)
                       (keymap :n :q api.tree.close :Close)
                       (keymap :n :l api.node.open.edit :Edit)
+                      (keymap :n :o open_in_oil "Open in Oil")
                       (keymap :n :h api.node.navigate.parent_close "Close parent directory")
                       (keymap :n :> api.node.navigate.sibling.next "Navigate to next sibling")
                       (keymap :n :< api.node.navigate.sibling.prev "Navigate to previous sibling")
