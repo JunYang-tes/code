@@ -143,9 +143,7 @@ plugin.use(
 		branch = "main",
 		build = "TSUpdate",
 		run = function()
-			local install = require("nvim-treesitter.install")
-			local update = install.update({ with_sync = true })
-			update()
+			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
 	},
 	"nvim-treesitter/nvim-treesitter-context",
@@ -378,7 +376,6 @@ plugin.use(
 				per_filetype = {
 					AvanteInput = { "avante_commands", "avante_files", "avante_mentions" },
 					agent_prompt = { "path", "buffer", "AgentsParterFileReference" },
-					org = { "orgmode" },
 				},
 				providers = {
 					avante_commands = {
@@ -404,24 +401,10 @@ plugin.use(
 						score_offset = 1000,
 						opts = {},
 					},
-					orgmode = {
-						name = "Orgmode",
-						module = "orgmode.org.autocompletion.blink",
-						fallbacks = { "buffer" },
-					},
 				},
 			},
 		},
 		opts_extend = { "sources.default" },
-	},
-	"nvim-orgmode/orgmode",
-	{
-		config = function()
-			require("orgmode").setup({
-				org_agenda_files = "~/orgfiles/**/*",
-				org_default_notes_file = "~/orgfiles/refile.org",
-			})
-		end,
 	},
 	"JunYang-tes/markdowny.nvim",
 	{
