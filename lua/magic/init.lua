@@ -48,6 +48,14 @@ local use_cmp = not use_coq and not use_blink
 local use_companion = os.getenv("COMPANION") ~= nil
 local use_avante = not use_companion
 local use_copilot = os.getenv("COPILOT") == "1"
+local has_yarn = vim.fn.executable("yarn") == 1
+local has_cargo = vim.fn.executable("cargo") == 1
+local has_image_support = vim.env.KITTY_WINDOW_ID ~= nil
+	or vim.env.WEZTERM_PANE ~= nil
+	or (vim.env.TERM or ""):find("sixel")
+	or vim.fn.executable("chafa") == 1
+	or vim.fn.executable("viu") == 1
+	or vim.fn.executable("ueberzug") == 1
 
 local plugin = require("magic.plugin")
 plugin.use(
@@ -185,7 +193,7 @@ plugin.use(
 		end,
 	},
 	"eraserhd/parinfer-rust",
-	{ run = "cargo build --release" },
+	{ run = "cargo build --release", cond = has_cargo },
 	"mfussenegger/nvim-lint",
 	{ mod = "nvim-lint" },
 	"anuvyklack/windows.nvim",
@@ -235,11 +243,11 @@ plugin.use(
 	"nvim-tree/nvim-tree.lua",
 	{ mod = "nvim-tree" },
 	"JunYang-tes/markdown-preview.nvim",
-	{ cmd = { "MarkdownPreview" }, build = "cd app && yarn install", mod = "markdown-preview", ft = { "markdown" } },
+	{ cmd = { "MarkdownPreview" }, build = "cd app && yarn install", mod = "markdown-preview", ft = { "markdown" }, cond = has_yarn },
 	"vhyrro/luarocks.nvim",
 	{ priority = 1001, opts = { rocks = { "magick" } } },
 	"3rd/image.nvim",
-	{ dependencies = { "luarocks.nvim" }, mod = "image" },
+	{ dependencies = { "luarocks.nvim" }, mod = "image", cond = has_image_support },
 	"MunifTanjim/nui.nvim",
 	{},
 	"stevearc/aerial.nvim",
