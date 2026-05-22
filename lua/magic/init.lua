@@ -56,6 +56,9 @@ local has_image_support = vim.env.KITTY_WINDOW_ID ~= nil
 	or vim.fn.executable("chafa") == 1
 	or vim.fn.executable("viu") == 1
 	or vim.fn.executable("ueberzug") == 1
+local has_cc = vim.fn.executable("gcc") == 1
+	or vim.fn.executable("clang") == 1
+	or vim.fn.executable("cl") == 1
 
 local plugin = require("magic.plugin")
 plugin.use(
@@ -243,9 +246,9 @@ plugin.use(
 	"JunYang-tes/markdown-preview.nvim",
 	{ cmd = { "MarkdownPreview" }, build = "cd app && yarn install", mod = "markdown-preview", ft = { "markdown" }, cond = has_yarn },
 	"vhyrro/luarocks.nvim",
-	{ priority = 1001, opts = { rocks = { "magick" } } },
+	{ priority = 1001, opts = { rocks = { "magick" } }, cond = has_cc },
 	"3rd/image.nvim",
-	{ dependencies = { "luarocks.nvim" }, mod = "image", cond = has_image_support },
+	{ dependencies = { "luarocks.nvim" }, mod = "image", cond = has_image_support and has_cc },
 	"MunifTanjim/nui.nvim",
 	{},
 	"stevearc/aerial.nvim",
